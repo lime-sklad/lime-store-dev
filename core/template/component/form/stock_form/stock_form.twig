@@ -1,0 +1,17 @@
+{% set stock_form_parent_class_list = '' %}
+
+{% if data.stock_form_parent_class_list  %}
+    {% set stock_form_parent_class_list = data.stock_form_parent_class_list %}
+{% else %}
+    {# {% set stock_form_parent_class_list = 'stock-form-content' %} #}
+    {% set stock_form_parent_class_list = ' ' %}
+{% endif %}  
+
+
+<div class="stock-from-container">
+    <span class="sub-title stock-from-title flex">{{data.form_title}}</span>
+
+    <div class="{{ stock_form_parent_class_list}}">
+        {% include "/component/form/include_fields.twig" %}
+    </div>
+</div>

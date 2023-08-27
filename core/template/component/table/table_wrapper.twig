@@ -1,0 +1,79 @@
+{# <div class="stock_view_wrapper">
+     <div class="stock_view_list ls-custom-scrollbar">
+		<table class="stock_table">
+			<thead>
+				<tr>
+					{% for key, row in data.table.th %}
+						<th class="{{row.modify_class}}">{{row.title}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody class="stock_list_tbody" data-stock-page="{{data.table_tab}}" data-stock-type="{{data.table_type}}">
+					{% include '/component/table/table_row.twig' %}
+					{% if table_total %} 
+						{% include '/component/table/table_footer_row.twig' %}
+					{% endif %}
+			</tbody>
+		</table>
+	</div>		
+</div>		
+ #}
+
+{# 
+ <div id="example"></div> #}
+
+
+<div class="table-wrapper">
+	<div class="table-content ls-custom-scrollbar" id="tableContent">
+		<table class="table" id="tt">
+			<thead>
+				<tr>
+					{% for key, row in data.table.th %}
+						<th class="{{row.modify_class}}"><span>{{row.title}}</span></th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody class="table-list" id="tableList" 
+				data-stock-page="{{data.table_tab}}" 
+				data-stock-type="{{data.table_type}}"
+
+                    {% if data.attribute  %}
+                        {% for attr_name, attr_value in data.attribute %}
+                            {{attr_name}} = "{{attr_value}}"
+                        {% endfor %}
+                    {% endif %}			
+
+			
+			>
+					{% include '/component/table/table_row.twig' %}
+					{% if table_total %} 
+						{% include '/component/table/table_footer_row.twig' %}
+					{% endif %}			
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+{# <div class="table-wrapper">
+	<div class="table-content ls-custom-scrollbar" id="tableContent">
+
+            <div class="ui-table-container">
+                <div class="ui-table">
+                    <div class="ui-table-header">
+					{% for key, row in data.table.th %}
+						<div class="ui-th {{row.modify_class}}">{{row.title}}</div>
+					{% endfor %}
+                    </div>
+					
+                    <div class="ui-table-body table-list" id="tableList" data-stock-page="{{data.table_tab}}" data-stock-type="{{data.table_type}}">
+
+						{% include '/component/table/table_row.twig' %}
+
+                    </div>
+
+                </div>
+
+            </div>
+	</div>
+</div> #}

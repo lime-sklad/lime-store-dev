@@ -1,0 +1,119 @@
+<div class="menu menu--active vh-100 flex-jc-cntr flex-ai-cntr"  style="background-image: url(img/pattern/{{data.main_image}})">
+    <form action="core/action/admin/auth.php" method="POST" class="form login-form animate__animated animate__zoomInUp">
+        <div class="login-form-title">
+            <a href="" class="logo-text flex-cntr login-logo-text">
+                <span class="logo-text-cap-letter flex-cntr">L</span>ime Store
+            </a>
+
+            <h1 class="login-header-title-text">Daxil ol</h1>
+        </div>       
+
+        <div class="fields login-fields">
+            <span class="fields-label">Login</span>
+
+
+            {# <div class="input-container">
+                <div class="input-icon input-icon-i">
+                    <i class="las la-user"></i>
+                </div>                                                                     
+                <input type="text" required name="login" class="input user-login input-validate input-validate-length" value="{{data.login[0]}}">
+            </div> #}
+
+
+
+
+
+
+
+
+
+
+
+<div class="form-fields pos-relative">
+    <div class="widget__search widget-fields">
+        <div class="widget__search-container widget-fields-container ">
+            <div class="area-container search-container input-dropdown-parent width-100">
+                <div class="search-input-wrp">
+                        <div class="widget__search-icon button-icon-i search-icon ">
+                            <i class="las la-user-cog"></i>
+                        </div>
+                                        
+                    <input type="button" autocomplete="off" value="{{data.login[0]}}" class="input scroll-auto area-button input-dropdown form-input user-login input-validate input-validate-length">
+		   </span>
+                </div>   
+
+
+                <div class="area-content widget__content search-content input-dropdown-auto-list-parent" style="display: none;">
+
+                    <ul class="ls-custom-scrollbar select-list select-saerch-list search-list-content input-dropdown-auto-ul width-100 unset-max-width input-dropdown-auto-ul">
+
+                        {% for row, val in data.login %}
+                            <li class="select-items ">
+                                <a href="javascript:void(0)" class="select-item select-search-item selectable-search-item area-closeable select-hidden-fields-input input-dropdown-auto-list-li" value="{{val}}">
+                                
+                                    <span class="mark button-icon-i button-icon-left search-item-icon ">
+                                            <i class="las la-user-cog"></i>
+                                        </span>
+                                    
+                                    <span class="widget__button-text">
+                                        {{val}}
+                                    </span>
+                                    
+                                </a>									
+                            </li>
+                        {% endfor %}   
+    
+                    </ul>
+
+                    <div class="preloader content_preloader hide">
+                        <img src="/img/icon/load.gif">
+                    </div>            
+                </div>            
+
+            </div>
+
+        </div>
+    </div>
+    
+    <input type="hidden" class="hidden_input hidden-fields-input form-input add-stock" value="dfsfds" data-fields-name="filter_">
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+        <div class="fields login-fields">
+            <span class="fields-label">Password</span>
+            <div class="input-container">
+                <div class="input-icon input-icon-i input-icon-right">
+                    <i class="las la-lock"></i>
+                </div>            
+                <input type="password" required name="password" class="input user-password input-validate input-validate-length">
+            </div>
+        </div>
+        <div class="fields login-fields">
+            <button class="btn btn-primary login-btn" type="submit">Giriş</button>
+        </div>
+    </form>
+</div>
+
+

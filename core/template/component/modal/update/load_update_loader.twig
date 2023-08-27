@@ -1,0 +1,33 @@
+<div class="modal flex-cntr update-modal">
+    <div class="update-container animate__animated animate__faster animate__zoomIn">
+        <div class="width-100 update-content">
+            <div class="update-text-list">
+                <span class="update-text-item mark-text mark mark-success width-100">Proqram Yenilənməsi yüklənir</span>
+                <span class="update-text-item mark-text mark mark-danger width-100">Yenilənmə zamanı komputeri söndürməyin!!</span>
+            </div>
+            <div class="line-preloader width-100">
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+	$.ajax({
+		type: 'POST',
+		data: {
+			download: true
+		},
+		url: 'core/action/update/download_update.php',
+		dataType: 'json',
+		success: (data) => {
+		    if(data.success) {
+				$('.update-modal').html(data.success);
+			} 
+			if(data.error) {
+				$('.update-modal').html(data.error);
+			}
+		}
+	});
+</script>

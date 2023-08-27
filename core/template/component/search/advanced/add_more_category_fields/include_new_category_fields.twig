@@ -1,0 +1,7 @@
+{% if row.value %}
+    {% for cat_key, cat_val in row.value %}
+        {% include '/component/search/advanced/add_more_category_fields/add_append_stock_category_fields.twig' %}
+    {% endfor %}
+{% else %}
+        {% include '/component/search/advanced/add_more_category_fields/add_append_stock_category_fields.twig' %}
+{% endif %}    

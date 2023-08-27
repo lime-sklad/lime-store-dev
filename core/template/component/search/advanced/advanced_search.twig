@@ -1,0 +1,270 @@
+<div class="area-container advanced-search-contianer">
+	<button class="area-button btn btn-indigo-blue-700">Ətraflı axtarış</button>
+
+	<div class="widget__content area-content select-list ls-custom-scrollbar widget__advance-search-container"> 
+
+        <span class="fields-label">Ətraflı axtarış</span>
+
+        <div class="stock-from-container">
+
+        {% if data.advanced_fields.custom_date_picker %}
+            <div class="form-fields fields">
+                <span class="fields-label">{{data.advanced_fields.custom_date_picker.title}}</span>
+                {# <input type="text" class="input edit edit-stock-name-input" placeholder="..." value="{{row.value}}" data-fields-name="product_provider"> #}
+
+                {% set custom_arr = [{
+                    'custom_value': 'Umumi',
+                    'custom_data_id': 'all'
+                }] %}
+
+                {% for row, val in data.advanced_fields.custom_date_picker.res %}
+                    {% set custom_arr = custom_arr|merge({(loop.index0) : {'custom_value': val, 'custom_data_id': val}}) %}
+                {% endfor %}
+
+            {% set searh_param = {
+                    input_class: ' sub-area scroll-auto form-input area-button input-dropdown ', 
+                    parent_class: 'input-dropdown-parent width-100', 		
+                    input_placeholder: 'Выберите ', 
+                    input_type: 'button',
+                    input_value: data.advanced_fields.custom_date_picker.res.default,
+                    fields_name: '',
+                    input_icon: {
+                        icon: 'la-calendar-alt',
+                    },
+                    reset: false, 
+                    widget_class_list: 'widget-fields width-100 ojopj',
+                    widget_container_class_list: 'widget-fields-container',
+                    autocomplete:  {
+                        includs: {
+                            renderCategoryIncluds: {
+                                '/component/search/dom_live_search.twig': true,
+                            }
+                        },                        
+                        type: '',
+                        autocomplete_list: custom_arr,
+                        data_sort: data.advanced_fields.custom_date_picker.sort,
+                        data_sort_value: true,
+                        parent_modify_class: "input-dropdown-auto-list-parent",
+                        autocomlete_class_list: " sub-area selectable-search-item select-hidden-fields-input area-closeable",
+                        autocomlete_ul_modify_class: 'width-100 unset-max-width',  
+                    },
+            }
+            %}
+
+                {% include '/component/search/search.twig'  with { 'data': searh_param }  %}
+
+
+                <input type="hidden" class=" hidden_input hidden-fields-input advanced" value="{{data.advanced_fields.custom_date_picker.res.default}}" data-fields-name="{{data.advanced_fields.custom_date_picker.fields_name}}">
+            </div>
+        {% endif %}  
+
+
+
+
+
+
+
+
+
+        {% if data.advanced_fields.report_day_picker %}
+            <div class="form-fields fields">
+                <span class="fields-label">Tarix</span>
+                {# <input type="text" class="input edit edit-stock-name-input" placeholder="..." value="{{row.value}}" data-fields-name="product_provider"> #}
+
+                {% set custom_arr = [] %}
+
+                {% for row, val in data.advanced_fields.report_day_picker.res %}
+                    {% set custom_arr = custom_arr|merge({(loop.index0) : {'custom_value': val, 'custom_data_id': val}}) %}
+                {% endfor %}
+
+            {% set searh_param = {
+                    input_class: ' sub-area scroll-auto form-input area-button input-dropdown ', 
+                    parent_class: 'input-dropdown-parent width-100', 		
+                    input_placeholder: 'Выберите ', 
+                    input_type: 'button',
+                    input_value: data.advanced_fields.report_day_picker.res.default,
+                    fields_name: '',
+                    input_icon: {
+                        icon: 'la-calendar-alt',
+                    },
+                    reset: false, 
+                    widget_class_list: 'widget-fields width-100 ojopj',
+                    widget_container_class_list: 'widget-fields-container',
+                    autocomplete:  {
+                        includs: {
+                            renderCategoryIncluds: {
+                                '/component/search/dom_live_search.twig': true,
+                            }
+                        },                         
+                        type: '',
+                        autocomplete_list: custom_arr,
+                        data_sort: data.advanced_fields.report_day_picker.sort,
+                        data_sort_value: true,
+                        parent_modify_class: "input-dropdown-auto-list-parent",
+                        autocomlete_class_list: " sub-area selectable-search-item select-hidden-fields-input area-closeable",
+                        autocomlete_ul_modify_class: 'width-100 unset-max-width',  
+                    },
+            }
+            %}
+
+                {% include '/component/search/search.twig'  with { 'data': searh_param }  %}
+
+
+                <input type="hidden" class=" hidden_input hidden-fields-input advanced-search-input--report-day-picker advanced" value="{{data.advanced_fields.report_day_picker.res.default}}" data-fields-name="report_day">
+            </div>
+        {% endif %}
+
+        
+
+        {% if data.advanced_fields.report_month_picker %}
+            <div class="form-fields fields">
+                <span class="fields-label">Tarix</span>
+                {# <input type="text" class="input edit edit-stock-name-input" placeholder="..." value="{{row.value}}" data-fields-name="product_provider"> #}
+
+                {% set custom_arr = [{
+                    'custom_value': 'Umumi',
+                    'custom_data_id': 'all'
+                }] %}
+
+                {% for row, val in data.advanced_fields.report_month_picker.res %}
+                    {% set custom_arr = custom_arr|merge({(loop.index0) : {'custom_value': val, 'custom_data_id': val}}) %}
+                {% endfor %}
+
+            {% set searh_param = {
+                    input_class: ' sub-area scroll-auto form-input area-button input-dropdown ', 
+                    parent_class: 'input-dropdown-parent width-100', 		
+                    input_placeholder: 'Выберите ', 
+                    input_type: 'button',
+                    input_value: data.advanced_fields.report_month_picker.res.default,
+                    fields_name: '',
+                    input_icon: {
+                        icon: 'la-calendar-alt',
+                    },
+                    reset: false, 
+                    widget_class_list: 'widget-fields width-100 ojopj',
+                    widget_container_class_list: 'widget-fields-container',
+                    autocomplete:  {
+                        includs: {
+                            renderCategoryIncluds: {
+                                '/component/search/dom_live_search.twig': true,
+                            }
+                        },                        
+                        type: '',
+                        autocomplete_list: custom_arr,
+                        data_sort: data.advanced_fields.report_month_picker.sort,
+                        data_sort_value: true,
+                        parent_modify_class: "input-dropdown-auto-list-parent",
+                        autocomlete_class_list: " sub-area selectable-search-item select-hidden-fields-input area-closeable",
+                        autocomlete_ul_modify_class: 'width-100 unset-max-width',  
+                    },
+            }
+            %}
+
+                {% include '/component/search/search.twig'  with { 'data': searh_param }  %}
+
+
+                <input type="hidden" class=" hidden_input hidden-fields-input advanced-search-input--report-month-picker advanced" value="{{data.advanced_fields.report_month_picker.res.default}}" data-fields-name="report_month">
+            </div>
+        {% endif %}  
+
+
+        {% if data.advanced_fields.arrival_report_day_picker %}
+            <div class="form-fields fields">
+                <span class="fields-label">Tarix</span>
+                {# <input type="text" class="input edit edit-stock-name-input" placeholder="..." value="{{row.value}}" data-fields-name="product_provider"> #}
+
+                {% set custom_arr = [{
+                    'custom_value': 'Umumi',
+                    'custom_data_id': 'all'
+                }] %}
+
+                {% for row, val in data.advanced_fields.arrival_report_day_picker.res %}
+                    {% set custom_arr = custom_arr|merge({(loop.index0) : {'custom_value': val, 'custom_data_id': val}}) %}
+                {% endfor %}
+
+            {% set searh_param = {
+                    input_class: ' sub-area scroll-auto form-input area-button input-dropdown ', 
+                    parent_class: 'input-dropdown-parent width-100', 		
+                    input_placeholder: 'Выберите ', 
+                    input_type: 'button',
+                    input_value: data.advanced_fields.arrival_report_day_picker.res.default,
+                    fields_name: '',
+                    input_icon: {
+                        icon: 'la-calendar-alt',
+                    },
+                    reset: false, 
+                    widget_class_list: 'widget-fields width-100 ojopj',
+                    widget_container_class_list: 'widget-fields-container',
+                    autocomplete:  {
+                        includs: {
+                            renderCategoryIncluds: {
+                                '/component/search/dom_live_search.twig': true,
+                            }
+                        },                         
+                        type: '',
+                        autocomplete_list: custom_arr,
+                        data_sort: data.advanced_fields.arrival_report_day_picker.sort,
+                        data_sort_value: true,
+                        parent_modify_class: "input-dropdown-auto-list-parent",
+                        autocomlete_class_list: " sub-area selectable-search-item select-hidden-fields-input area-closeable",
+                        autocomlete_ul_modify_class: 'width-100 unset-max-width',  
+                    },
+            }
+            %}
+
+                {% include '/component/search/search.twig'  with { 'data': searh_param }  %}
+
+
+                <input type="hidden" class=" hidden_input hidden-fields-input advanced-search-input--report-day-picker advanced" value="{{data.advanced_fields.arrival_report_day_picker.res.default}}" data-fields-name="arrival_report_day">
+            </div>
+        {% endif %}
+
+
+
+
+        {% if data.advanced_fields.stock_name %}
+            <div class="form-fields fields">
+                <span class="fields-label">Məhsul adı</span>
+                <input class="input form-input advanced-search-input--stock-name advanced" data-fields-name="stock_name">
+            </div>
+        {% endif %}    
+
+        {% if data.advanced_fields.stock_description %}
+            <div class="form-fields fields">
+                <span class="fields-label">Təsvir</span>
+                <input class="input form-input advanced-search-input--stock-description advanced" data-fields-name="stock_description">
+            </div>
+        {% endif %}
+
+        {% if data.advanced_fields.report_note %}
+            <div class="form-fields fields">
+                <span class="fields-label">Qeyd</span>
+                <input class="input form-input advanced-search-input--report-note" data-fields-name="as_report_note">
+            </div>
+        {% endif %}   
+
+
+
+        {% if data.advanced_fields.custom_input_fields %}
+            {% for key, row in data.advanced_fields.custom_input_fields %}
+                <div class="form-fields fields">
+                    <span class="fields-label">{{row.title}}</span>
+                    <input class="input form-input {{row.class_list}}" data-fields-name="{{row.fields_name}}">
+                </div>          
+            {% endfor %}
+        {% endif %}                  
+
+        {% if data.advanced_fields.category %}
+            {% include '/component/search/advanced/add_more_category_fields/add_stock_new_category_fields.twig' %}
+        {% endif %}
+
+        {% if data.advanced_fields.provider %}
+            {% include '/component/search/advanced/add_more_provider_fields/add_stock_new_provider_fields.twig' %}
+        {% endif %}
+
+            <div class="form-fields fields">
+                <button class="btn btn-success advanced-search-submit area-closeable">Axtar</button>
+            </div>
+        </div>
+    </div>
+</div>	

@@ -1,0 +1,29 @@
+    # Lime Store inkişaf etdirmək üçün təkmilləşsirilməli olan funksiyalar
+
++ Məhsul sayı mənfi olduqdan sonra belə məhsulun satışı gerçəkləşdirilə bilsin. (anbarda gorunur lakin satis etmek istedikde siyahida gorunmur)
+
++ Ödəniş növləri. Nağd / Kart
+
++ Səbətdə satiş edərkən, satıcıları seçmək olsun
+
++ Hesabatda satişı redaktə etmək olsun
+
+- Sistemdə mövcud olan istifadəçilər üçün bonus sistemi yaradılsın və kateqoriyalara görə satış bonusları sistemi ilə işçilər satdıqları məhsula görə əlavə bonus ala bilsin.
+
+- Uzun müddət hesaba giriş edilmədikdə hesabdan çıxış edilsin və yeniden şifrə istəsin .
+
+- Hesabatda məhsullar tək tək deyil qaimə şəklində görünsün
+
+- TOPDAN SATIŞ ÜÇÜN ƏLVERİŞLİ ŞƏRAİT YARADILSIN
+
+- Topdan satıcılar və ya nisyə satış edənlər üçün sistemdə müştəri adı açılıb ona vadəli(nisyə) satış edilə bilsin. 
+
+- Topdan müştərilər üçün ayrıca bir hesabat modulu təkmilləşdirilsin və bu hesabat pərakəndə hesabatından ayrı olsun
+
+- Mağaza sahibi üçün ayrıca bir admin panel yaradılsın və hesabatlar , işçilərin satış performansı , aylıq qarşılaşdırılmalar və digər statistikalar yerləşdirilsin. 
+
+# enhanced properties
+
+- 
+
+- proqram qarsilasdirma ede bilsin meselen men teze telefon aksesuarlari magazasi acmisam kaku usbsi satmaq isteyirem qiymet qoyanda proqram o biri musterilerdeki satis qiymetleri ile qarsilasdirsin ve mene qiymet teklif etsin

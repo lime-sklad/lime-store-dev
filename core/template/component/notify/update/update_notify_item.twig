@@ -1,0 +1,48 @@
+<div class="top-nav-items filter-container area-container">
+    <a href="javascript:void(0)" class="top-nav-buttons ls-dropdown-buttons notify-button widget__button-action flex-cntr area-button" role="button">
+        <div class="sidebar-list-icon">
+            <span class="button-icon-i  ls-top-nav-dropdown-icon pos-relative">
+                <i class="las la-bell"></i>
+                {% if data.notify.update_notify or data.notify.expired_notify %} <span class="widget__mark widget__mark-right-notify"></span> {% endif %} 
+            </span>
+        </div>
+    </a> 
+    <div class="widget__content area-content ls-dropdown-content">
+     <ul class="select-list width-100 ls-custom-scrollbar ls-dropdown-list">
+    
+
+      {% if data.notify.expired_notify %}
+        <li class="select-items ls-dropdown-items notify-list">
+            <span class="mark-text mark mark-danger width-100 padding-5">{{data.notify.expired_notify}}</span>
+        </li>
+
+      {% endif %}
+
+        {% if data.notify.update_notify %}
+         <li class="select-items ls-dropdown-items notify-list">
+             <span class="fields-label">Yenilənmə mövcuddur</span>
+             {% set btnsParam = {
+                 includs: {
+                     renderButtons: {
+                         '/component/buttons/button.twig': {
+                             btn_text: 'Yükləyin',
+                             btn_attr_list: {
+                                 class: 'btn btn-indigo-blue-900 width-100 download-update'
+                             }
+                         }
+                     }                                           
+                 }
+             } %}
+             
+             {% include '/component/include_once_component.twig' with btnsParam %}            
+         </li>           
+        {% endif %}
+        
+
+        {% if data.notify.update_notify == false and data.notify.expired_notify == false %}
+            <span class="flex-cntr mark-text mark-default">Yeni bildiriş yoxdur</span>
+        {% endif %}
+
+     </ul>
+    </div>
+</div>

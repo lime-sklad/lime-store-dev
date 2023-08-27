@@ -1,0 +1,31 @@
+
+<div class="container flex width-100 flex-column flex-1">
+<div class="notice flex flex-cntr error-notice"></div>
+
+    <div class="menu menu menu--active vh-100 flex-jc-cntr flex-ai-cntr" style="background-image: url(img/pattern/{{data.main_image}})">
+
+        <div class="license-active-form licesense-form form login-form animate__animated animate__zoomInUp">
+            <span class="title text-center license-form-title">Lisenziya müddəti bitmişdir. Xahiş edirik lisenziyanı yeniləyin.</span>
+            
+                <div class="fields login-fields">
+                    <span class="sub-title">Müştəri kodu - <span class="text-color-primary"> {{ data.user_licence_key }} </span> </span>
+                </div>
+
+                <div class="fields login-fields">
+                    <span class="fields-label">Xususi kod</span>
+                    <input type="text"  class="input input-validate input-validate-length input-validate-error license-key">
+                </div>
+
+                <div class="fields login-fields">
+                    <button class="btn btn-primary send-license-key">Daxil et</button>
+                </div>          
+        </div>
+    </div>
+
+
+    <div class="link-container  flex flex-column  display-none">
+    <h2 class="text mrgn-bottom-20">Proqram aktiv edildi. Təşəkkür edirik</h2>
+        <a href="/index.php" class="link btn btn-primary access-license-button">Daxil ol</a>
+    </div>
+
+</div>

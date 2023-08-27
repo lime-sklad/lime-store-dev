@@ -1,0 +1,29 @@
+<div class="stock-from-container">
+    <span class="sub-title stock-from-title flex">Filtr əlavə et</span>
+
+    <div class="filter-form-content">
+
+        <div class="fields form-fields">
+            <span class="fields-label">Filtr adı</span>
+           <input type="text" class="input form-input add-filter-title input-validate-length input-required" placeholder="..." value="" >
+        </div>
+
+        <div class="fields form-fields append-new-input-container">
+            <span class="fields-label">filtrlər seçimi</span>
+
+            {% include '/component/filter/new_filter_option_fields.twig' %}
+
+            {% include '/component/filter/new_filter_option_fields.twig' %}            
+                   
+            <div class="add_fields_container width-100">
+                <button class="btn btn-light btn-default-blue append-new-input" data-fields-name="new_filter_option_fields">Əlavə et</button>
+            </div>    
+            
+        </div>
+
+        <div class="fields form-fields width-100">
+            <button class="btn btn-success submit-create-filter">Göndər</button>
+        </div>
+
+    </div>
+</div>

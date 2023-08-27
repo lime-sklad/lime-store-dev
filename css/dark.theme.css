@@ -1,0 +1,4 @@
+.dark-theme{
+    filter: invert(1) hue-rotate(180deg);
+}
+

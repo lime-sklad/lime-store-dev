@@ -1,0 +1,12 @@
+{% if row.value %}
+    {% for prov_key, prov_val in row.value %}
+        {% include '/component/modal/fields/edit/provider/provider_append_fields.twig' %}
+    {% endfor %}
+{% else %}
+
+    {# https://stackoverflow.com/questions/9432534/setting-element-of-array-from-twig #}
+    {% set row = row|merge({'class_list': ' new '}) %}
+
+
+        {% include '/component/modal/fields/edit/provider/provider_append_fields.twig' %}
+{% endif %}    

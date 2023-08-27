@@ -1,0 +1,289 @@
+{%  set fields_path = '/component/modal/fields/' %}
+
+{# edit product #}
+{% if row.block_name == 'edit_stock_id' %}
+    {% include fields_path ~ 'edit/stock_id.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_stock_name' %}
+    {% include fields_path ~ 'edit/edit_stock_name_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_stock_first_price' %}
+    {% include fields_path ~ 'edit/edit_stock_first_price_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_save_btn' %}
+    {% include fields_path ~ 'edit/edit_save_btn.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_stock_description' %}
+    {% include fields_path ~ 'edit/edit_stock_description_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_stock_plus_minus_count' %}
+    {% include fields_path ~ 'edit/edit_stock_plus_minus_count_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_change_stock_count' %}
+    {% include fields_path ~ 'edit/edit_change_stock_count.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_append_stock_count' %}
+    {% include fields_path ~ 'edit/edit_append_stock_count_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_stock_provider' %}
+    {% include fields_path ~ 'edit/provider/edit_stock_provider.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_stock_category' %}
+    {% include fields_path ~ 'edit/category/edit_stock_category.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_min_quantity_count' %}
+    {% include fields_path ~ 'edit/edit_min_quantity_count.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_stock_second_price' %}
+    {% include fields_path ~ 'edit/edit_stock_second_price.twig' %}
+{% endif %}
+
+{% if row.block_name == 'delete_stock' %}
+    {% include fields_path ~ 'edit/delete_stock_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_stock_filter' %}
+    {% include fields_path ~ 'edit/edit_stock_filter.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_stock_barcode' %}
+    {% include fields_path ~ 'edit/edit_stock_barcode_fields.twig' %}
+{% endif %}  
+
+{% if row.block_name == 'add_append_edit_barcode' %}
+    {% include fields_path ~  '../barcode/include_edit_barcode.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_arrival_stock' %}
+    {% include fields_path ~ 'edit/edit_arrival_products.twig' %}
+{% endif %}  
+
+{% if row.block_name == 'edit_writeoff_stock' %}
+    {% include fields_path ~ 'edit/edit_writeoff_products.twig' %}
+{% endif %}  
+
+{# info / terminal #}
+{% if row.block_name == 'info_product_name' %}
+    {% include fields_path ~ 'info/product_name_info_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'info_product_description' %}
+    {% include fields_path ~ 'info/product_description_info_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'info_product_count' %}
+    {% include fields_path ~ 'info/product_count_info_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'info_product_first_price' %}
+    {% include fields_path ~ 'info/product_first_price_info_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'info_product_second_price' %}
+    {% include fields_path ~ 'info/product_second_price_info_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'info_product_category' %}
+    {% include fields_path ~ 'info/product_category_info_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'info_product_provider' %}
+    {% include fields_path ~ 'info/product_provider_info_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'info_product_min_quantity' %}
+    {% include fields_path ~ 'info/product_min_quantity_info_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'info_product_add_date' %}
+    {% include fields_path ~ 'info/product_add_date_info_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'info_product_filter_list' %}
+    {% include fields_path ~ 'info/product_filter_fields.twig' %}
+{% endif %}
+
+
+{# report #}
+{% if row.block_name == 'report_return_btn' %}
+    {% include fields_path ~ 'report/report_return_btn_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'report_order_id' %}
+    {% include fields_path ~ 'report/report_order_id_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'report_order_note' %}
+    {% include fields_path ~ 'report/report_order_note_fields.twig' %}
+{% endif %}
+
+
+{# admin #}
+{% if row.block_name == 'seller_id' %}
+    {% include fields_path ~ 'admin/seller_id_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'seller_name' %}
+    {% include fields_path ~ 'admin/seller_name_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'seller_password' %}
+    {% include fields_path ~ 'admin/seller_password_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'save_seller_info' %}
+    {% include fields_path ~ 'admin/save_seller_info.twig' %}
+{% endif %}
+
+{% if row.block_name == 'delete_seller' %}
+    {% include fields_path ~ 'admin/delete_seller.twig' %}
+{% endif %}
+
+
+{# category #}
+{% if row.block_name == 'category_id' %}
+    {% include fields_path ~ 'category/category_id_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'category_name' %}
+    {% include fields_path ~ 'category/edit_category_name_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'delete_category' %}
+    {% include fields_path ~ 'category/delete_category.twig' %}
+{% endif %}
+
+{% if row.block_name == 'save_category' %}
+    {% include fields_path ~ 'category/save_category.twig' %}
+{% endif %}
+
+
+{# provider #}
+{% if row.block_name == 'provider_id' %}
+    {% include fields_path ~ 'provider/provider_id_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'provider_name' %}
+    {% include fields_path ~ 'provider/edit_provider_name_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'delete_provider' %}
+    {% include fields_path ~ 'provider/delete_provider.twig' %}
+{% endif %}
+
+{% if row.block_name == 'save_provider' %}
+    {% include fields_path ~ 'provider/save_provider.twig' %}
+{% endif %}
+
+
+{# rasxod #}
+{% if row.block_name == 'edit_rasxod_id' %}
+    {% include fields_path ~ 'rasxod/rasxod_id_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_rasxod_description' %}
+    {% include fields_path ~ 'rasxod/edit_rasxod_description.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_rasxod_amount' %}
+    {% include fields_path ~ 'rasxod/edit_rasxod_amount.twig' %}
+{% endif %}
+
+{% if row.block_name == 'delete_rasxod' %}
+    {% include fields_path ~ 'rasxod/delete_rasxod.twig' %}
+{% endif %}
+
+{% if row.block_name == 'save_rasxod' %}
+    {% include fields_path ~ 'rasxod/save_rasxod.twig' %}
+{% endif %}
+
+
+
+
+{# filter modal #}
+{% if row.block_name == 'eidt_filter_name' %}
+    {% include fields_path ~ 'filter/edit_filter_name_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_save_filter' %}
+    {% include fields_path ~ 'filter/edit_save_filter.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_filter_option' %}
+    {% include fields_path ~ 'filter/edit_filter_option_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_delete_filter' %}
+    {% include fields_path ~ 'filter/delete_filter_fields.twig' %}
+{% endif %}
+
+{# for add new input  #}
+
+{% if row.block_name == 'edit_filter_option_add_fields' %}
+    {% include fields_path ~ 'filter/edit_filter_option_add_fields.twig' %}
+{% endif %}
+
+
+{% if row.block_name == 'new_filter_option_fields' %}
+    {% include '/component/filter/new_filter_option_fields.twig' %}  
+{% endif %}
+
+
+{% if row.block_name == 'add_new_barcode_line' %}
+    {% include '/component/form/fields/stock/append_new_barcode_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_append_new_category' %}
+    {% include '/component/modal/fields/edit/category/edit_append_new_category.twig' %}
+{% endif %}
+
+
+{% if row.block_name == 'add_append_new_category' %}
+    {% include '/component/form/fields/stock/add_more_category/include_new_category_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'add_append_new_provider' %}
+    {% include '/component/form/fields/stock/add_more_provider/include_new_provider_fields.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_append_new_provider' %}
+    {% include '/component/modal/fields/edit/provider/edit_append_new_provider.twig' %}
+{% endif %}
+
+
+{% if row.block_name == 'search_add_category_fields' %}
+    {% include '/component/search/advanced/add_more_category_fields/include_new_category_fields.twig' %}
+{% endif %}
+
+
+{% if row.block_name == 'search_append_new_provider' %}
+    {% include '/component/search/advanced/add_more_provider_fields/include_new_provider_fields.twig' %}
+{% endif %}
+
+
+
+
+{% if row.block_name == 'edit_warehouse_name' %}
+    {% include '/component/modal/fields/warehouse/edit-warehouse-name.twig' %}
+{% endif %}
+
+
+{% if row.block_name == 'save_warehouse_edited' %}
+    {% include '/component/modal/fields/warehouse/save-warehouse-edited.twig' %}
+{% endif %}
+
+
+{% if row.block_name == 'delete_warehouse' %}
+    {% include '/component/modal/fields/warehouse/delete-warehouse.twig' %}
+{% endif %}

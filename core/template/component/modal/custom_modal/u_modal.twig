@@ -1,0 +1,27 @@
+{# <div class="ls-modal-container animate__animated animate__fast animate__fadeInUp hide area-container">
+
+    <button class="btn btn-danger ls-modal-close">Bağla</button>
+
+    <div class="ls-modal area-content ">
+        {% include data.path %}
+    </div>
+</div>  #}
+
+
+
+
+<div class="modal barcode-edit-modal  animate__animated animate__fadeInUp animate__faster ">
+    <div class="modal-controller">
+        <span class="modal-title-text">{{data.title}}</span>
+
+        <a class="close-edit-barcode-modal">
+            <i class="las la-times"></i>
+        </a>
+    </div>
+
+
+    <div class="modal-container ls-custom-scrollbar">
+        {% include data.path %}
+    </div>
+               
+</div>

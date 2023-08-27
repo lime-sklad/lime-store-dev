@@ -1,0 +1,32 @@
+<div class="area-content widget__content search-content {{auto_list.class_list.container}} ">
+	
+	{% if auto_list.includs %}
+		<div class="auto-widgets">
+			{% set includs = auto_list.includs %}
+			{% include '/component/include_once_component.twig' with includs %}		
+		</div>
+	{% endif %}
+
+	<ul class="ls-custom-scrollbar select-list select-saerch-list search-list-content {{auto_list.class_list.ul_list}} " data-auto-cmplt-type="{{auto_attr}}" >
+		{% if auto_list.list_data %}
+			{% for key, val in auto_list.list_data %}
+				{% set compare = {
+					data: val.custom_value,
+					li_modify_class: auto_list.class_list.list_item_container,
+					link_modify_class: auto_list.class_list.list_item_link,
+					items_icon: auto_list.class_list.item_icon,
+					data_sort_value: auto_list.data_sort_value,
+					data_sort: auto_list.data_sort,
+					data_id: val.custom_data_id,
+					mark: val.custom_mark
+				}
+				%}
+
+				{% include '/component/buttons/select/select-items.twig'  with compare  %}
+			
+			{% endfor %}
+		{% endif %}
+
+	</ul>
+	{% include '/component/related_component/content_preloader.twig' %}
+</div>

@@ -1,0 +1,103 @@
+<div class="cart-wrapper flex cart {{data.class_list}}" id="cart">
+    <div class="cart-table-wrapper width-100">
+        <div class="table-content ls-custom-scrollbar">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="th_w40">#</th>
+                        <th class="width-auto">Məhsul adı</th>
+                        <th class="th_w140">Ssdsdsay</th>
+                        <th class="th_w200">Qeyd</th>
+                        <th class="th_w50">Sil</th>
+                    </tr>
+                </thead>
+                <tbody class="cart-item-list table-list" 
+                    data-stock-page="{{data.page}}" 
+                    data-stock-type="{{data.page}}"
+                    {% if data.attribute  %}
+                        {% for attr_name, attr_value in data.attribute %}
+                            {{attr_name}} = "{{attr_value}}"
+                        {% endfor %}
+                    {% endif %}		                    
+                    >
+  
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="cart-contorl content_container">
+        {# <div class="cart-res flex flex-jc-space-between">
+            <span>Cəmi: </span>
+            <div class="flex">
+                <span class="cart-res-sum"></span>
+                <span class="mark mark-icon-manat button-icon-right manat-icon--black"></span>        
+            </div>
+        </div> #}
+
+
+        <div class="cart-fields-container flex flex-jc-space-between fields form-fields background-none">
+            {% set select = {
+                main: {
+                    class_list: {
+                        init_element: ' widget-fields width-100 ',
+                        container: ' widget-fields-container ',
+                        input_parent: 'width-100 input-dropdown-parent'
+                    },
+
+                },
+
+                input: {
+                    label: 'Anbar',
+                    icon: 'las la-share-square',
+                    class_list: ' scroll-auto form-input area-button input-dropdown input-required input-validate-length cart-input ',
+                    attribute: {
+                        'type': 'button',
+                        'placeholder': 'text',
+                        'value': '',
+                    },
+                    reset: false,
+                },
+
+                hidden_input: {
+                    class_list: ' cart-warehouse-id ',
+                },
+                list: {
+                    includs: {
+                        renderCategoryIncluds: {
+                            '/component/search/dom_live_search.twig': true,
+                        }
+                    },
+
+                    class_list: {
+                        container: 'form-fields-autocomplete input-dropdown-auto-list-parent',
+                        ul_list: 'width-100 unset-max-width input-dropdown-auto-ul',
+                        list_item_container: '',
+                        list_item_link: 'selectable-search-item area-closeable  select-hidden-fields-input input-dropdown-auto-list-li',
+                        item_icon: 'las la-share-square'
+                    },
+
+                    default_first: false,
+
+                    type: 'bla-bla',
+
+                    list_data: data.warehouse_list
+                
+                }
+
+            } %}
+
+            {% include 'component/buttons/select/select-button.twig'  with { 'data': select }  %}
+
+        </div>
+
+
+        <div class="cart-control-buttons flex flex-jc-space-between">
+            <button class="btn btn-danger reset-cart flex button-icon-left" title="Səbəti təmizlə">
+                <span class=" widget__button-icon button-icon-i las la-trash"></span>
+            </button>
+
+
+            <button class="btn btn-primary width-100 send-warehouse-transfer">Göndər</button>
+        </div>    
+    </div>
+</div>  

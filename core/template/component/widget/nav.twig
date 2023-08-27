@@ -1,0 +1,22 @@
+<nav class="content__nav mrgn-bottom-50">
+	<div class="tab-container width-100 flex flex-ai-cntr">
+
+		{% for value, row in data.tab_list %}
+			<div class="tab height-100">
+				<a href="javascript:void(0)" 
+				   class="tab-button flex-cntr width-100 height-100 {{row.tab_modify_class}}" 
+				   data-tab="{{value}}" 
+				   data-page="{{ row.tab_data_page ? row.tab_data_page : data.route_index }}">
+					{{row.tab_title}}
+					
+					{% if row.mark %}
+						<span class="mark {{row.mark.modify_class}}">{{row.mark.text}}</span>
+					{% endif %}		
+				</a>
+			</div>
+		{% endfor %}		
+
+		<div class="tab-selected-mark height-100" style=""></div>
+
+	</div>
+</nav>

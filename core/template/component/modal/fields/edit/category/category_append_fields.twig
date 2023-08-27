@@ -1,0 +1,46 @@
+        <div class="fields form-fields background-none inline-flex flex-row">
+            {% set custom_arr = [{
+                'custom_value': 'Yoxdur',
+                'custom_data_id': ''
+            }] %}
+
+            {% for row, val in row.custom_data %}
+
+                {% set custom_arr = custom_arr|merge({(loop.index0) : {'custom_value': val.category_name, 'custom_data_id': val.category_id}}) %}
+            {% endfor %}
+
+    {% set searh_param = {
+        input_class: row.class_list ~ " scroll-auto area-button input-dropdown form-input", 
+        parent_class: 'width-100 input-dropdown-parent', 		
+        input_placeholder: 'Выберите ', 
+        input_type: 'button',
+        input_value: cat_val.category_name,
+        fields_name: 'category_name_text',
+        input_icon: {
+            icon: 'la-tags',
+        },
+        reset: false, 
+        widget_class_list: 'widget-fields width-100',
+        widget_container_class_list: 'widget-fields-container',
+        autocomplete:  {
+            includs: {
+                renderAutoComponent: {
+                    '/component/search/dom_live_search.twig': '1',
+                },
+            },            
+            type: 'check_category',
+            autocomplete_list: custom_arr,
+            parent_modify_class: "input-dropdown-auto-list-parent",
+            autocomlete_ul_modify_class: 'input-dropdown-auto-ul',
+            autocomlete_class_list: "selectable-search-item area-closeable select-category-id select-hidden-fields-input input-dropdown-auto-list-li",
+        },
+    }
+    %}
+
+            {% include '/component/search/search.twig'  with { 'data': searh_param }  %}
+
+
+            <input type="hidden" class="edit-product-category hidden_input hidden-fields-input {{row.class_list}}" data-fields-name="category_id" data-old-id={{cat_val.category_id}} value={{cat_val.category_id}}>
+
+            <button class="btn btn-light btn-red remove-fields hide-fields">Sil</button> 
+        </div>

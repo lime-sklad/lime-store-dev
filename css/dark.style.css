@@ -1,0 +1,227 @@
+/* umumi html */
+html,
+body {
+  background-color: var(--dark_html) !important;
+}
+
+/* ust naviqasiya */
+.top-bar {
+  background: var(--dark_background) !important;
+  box-shadow: var(--shadow_bottom) var(--dark_background) !important;
+}
+
+/* merkezdeki kontent */
+.content_container {
+  position: relative;
+  padding: 25px;
+  border-radius: 9px;
+  background: var(--dark_background);
+  box-shadow: var(--shadow_border) var(--dark_background),
+    var(--shadow_bottom) var(--dark_background);
+}
+
+/* sol naviqasiya menyusu */
+.sidebar {
+  /* padding-bottom: 20px; */
+  background: var(--dark_background);
+  box-shadow: var(--shadow_right) var(--dark_background);
+}
+
+/* sol naviqasiya ikonlari */
+.sidebar-icon {
+  color: var(--dark_text_70);
+}
+
+/* title larin rengleri */
+.content__title,
+.title {
+  color: var(--dark_text_100) !important;
+}
+
+/* kontent naviqasiya  */
+.content__nav {
+  background: var(--dark_header) !important;
+  border-bottom: 1px solid var(--dark_header);
+}
+
+/* kontent naviqasiya tekst */
+.tab-button {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: var(--font_work_sans);
+  padding: 0px 20px;
+  color: var(--dark_text_70);
+  transition: 0.5s;
+}
+
+.tab-button:not(.tab_activ):hover {
+  background: var(--primary_color);
+  border-radius: 7px;
+}
+
+.tab-selected-mark {
+  border-radius: 7px;
+  background: var(--primary_color);
+  box-shadow: var(--shadow_bottom) var(--primary_text_color),
+    var(--shadow_border) var(--primary_text_color);
+}
+
+.tab_activ {
+  color: var(--dark_text_100);
+  /* color: var(--black); */
+}
+
+/* fields label */
+.fields-label {
+  color: var(--dark_text_70);
+}
+
+/* all inputs */
+.search-input,
+.input,
+.textarea {
+  color: var(--dark_text_70);
+  border: 2px solid var(--dark_header);
+  background: var(--dark_header);
+}
+
+.ls-dropdown-text {
+  color: var(--dark_text_70);
+}
+
+.ls-dropdown-arrow {
+  color: var(--dark_text_70);
+}
+
+/* dark style table variables */
+th {
+  background: var(--dark_header);
+  color: var(--dark_text_70);
+}
+
+th,
+td {
+  border: 1px solid var(--dark_grey);
+}
+
+.table-content,
+.table_footer {
+  box-shadow: var(--shadow_border) var(--dark_grey),
+    var(--shadow_bottom) var(--dark_grey);
+}
+
+.table-no-result {
+  font-size: 20px;
+  font-family: var(--font_work_sans);
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--dark_text_70);
+  background: var(--dark_error);
+  font-weight: 500;
+}
+
+.stock-link-text-both {
+  color: var(--dark_text_70);
+}
+
+.stock-list {
+  background: var(--dark_html);
+
+  cursor: pointer;
+}
+
+
+
+
+
+
+.stock-list:not(.stock-list-active):hover, .cart-item:hover {
+  background: var(--indigo_blue_930);
+  color: black!important;
+}
+
+
+.tfoot_data{
+  background-color: var(--dark_grey);
+  color: var(--dark_text_70);
+}
+
+.stock-list-title {
+  font-size: inherit;
+  display: inherit;
+  font-weight: inherit;
+  transition: inherit;
+  color: white!important;
+}
+
+
+
+/* modal fields */
+.fields {
+  background: var(--dark_background);
+  border-bottom: 1px solid var(--dark_grey);
+  position: relative;
+}
+
+/*** modal delete */
+.module_fix_right_side {
+  width: 400px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  background: var(--dark_background);
+  z-index: 712;
+  animation-fill-mode: forwards;
+}
+
+.close_modal_btn {
+  background: var(--dark_header);
+}
+
+.close_modal_btn > i {
+  color: var(--dark_text_70);
+}
+
+.close_modal_btn:hover > i {
+  color: var(--dark_text_100);
+}
+
+/* manat ikon */
+
+.manat-icon--black::after {
+  content: "";
+  display: inline-block;
+  background-image: url(../img/icon/manat_white.svg);
+  width: inherit;
+  height: inherit;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.edit-stock-id {
+  color: var(--dark_text_70);
+}
+
+/* input hover etdikde yazilar  */
+
+input:focus,
+select:focus,
+textarea:focus,
+.input:focus {
+  background: var(--white) !important;
+  color: var(--black);
+}
+
+.sub-title {
+  color: var(--dark_text_100);
+}
+
+.sidebar-item-tooltip {
+  background: var(--blue_450);
+  box-shadow: var(--shadow_medium) var(--dark_background);
+}

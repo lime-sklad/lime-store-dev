@@ -1,0 +1,111 @@
+            {# {% set select = {
+                main: {
+                    class_list: {
+                        init_element: ' widget-fields width-100 ',
+                        container: ' widget-fields-container ',
+                        input_parent: 'width-100 input-dropdown-parent'
+                    },
+
+                },
+                input: {
+                    label: 'Some label',
+                    icon: 'la-tags',
+                    class_list: ' scroll-auto form-input area-button input-dropdown ',
+                    attribute: {
+                        'type': 'button',
+                        'placeholder': 'text'
+                    },
+                    reset: false,
+                },
+
+                list: {
+                    class_list: {
+                        container: 'form-fields-autocomplete input-dropdown-auto-list-parent',
+                        ul_list: 'width-100 unset-max-width input-dropdown-auto-ul',
+                        list_item_container: '',
+                        list_item_link: 'selectable-search-item area-closeable select-category-id select-hidden-fields-input input-dropdown-auto-list-li'
+                    },
+
+                    type: 'bla-bla',
+
+                    list_data: [
+                        {
+                            'custom_value': 'asd',
+                            'custom_data_id': 12 
+                        },
+                        {
+                            'custom_value': 'wqeqw',
+                            'custom_data_id': 12 
+                        },
+                    ]
+                
+                }
+
+            } %} #}
+
+
+
+<div class="widget__search {{data.main.class_list.init_element}}">
+	<div class="widget__search-container {{data.main.class_list.container}}">
+		<div class="area-container search-container {{data.input_parent}}">
+			<div class="search-input-wrp">
+				{% if data.input.label %}	
+					<span class="widget__input-label">{{data.input.label}}</span>
+				{% endif %}
+
+				{% if data.input.icon %}
+				<div class="widget__search-icon button-icon-i search-icon">
+					<i class="las {{data.input.icon}}"></i>
+				</div>
+				{% endif %}
+								
+				<input autocomplete="off" class="input search-input search-action {{data.input.class_list}}" 
+					{% if data.list.default_first %}
+						value="{{data.list.list_data[0]['custom_value']}}"
+						
+						data-id="{{data.list.list_data[0]['custom_data_id']}}"
+
+					{% endif %}
+
+
+
+                        {% for attr_name, attr_value in data.input.attribute %}
+                            {{attr_name}} = "{{attr_value}}"
+                        {% endfor %}
+
+					   required >
+
+
+                <span class="drop-down-angle widget__button-icon button-icon-i button-icon-right ls-dropdown-arrow">
+                    <i class="las la-angle-down"></i>
+                </span>
+
+				{% if data.input.reset %}
+						<div class="reset-search-value">
+							<a href="javascript:void(0)" class="reset-search-button reset-input">
+								<span class="reset-button-icon button-icon-i">
+									<i class="las la-times"></i>
+								</span>
+							</a>
+						</div>
+				{% endif %}	   
+			</div>
+			{% if data.list.list_data %}
+				{{ include ('/component/buttons/select/select-items-wrapper.twig', {auto_attr: data.list.type, auto_list: data.list }) }}					
+			{% endif %}
+
+
+
+            <input type="hidden" class="form-input add-stock hidden_input hidden-fields-input {{ data.hidden_input.class_list }}" 
+                {% for attr_name, attr_value in data.hidden_input.attribute %}
+                    {{attr_name}} = "{{attr_value}}"
+                {% endfor %} 
+                
+                {% if data.list.default_first %}
+					value="{{data.list.list_data[0]['custom_data_id']}}"
+				{% endif %}
+                
+                />
+		</div>
+	</div>
+</div>

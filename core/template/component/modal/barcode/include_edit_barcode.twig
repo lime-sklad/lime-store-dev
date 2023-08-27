@@ -1,0 +1,12 @@
+{% set cl = [] %}
+
+{% if data.res %}
+    {% for key, row in data.res %}
+        {% include '/component/modal/barcode/edit_barcode_input.twig' %}
+    {% endfor %}
+{% else %}
+
+        {% set cl = cl|merge({'class_list': ' new '}) %}
+        
+        {% include '/component/modal/barcode/edit_barcode_input.twig' %}
+{% endif %}    
