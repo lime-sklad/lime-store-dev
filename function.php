@@ -1,4 +1,5 @@
 <?php
+
 require $_SERVER['DOCUMENT_ROOT'].'/db/config.php';
 require $_SERVER['DOCUMENT_ROOT'].'/core/function/db.wrapper.php';
 //upd  
