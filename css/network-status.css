@@ -1,0 +1,10 @@
+.network-container{
+width: 20px;
+height: 20px;
+background-color: gray;
+border-radius: 50%;
+cursor: pointer;
+border: 3px solid rgba(0, 0, 0, 0.603);
+;
+
+}

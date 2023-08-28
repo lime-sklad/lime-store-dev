@@ -10,6 +10,7 @@ function lib_include_list() {
             'css/new.style.css',
             'css/responsive.css',
 			'css/dark.theme.css',
+            'css/network-status.css',
          ],
         'script' => [
             'lib/js_lib/jquery-3.3.1.min.js',
@@ -22,6 +23,7 @@ function lib_include_list() {
             'js/write-off.function.js',
             'js/transfer.function.js',
 			'js/dark-theme.js',
+            'js/network-status.js',
             'lib/xlsx-convert/xlsx.full.min.js',
          ]
     ];
