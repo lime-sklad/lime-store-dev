@@ -18,7 +18,7 @@
 // 	$licence_deactive_date = $lince_check_row['licence_active_deactive'];
 // }
 
-if(ntp()) {
+if(is_check_connetion()) {
     $today = ntp();
 } else {
     $today = get_my_datetoday();
