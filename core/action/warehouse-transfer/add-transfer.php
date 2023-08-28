@@ -85,7 +85,7 @@ foreach($list as $key => $row) {
 
 
 
-// return print_alert([
-//     'type' => 'success',
-//     'text' => 'Ok'
-// ]);
+return print_alert([
+    'type' => 'success',
+    'text' => 'Ok'
+]);

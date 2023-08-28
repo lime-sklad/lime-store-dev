@@ -3,8 +3,8 @@
         $page_config = $data_page['page_data_list'];
         
         
-        $data_page['sql']['param']['query']['param'] = $data_page['sql']['param']['query']['param'] . "  AND arrival_products.day_date = :mydateyear";
-        $data_page['sql']['param']['query']['bindList']['mydateyear'] = date("m.Y");
+        // $data_page['sql']['param']['query']['param'] = $data_page['sql']['param']['query']['param'] . "  AND arrival_products.day_date = :mydateyear";
+        // $data_page['sql']['param']['query']['bindList']['mydateyear'] = date("m.Y");
         
         $table_result = render_data_template($data_page['sql'], $data_page['page_data_list'], PDO::FETCH_ASSOC);
         

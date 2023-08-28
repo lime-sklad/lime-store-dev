@@ -7,28 +7,24 @@ return [
     'sql' => [
         'table_name' => ' user_control  ',
         'col_list'	=> ' * ',
-        'base_query' =>  " INNER JOIN arrival_products ON arrival_products.id != 0 ",
+        'base_query' =>  " INNER JOIN transfer_list ON transfer_list.transfer_id != 0 ",
         'param' => array(
             'query' => array(
-                'param' =>  "  INNER JOIN stock_list ON stock_list.stock_id = arrival_products.id_from_stock ",
+                'param' =>  "  INNER JOIN stock_list ON stock_list.stock_id = transfer_list.stock_id ",
                 "joins" => "   ",		
                 'bindList' => array(						
                 )
             ),
-            'sort_by' => " GROUP BY arrival_products.id  DESC ORDER BY  arrival_products.id DESC
+            'sort_by' => " GROUP BY transfer_list.transfer_id  DESC ORDER BY  transfer_list.transfer_id DESC
                              ",
             'limit' => '',
         ),
     ],
     'page_data_list' => [
-        'sort_key' => 'id',
+        'sort_key' => 'transfer_id',
         'get_data' => [
-            'id' 				=> 'stock_id',
-            'stock_add_date' 	=> 'full_date',
-            'report_order_date' => 'day_date',
+            'id' 				=> 'transfer_id',
             'name'			 	=> 'stock_name',
-            'description' 		=> 'description',
-            'first_price'		=> 'stock_first_price',
             'count'				=> 'count',
         ],
         'table_total_list'	=> [
