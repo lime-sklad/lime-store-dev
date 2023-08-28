@@ -72,18 +72,21 @@ function get_my_datetoday() {
 	return  date("d.m.Y");
 }
 
-function ntp($server = 'time.windows.com', $port = 123) {
-	$socket=@fsockopen("udp://$server",$port,$err_no,$err_str,1);
+// time.windows.com - 180-200ms
+// time.google.com - 80-90ms
+// time.cloudflare.com - 8-25ms
+function ntp($server = 'time.cloudflare.com', $port = 123) {
+	$socket = @fsockopen("udp://$server", $port, $err_no, $err_str, 1);
 	if (!$socket) return;
   
-	fwrite($socket,chr(0x1b).str_repeat("\0",47));
+	fwrite($socket, chr(0x1b).str_repeat("\0",47));
   
 	$packetReceived = fread($socket, 48);
    
-	$unixTimestamp = unpack('N',$packetReceived,40)[1] - 2208988800;
+	$unixTimestamp = unpack('N',$packetReceived, 40)[1] - 2208988800;
    
-	$utcDate=date("d.m.Y",$unixTimestamp);
-  
+	$utcDate = date("d.m.Y",$unixTimestamp);
+
 	return $utcDate;
 }
 
@@ -252,9 +255,9 @@ function get_tab_data($key = null, $active = null) {
 		),
 		'tab_warehouse_transfer_report' => array(
 			'type'				=> 'phone',
-			'tab_data_page'		=> 'write_off_report',
+			'tab_data_page'		=> 'warehouse_transfer_report',
 			'tab_title'			=> 'Hesabat transfer',
-			'tab_link'			=> '/page/write_off_products/write_off_report.php',
+			'tab_link'			=> '/page/warehouse_transfer/warehouse_transfer_report.php',
 			'tab_icon'			=> '',
 			'tab_modify_class'	=> 'pos-relative',
 			'mark' => [
