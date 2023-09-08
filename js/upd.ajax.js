@@ -976,20 +976,16 @@ $(document).on('click', '.add-submit-rasxod', function() {
 			data: prepare_data,
 			dataType: "json",
 			success: (data) => {
-				var error 	= data['error'];
-				var success = data['success'];
 	
-	
-				if(error) {
-					pageData.alert_notice('error', error)
-				}
-	
-				if(success) {
-					pageData.alert_notice('success', 'Ок');
+
+				if(data.type == 'success') {
+					pageData.alert_notice(data.type, data.text);
 	
 					for (key in prepare_data) {
 						pageData.update_table_row(key, prepare_data[key], rasxod_id);
 					}				
+				} else {
+					pageData.alert_notice('error', error)
 				}
 			}			
 	

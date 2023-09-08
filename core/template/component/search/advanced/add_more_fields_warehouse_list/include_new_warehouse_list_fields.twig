@@ -1,0 +1,7 @@
+{% if row.value %}
+    {% for cat_key, cat_val in row.value %}
+        {% include '/component/search/advanced/add_more_fields_warehouse_list/add_append_warehouse_list_fields.twig' %}
+    {% endfor %}
+{% else %}
+        {% include '/component/search/advanced/add_more_fields_warehouse_list/add_append_warehouse_list_fields.twig' %}
+{% endif %}    

@@ -37,13 +37,10 @@ require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
 			],
 			'/component/related_component/overlay.twig' => [
 				//data
-			],								
+			],
 		]
-	]); 
-
-	echo is_correct_local_date($twig);
+	]);
 	
-
 	echo $twig->render('/component/related_component/main_page.twig', [
 		'renderComponent' => [
 
@@ -98,7 +95,9 @@ require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
 						// modal
 						'/component/modal/modal_wrapper.twig' => [
 							//data
-						]							 
+						],
+			'/component/main/check_date.twig' => [],
+
 					]
 				]
 			]

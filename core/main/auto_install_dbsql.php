@@ -95,6 +95,8 @@ $transfer_list_sql = 'CREATE TABLE `transfer_list` (
 	`transfer_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	`warehouse_id` int(11) NOT NULL,
 	`stock_id` int(11) NOT NULL,
+	`transfer_date` varchar(60) NOT NULL,
+	`transfer_full_date` varchar(60) NOT NULL,
 	`count` int(11) NOT NULL,
 	`description` varchar(255) NOT NULL,
 	`visible` int(11) NOT NULL,

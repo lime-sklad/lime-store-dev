@@ -21,7 +21,7 @@ if(!isset($_SESSION['user'])){
 }
 
 
-function is_correct_local_date($twig) {
+function is_correct_local_date() {
 	$data = ls_db_request([
 		'table_name' => 'stock_order_report',
 		'col_list' => '*',
@@ -39,10 +39,10 @@ function is_correct_local_date($twig) {
 	$local_date = get_my_datetoday();
 
 	if(strtotime($last_sale_date) > strtotime($local_date)) {
-		echo $twig->render('/component/error_page/correct_date.twig', []);
-
-		exit;
-	} 
+		return true;
+	} else {
+		return false;
+	}
 }
 
 // ls_var_dump(exec(' whoami'));
@@ -883,6 +883,17 @@ function get_th_list() {
 				'data_sort'			=> 'rasxod-day-date',
 				'mark'				=> false
 			),
+	
+
+			'transfer_full_date' => array(
+				'is_title' 			=> 'Tarix',
+				'modify_class'		=> 'th_w120',
+				'td_class'			=> '',
+				'link_class'		=> 'stock-link-text-both',
+				'data_sort'			=> 'transfer-day-date',
+				'mark'				=> false
+			),			
+
 			'rasxod_description' => array(
 				'is_title' 			=> 'Tesvir',
 				'modify_class'		=> 'th_w300',
@@ -904,7 +915,7 @@ function get_th_list() {
 			),
 
 			'warehouse_name' => array(
-				'is_title' 			=> 'Ambar adı',
+				'is_title' 			=> 'Anbar adı',
 				'modify_class'		=> 'th_w200',
 				'td_class'			=> '',
 				'link_class'		=> 'stock-link-text-both res-warehouse-name',

@@ -20,6 +20,12 @@ if($_POST['fields_name'] == 'edit_append_new_provider' || $_POST['fields_name'] 
 }
 
 
+if($_POST['fields_name'] == 'search_warehouse_list') {
+    $custom_data = get_warehouse_list();
+}
+
+
+
 if($_POST['fields_name']) {
     $get_block_name = $_POST['fields_name'];
 
@@ -35,7 +41,6 @@ if($_POST['fields_name']) {
         ]
     );
 
-    
     echo json_encode([
         'fields'  => $tp
     ]);

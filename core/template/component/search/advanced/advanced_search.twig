@@ -262,6 +262,10 @@
             {% include '/component/search/advanced/add_more_provider_fields/add_stock_new_provider_fields.twig' %}
         {% endif %}
 
+        {% if data.advanced_fields.warehouse_list %}
+            {% include '/component/search/advanced/add_more_fields_warehouse_list/add_stock_new_warehouse_list_fields.twig' %}
+        {% endif %}        
+
             <div class="form-fields fields">
                 <button class="btn btn-success advanced-search-submit area-closeable">Axtar</button>
             </div>

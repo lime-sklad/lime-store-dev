@@ -156,10 +156,32 @@ if(!empty($post_list['write_off_date'])) {
 }
 
 
+
+//transfer
+
+if(!empty($post_list['transfer_date_picker'])) {
+    $transfer_full_date = reset($post_list['transfer_date_picker']);
+
+
+    if($transfer_full_date !== 'all') {
+        $where = $where. " AND transfer_list.transfer_full_date = ?  ";
+        array_push($data, $transfer_full_date); 
+    }
+}
+
+if(!empty($post_list['report_transfer_warehouse_list'])) {
+    $transfer_warehouse_list = $post_list['report_transfer_warehouse_list'];
+
+    $id = implode(',', array_fill(0, count($transfer_warehouse_list), '?'));;
+
+    $where = $where." AND transfer_list.warehouse_id IN ($id) ";    
+    
+   $data = array_merge($data, $transfer_warehouse_list); 
+}
+
 // _________________________________________________________
 
 $joins = $joins . $where;
-
 
 
 

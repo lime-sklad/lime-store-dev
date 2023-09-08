@@ -21,6 +21,11 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/db/config.php';
 
 /**
  * конфиг бэкапа
+ * @return array
+ * @param stirng get_backup_dir - путь к папке backup
+ * @param stirng get_db_backup_dir - путь к папке где находится backup базы данных
+ * @param stirng get_db_auto_name - название бэкапа базы данных
+ * @param stirng get_mysql_dump_path - путь до исполняемого файла для бэкапа
  */
 function db_dump_config() {
     return [
@@ -95,4 +100,20 @@ function ls_db_dump($backup_dir, $db_backup_dir, $dump_exe_path, $dump_name) {
     } else {
         return false;
     }
+ }
+
+ /**
+  * @param string $destination путь к бекапу
+  * @return boolean
+  */
+ function ls_add_zip_archive($path_to_file, $file_name) {
+
+    echo $path_to_file.$file_name;
+    $zip = new ZipArchive();
+    if (!$zip->open($path_to_file.$file_name.'.zip', ZIPARCHIVE::CREATE)) {
+      return false;
+    }
+
+    $zip->addFile($path_to_file.$file_name, $file_name);
+    $zip->close();
  }

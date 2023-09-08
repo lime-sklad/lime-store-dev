@@ -10,8 +10,9 @@ return [
         'base_query' =>  " INNER JOIN transfer_list ON transfer_list.transfer_id != 0 ",
         'param' => array(
             'query' => array(
-                'param' =>  "  INNER JOIN stock_list ON stock_list.stock_id = transfer_list.stock_id ",
-                "joins" => "   ",		
+                'param' =>  "  INNER JOIN stock_list ON stock_list.stock_id = transfer_list.stock_id 
+                               LEFT JOIN warehouse_list ON warehouse_list.id = transfer_list.warehouse_id ",
+                'joins' => " ",		
                 'bindList' => array(						
                 )
             ),
@@ -24,7 +25,12 @@ return [
         'sort_key' => 'transfer_id',
         'get_data' => [
             'id' 				=> 'transfer_id',
+            'report_order_date' => 'transfer_date',
+            'transfer_full_date' => 'transfer_full_date',
             'name'			 	=> 'stock_name',
+            'description' 		=> 'stock_phone_imei',
+            'report_note'       => 'description',
+            'warehouse_name'    => 'warehouse_name',
             'count'				=> 'count',
         ],
         'table_total_list'	=> [

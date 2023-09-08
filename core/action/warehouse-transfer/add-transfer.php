@@ -75,6 +75,8 @@ foreach($list as $key => $row) {
     ls_db_insert('transfer_list', [
         [
             'warehouse_id' => $warehouse_id,
+            'transfer_date' => get_my_dateyear(),
+            'transfer_full_date' => get_my_datetoday(),
             'stock_id' => $row['id'],
             'count' => $row['count'],
             'description' => $row['description']

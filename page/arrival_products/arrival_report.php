@@ -63,8 +63,8 @@
                     'table_type' => $type,
                 ],
     
-                '/component/table/table_footer_wrapper.twig' => [
-                    'table_total' => table_footer_result($page_config['table_total_list'], $table_result['base_result'])
-                ],
+                // '/component/table/table_footer_wrapper.twig' => [
+                //     'table_total' => table_footer_result($page_config['table_total_list'], $table_result['base_result'])
+                // ],
             ]
         ]);

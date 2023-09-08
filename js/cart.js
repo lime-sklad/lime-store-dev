@@ -67,7 +67,7 @@ $(document).ready(function(){
       var stock_count = row['stock_count'];
       var first_price = row['stock_first_price'];
       var stock_second_price = row['stock_second_price'];
-
+      var description = row['description'];
 
 
       let myData = {
@@ -75,10 +75,12 @@ $(document).ready(function(){
         name: stock_name,
         first_price: first_price,
         price: stock_second_price,
-        description: '',
+        description: description,
         count: 1,
         maxCount: stock_count,
       };
+
+      console.log(myData  )
 
 
       return myData;

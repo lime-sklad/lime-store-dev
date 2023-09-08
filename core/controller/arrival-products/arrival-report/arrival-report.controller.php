@@ -23,11 +23,12 @@ return [
     'page_data_list' => [
         'sort_key' => 'id',
         'get_data' => [
-            'id' 				=> 'stock_id',
+            'id' 				=> 'id',
             'stock_add_date' 	=> 'full_date',
             'report_order_date' => 'day_date',
             'name'			 	=> 'stock_name',
-            'description' 		=> 'description',
+            'description'       => 'stock_phone_imei',
+            'report_note' 		=> 'description',
             'first_price'		=> 'stock_first_price',
             'count'				=> 'count',
         ],

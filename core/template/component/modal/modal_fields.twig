@@ -272,6 +272,11 @@
 {% endif %}
 
 
+{% if row.block_name == 'search_warehouse_list' %}
+    {% include '/component/search/advanced/add_more_fields_warehouse_list/include_new_warehouse_list_fields.twig' %}
+{% endif %}
+
+
 
 
 {% if row.block_name == 'edit_warehouse_name' %}

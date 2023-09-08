@@ -23,7 +23,7 @@ function lib_include_list() {
             'js/write-off.function.js',
             'js/transfer.function.js',
 			'js/dark-theme.js',
-            'js/network-status.js',
+            // 'js/network-status.js',
             'lib/xlsx-convert/xlsx.full.min.js',
          ]
     ];
