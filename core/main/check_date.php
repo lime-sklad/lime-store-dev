@@ -11,14 +11,16 @@ if($ntp) {
     if(get_my_datetoday() !== $ntp) {
         return print_alert([
             'type' => 'error',
-            'content' => $content
+            'content' => $content,
+            'connection_status' => 'true'
         ]);
     }
 } else {
     if(is_correct_local_date()) {
         return print_alert([
             'type' => 'error',
-            'content' => $content
+            'content' => $content,
+            'connection_status' => 'false'
         ]);
     }
 }

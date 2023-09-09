@@ -96,7 +96,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
 						'/component/modal/modal_wrapper.twig' => [
 							//data
 						],
-			'/component/main/check_date.twig' => [],
+						
 
 					]
 				]

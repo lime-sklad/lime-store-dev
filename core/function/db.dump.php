@@ -108,7 +108,6 @@ function ls_db_dump($backup_dir, $db_backup_dir, $dump_exe_path, $dump_name) {
   */
  function ls_add_zip_archive($path_to_file, $file_name) {
 
-    echo $path_to_file.$file_name;
     $zip = new ZipArchive();
     if (!$zip->open($path_to_file.$file_name.'.zip', ZIPARCHIVE::CREATE)) {
       return false;

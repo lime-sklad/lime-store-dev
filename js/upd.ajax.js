@@ -23,6 +23,42 @@ $(document).ready(function() {
 });
 
 
+
+$(document).ready(function() {
+	$.ajax({
+		type: 'POST',
+		url: 'core/main/check_date.php',
+		async: true,
+		beforeSend: function( ){
+		},
+		complete: function() {
+		},		
+		success: (data) => {
+			$('.app-container').html(data.content);
+		}
+	});
+});
+
+
+
+
+
+$(document).ready(function() {
+	$.ajax({
+		type: 'POST',
+		url: 'core/action/backup/make-backup.php',
+		async: true,
+		beforeSend: function( ){
+		},
+		complete: function() {
+		},		
+		success: () => {
+		}
+	});
+});
+
+
+
 /**
  * download update
  */

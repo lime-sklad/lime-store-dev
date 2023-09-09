@@ -29,6 +29,6 @@
             '/component/widget/nav.twig' => [
                 'tab_list' => $tab_list,
                 'route_index' => $page
-            ]
+            ],
         ]
     ]);
