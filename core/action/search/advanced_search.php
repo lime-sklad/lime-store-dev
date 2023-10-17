@@ -28,7 +28,7 @@ $bind_list 		= $sql_query_data['param']['query']['bindList'];
 $table_name 	= $sql_query_data['table_name'];
 $base_query 	= $sql_query_data['base_query'];
 $sort_by 		= $sql_query_data['param']['sort_by'];
-$joins 			= ' ';
+$joins 		    = ' LEFT JOIN payment_method_list ON payment_method_list.id = stock_order_report.payment_method ';
 
 $where = ' WHERE user_control.user_id != 0 ';
 

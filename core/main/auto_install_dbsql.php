@@ -12,6 +12,23 @@ ls_add_index('products_provider_list', 'id_from_stock');
 ls_add_index('stock_list', 'stock_first_price');
 
 
+
+$payment_method_list_sql = 'CREATE TABLE `payment_method_list` (
+	`id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	`title` varchar(255) NOT NULL,
+	`freeze` int(11) NOT NULL,
+	`tags_id` varchar(64) NOT NULL,
+	`visible` int(11) NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;';
+
+check_table_exists('payment_method_list', $payment_method_list_sql, [
+	array('Nağd', 0, 1, 'success'),
+	array('Kart', 0, 0, 'danger')
+]);
+
+
+
+
 $check_products_arrival_list_name = 'arrival_products';
 
 $arrival_list_sql = 'CREATE TABLE `arrival_products` (
@@ -230,7 +247,8 @@ check_table_exists($filter_list_name, $filter_list_db_sql, $filter_list_data);
 $quiz_sett_name = 'function_settting';
 $quiz_sett_db = '';
 $quiz_sett_data = array(
-					array("2", "get_quiz_theme"),
+					array("2", "get_quiz_theme", '1'),
+					array('0', 'telegram_backup', 1)
 				);
 //создаем таблицу и заполняем ее 15.09
 check_db_data($quiz_sett_name, $quiz_sett_data);
@@ -451,6 +469,7 @@ function check_db_data($table_name, $array) {
 		foreach ($array as $row => $value) {
 			$sett_id = $value[0];
 			$sett_name = $value[1];
+			$set_on = $value[2];
 			try {
 				$check_exist_data = $dbpdo->prepare('SELECT * FROM function_settting
 				WHERE sett_name = :sett_name 
@@ -463,7 +482,8 @@ function check_db_data($table_name, $array) {
 				} else {
 					$data_arr = array(
 						'sett_id' => $sett_id,
-						'sett_name' => $sett_name
+						'sett_name' => $sett_name,
+						'sett_on' => $set_on
 					);
 
 					install_data( $table_name, $data_arr );
@@ -682,6 +702,42 @@ function check_db_data($table_name, $array) {
 	}
 
 
+
+	//start th_list
+	if($table_name === 'payment_method_list') {
+		foreach ($array as $row => $value) {
+			$title = $value[0];
+			$visible = $value[1];
+			$freeze = $value[2];
+			$tag_id = $value[3];
+			try {
+				$check_exist_data = $dbpdo->prepare('SELECT * FROM payment_method_list
+				WHERE title = :title 
+				GROUP BY id DESC');
+				$check_exist_data->bindParam('title', $title);
+				$check_exist_data->execute();
+
+				if($check_exist_data->rowCount()>0) {
+					echo " ";
+				} else {
+					$data_arr = array(
+						'title' => $title,
+						'visible' => $visible, 
+						'freeze' => $freeze,
+						'tag_id' => $tag_id
+					);
+
+					install_data( $table_name, $data_arr );
+				} 
+
+			} catch(PDOException $e) {
+				echo " таблицы не существует 1 </pre>";
+			}
+		}
+	}
+	//end th_list	
+
+
 }
 
 
@@ -701,9 +757,10 @@ function install_data($table_name, $data_arr) {
 	if($table_name == 'function_settting') {
 		$sett_id = $data_arr['sett_id'];
 		$sett_name = $data_arr['sett_name'];
+		$sett_on = $data_arr['sett_on'];
 
-		$add_sett = $dbpdo->prepare('INSERT INTO function_settting (sett_custom_id, sett_name) VALUES (?, ?)');
-		$add_sett->execute([$sett_id, $sett_name]);
+		$add_sett = $dbpdo->prepare('INSERT INTO function_settting (sett_custom_id, sett_name, sett_on) VALUES (?, ?, ?)');
+		$add_sett->execute([$sett_id, $sett_name, $sett_on]);
 	}
 
 	if($table_name == 'th_list') {
@@ -787,7 +844,19 @@ function install_data($table_name, $data_arr) {
 		$reset_provider_at_stock_list_table->bindParam(':stock_id', $stock_id);
 		$reset_provider_at_stock_list_table->bindParam(':p_id', $prov_id);
 		$reset_provider_at_stock_list_table->execute();		
-	}		
+	}
+	
+	
+	if($table_name == 'payment_method_list') {
+
+		$title = $data_arr['title'];
+		$visible = $data_arr['visible'];
+		$freeze = $data_arr['freeze'];
+		$tag_id = $data_arr['tag_id'];
+
+		$add_paymenth_method = $dbpdo->prepare('INSERT INTO payment_method_list (title, visible, freeze, tags_id) VALUES (?, ?, ?, ?)');
+		$add_paymenth_method->execute([$title, $visible, $freeze, $tag_id]);		
+	}	
 
 }
 

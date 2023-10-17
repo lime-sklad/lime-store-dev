@@ -1109,24 +1109,6 @@ $(document).on('click', '.save-edit-stock-barcode', function() {
 
 
 
-$(document).on('click', '.load-product-arrival-products', function() {
-	var data = $(this).data('value');
-	
-	remove_modal();
-
-	$.ajax({
-		type: 'POST',
-		url: 'core/action/stock/arrival-products.php',
-		data: {data: data},
-		dataType: 'json',
-		success: (data) => {
-			$('.container').append(data.res);
-		}
-	});
-});
-
-
-
 // создать новый фильтер
 $(document).on('click', '.submit-create-filter', function() {
 	let filter_option_list = [];
@@ -1559,6 +1541,112 @@ $(document).on('click', '.delete-warehouse', function() {
 			$stock.hide(1000, function() {
 				$stock.remove();
 			});
+		}
+	});
+});
+
+
+$(document).on('click', '.submit-save-edited-payment-method', function(){
+
+	const prepare_data = prepare_form_data($(this).closest('.modal_order_form'), '.edit-payment-method-info.edited', 'fields-name');
+
+	console.log(prepare_data);
+	$.ajax({
+		url: 'core/action/payment_method/edit_payment_method_info.php',
+		type: 'POST',
+		data: prepare_data,
+		success: (data) => {
+			pageData.alert_notice(data.type, data.text);
+
+			for (key in prepare_data) {
+				pageData.update_table_row(key, prepare_data[key], prepare_data.payment_method_id);
+			}	
+
+		}
+	});
+
+});
+
+
+
+$(document).on('click', '.add-payment-method', function() {
+
+	const prepare_data = prepare_form_data(
+		$(this).closest('.stock-from-container'),
+		'.create-payment-method-input.edited',
+		'fields-name'		
+	);
+
+
+	$.ajax({
+		url: 'core/action/payment_method/add_payment_method.php',
+		type: 'POST',
+		data: {
+			prepare_data: prepare_data,
+			page: pageData.page(),
+			type: pageData.type()
+		},
+		success: (data) => {
+			pageData.alert_notice(data.type, data.text);	
+			
+			if(data.type == 'success') {
+				pageData.prependTable(data.table);
+				$('.form-input').val('');				
+			}
+		}
+	});
+});
+
+
+$(document).on('click', '.delete-payment-method', function() {
+	const id = $(this).data('delete-id');
+
+	$.ajax({
+		url: 'core/action/payment_method/delete_payment_method.php',
+		type: 'POST',
+		data: {
+			p_method_id: id
+		},
+		success: (data) => {
+			pageData.alert_notice(data.type, data.text);
+
+			var $item = $(`#${id}.stock-list`); 
+
+			$item.hide(1000, function() {
+				$item.remove();
+			});
+			
+			pageData.overlayHide();
+			pageData.rightSideModalHide();
+		}
+	});
+});
+
+
+
+$(document).on('click', '.edit-report-order', function() {
+	const prepare = prepare_form_data(
+		$(this).closest('.modal_order_form'),
+		'.edit-report-order-input.edited',
+		'fields-name'
+	);
+
+
+	const id = $(this).closest('.modal_order_form').find('.report_order_id').attr('data-id');
+
+	let $item = $(this).closest('.modal_order_form').find('.button-tags');
+	let class_list = $item.attr('data-old-class');
+
+	
+	$(`#${id}.stock-list`).find('.res-payment-tags').find('.mark').attr('class', '').addClass(class_list).html($item.text());
+console.log(prepare)
+
+	$.ajax({
+		url: 'core/action/report/edit_report.php',
+		type: 'POST',
+		data: prepare,
+		success: (data) => {
+			console.log(data)
 		}
 	});
 });

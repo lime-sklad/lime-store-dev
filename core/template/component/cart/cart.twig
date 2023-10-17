@@ -6,6 +6,7 @@
                     <tr>
                         <th class="th_w40">#</th>
                         <th class="width-auto">Məhsul adı</th>
+                        <th class="width-auto">Təsvir</th>
                         <th class="th_w140">Qiymət</th>
                         <th class="th_w140">Say</th>
                         <th class="th_w200">Qeyd</th>
@@ -67,6 +68,7 @@
                         'value': data.user_data.current_user.user_id
                     }
                 },
+
                 list: {
                     includs: {
                         renderCategoryIncluds: {
@@ -138,16 +140,7 @@
 
                     type: 'bla-bla',
 
-                    list_data: [
-                        {
-                            'custom_value': 'Nağd',
-                            'custom_data_id': 1 
-                        },
-                        {
-                            'custom_value': 'Kart',
-                            'custom_data_id': 2 
-                        },  
-                    ]
+                    list_data: data.payment_method.list
                 
                 }
 

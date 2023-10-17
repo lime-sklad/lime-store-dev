@@ -12,6 +12,11 @@ require $_SERVER['DOCUMENT_ROOT'].'/include/lib_include.php';
 require $_SERVER['DOCUMENT_ROOT'].'/core/controller/init.php';
 
 
+// ls_var_dump(
+
+// array_merge(get_tags_list(false), $tt)
+// );
+
 // syc new 
 //test
 if(!isset($_SESSION['user'])){
@@ -19,7 +24,6 @@ if(!isset($_SESSION['user'])){
 	header("Location: $login_dir");
 	exit();      
 }
-
 
 function is_correct_local_date() {
 	$data = ls_db_request([
@@ -239,6 +243,20 @@ function get_tab_data($key = null, $active = null) {
 				'text' => ''
 			]
 		),
+
+
+		'tab_payment_method_manage' => array(
+			'type'				=> 'phone',
+			'tab_data_page'		=> 'payment_method_form',
+			'tab_title'			=> 'Ödəniş üsulu',
+			'tab_link'			=> '/page/form/payment_method/payment_method_manage.php',
+			'tab_icon'			=> '',
+			'tab_modify_class'	=> 'pos-relative',
+			'mark' => [
+				'modify_class' => 'widget__mark-right',
+				'text' => ''
+			]
+		),		
 		
 		
 		'tab_warehouse_transfer_form' => array(
@@ -464,20 +482,16 @@ function collect_product_data($stock_list, $page_data_list) {
 					// ($row['payment_method'] == 1) ? $row['payment_method'] = ' ' : $row['payment_method'] = false;
 
 					if($td_row == 'payment_method') {
+						$tags_id = $row['tags_id'];
 
-						if($row['payment_method'] == 1) {
-							$mark_text = 'Nağd'; 
-							$mark_modify_class = 'mark-chips mark-success-fill width-100 height-100';
-						} else {
-							$mark_text = 'Kart'; 
-							$mark_modify_class = 'mark-chips mark-danger-fill width-100 height-100' ;
-						}
-
+						$mark_text = $row['title'];
+						$mark_modify_class = get_tags_list($base = false, $tags_id); 
 					
 						$row['payment_method'] = ' ';
 
 						$mark['mark_text'] = $mark_text;
-						$mark['mark_modify_class'] = $mark_modify_class;
+
+						$mark['mark_modify_class'] = $mark_modify_class['class_list'];
 					}
 				}	
 			
@@ -622,7 +636,7 @@ function get_th_list() {
 				'link_class' 		=> 'stock-link-text-both',
 				'data_sort' 		=> '',
 				'mark'				=> array(
-					'mark_modify_class' => 'mark-chips mark-danger width-100 height-100',
+					'mark_modify_class' => 'mark-tags mark-danger width-100 height-100',
 					'mark_text' 		=> 'Bəli',
 					'mark_title'		=> 'Bu mall vazvrat olunub',
 				)
@@ -746,16 +760,29 @@ function get_th_list() {
 			],	
 			'payment_method' => array(
 				'is_title'  		=> 'Ödəniş üsulu',
-				'modify_class'		=> 'th_w40',
+				'modify_class'		=> 'th_w80',
 				'td_class' 			=> '',
-				'link_class' 		=> 'stock-link-text-both',
+				'link_class' 		=> 'stock-link-text-both res-payment-tags',
 				'data_sort' 		=> '',
 				'mark'				=> array(
-					'mark_modify_class' => 'mark-chips mark-warning width-100 height-100',
+					'mark_modify_class' => 'mark-tags mark-warning width-100 height-100 zsdljkfsjfklsj',
 					'mark_text' 		=> 'u',
 					'mark_title'		=> '',
 				)
-			),		
+			),
+			
+			'payment_method_form' => array(
+				'is_title'  		=> 'Ödəniş üsulu',
+				'modify_class'		=> 'th_w300',
+				'td_class' 			=> '',
+				'link_class' 		=> 'stock-link-text-both res-payment-method-title',
+				'data_sort' 		=> '',
+				'mark'				=> array(
+					'mark_modify_class' => '',
+					'mark_text' 		=> '',
+					'mark_title'		=> '',
+				)
+			),			
 			
 			'report_sales_man' => array(
 				'is_title' 			=> 'Satici',
@@ -765,7 +792,7 @@ function get_th_list() {
 				'data_sort' 		=> '',
 				'mark_is_title'		=> true,
 				'mark'				=> array(
-					'mark_modify_class' => 'mark mark-chips mark-primary width-100 height-100',
+					'mark_modify_class' => 'mark mark-tags mark-primary width-100 height-100',
 					'mark_text' 		=> 'u',
 					'mark_title'		=> '',
 				)
@@ -1482,4 +1509,114 @@ function get_warehouse_list() {
 			'sort_by' => ' GROUP BY custom_data_id DESC ORDER BY custom_data_id DESC '
 		]
 	]);
+}
+
+function get_payment_method_list() {
+	return ls_db_request([
+		'table_name' => 'payment_method_list',
+		'col_list' => 'id AS custom_data_id, title AS custom_value, visible, tags_id ',
+		'base_query' => ' WHERE visible = 0 ',
+		'param' => [
+			'sort_by' => '  ORDER BY freeze DESC, id '
+		]
+	]);
+}
+
+// ls_var_dump(get_tags_list(true));
+
+function get_tags_list($user_payment_list, $default_tags = null) {
+	$default_data = [
+		[
+			'tags_id' => 'success',
+			'class_list' => 'mark mark-tags mark-success-fill width-100 height-100',
+		],
+		[
+			'tags_id' => 'success-light',
+			'class_list' => 'mark mark-tags mark-success width-100 height-100',
+		],
+		[
+			'tags_id' => 'danger',
+			'class_list' => 'mark mark-tags mark-danger-fill width-100 height-100'
+		],
+		[
+			'tags_id' => 'danger-light',
+			'class_list' => 'mark mark-tags mark-danger width-100 height-100'
+		],		
+		[
+			'tags_id' => 'rose',
+			'class_list' => 'mark mark mark-tags mark-rose width-100 height-100'
+		],		
+		[
+			'tags_id' => 'warning', 
+			'class_list' => 'mark mark-tags mark-warning width-100 height-100'
+		],
+		[
+			'tags_id' => 'primary',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+			'class_list' => 'mark mark-tags mark-primary width-100 height-100'
+		],
+		[
+			'tags_id' => 'black',
+			'class_list' => 'mark mark-tags mark-black-fill width-100 height-100'
+		],
+		[
+			'tags_id' => 'blue',
+			'class_list' => 'mark mark-tags mark-blue-fill width-100 height-100'
+		],
+		[
+			'tags_id' => 'gray',
+			'class_list' => 'mark mark-tags mark-gray width-100 height-100'
+		]
+	];
+	
+	$data_arr = get_payment_method_list();
+	
+	// если нужно вывести только добавленные в базу теги способы оплаты 
+	if(!empty($user_payment_list) && empty($default_tags)) {
+
+		$result = array_reduce($data_arr, function($carry, $item) use ($default_data) {
+			foreach($default_data as $default_key => $default_val) {
+				if($item['tags_id'] == $default_val['tags_id']) {
+					$carry[] = array_merge($item, $default_data[$default_key]);
+				} 	
+			}
+			
+			return $carry;
+		}, []);
+
+		return $result;
+	}
+
+
+	// если нужно вывести определенны тег (способ оплаты)
+	if(!empty($default_tags)) {
+		$default_tags_data = [];
+
+		if($user_payment_list) {
+			$default_tags_data = $data_arr;
+		} else {
+			$default_tags_data = $default_data;
+		}
+
+		return array_reduce($default_tags_data, function($carry, $item) use ($default_tags) { 
+				if($item['tags_id'] == $default_tags) {
+					$carry = $item;
+				}
+
+
+				if(!empty($carry)) {
+					return $carry;
+				}
+
+				// если такого тега не найдено
+				return [
+					'tags_id' => 'gray',
+					'class_list' => ' mark-tags mark-default width-100 height-100'
+				];
+		}, []);
+		
+
+	}
+
+	// если нужно вывести только теги 
+	return $default_data;
 }

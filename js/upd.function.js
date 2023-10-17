@@ -113,6 +113,10 @@ $(document).ready(function(){
 
         case 'edit_warehouse_name': 
           $this.find('.res-warehouse-name').find('.stock-list-title').html(value);
+          break;
+        case 'edit_payment_method_name':
+          $this.find('.res-payment-method-title').find('.stock-list-title').html(value);
+          break;  
       }
 
 
@@ -639,7 +643,7 @@ $(document).on('click', '.filter-check', function(){
 function ui_prepare_filter() {
   var filter_list = get_checked_filter();
   display_filter_checked_count(filter_list);
-  ui_display_filter_chips(filter_list);  
+  ui_display_filter_tags(filter_list);  
 }
 
 //получем массив всех активных фильтров на странице
@@ -669,7 +673,7 @@ function display_filter_checked_count(filter_list) {
   $('.filter-container').find('.filter-count').html(filter_list.length);
 }
 
-function ui_display_filter_chips(list) {
+function ui_display_filter_tags(list) {
   var filt_arr = [];
 
   $parent = $('.checked-filter-list');
@@ -692,7 +696,7 @@ function ui_display_filter_chips(list) {
       $parent.append(`
         <div  class="checked-mark-item " data-rel-filter-id="${el.filter_type}" > 
           <div class="checked-mark-title">${el.filter_name}</div> 
-          <div class="chips-list">
+          <div class="tags-list">
           
           </div> 
         </div>
@@ -701,9 +705,9 @@ function ui_display_filter_chips(list) {
 
 
     $this = $parent.find(`.checked-mark-item[data-rel-filter-id="${el.filter_type}"]`);
-    if($this.find('.chips-list').find(`.checked-chips[data-filter-chip-id="${el.filter_id}"]`).length === 0) {
-      $this.find('.chips-list').append(`
-       <a class="checked-chips remove_checked_filter" data-filter-chip-id="${el.filter_id}" href="javascript:void(0)">
+    if($this.find('.tags-list').find(`.checked-tags[data-filter-chip-id="${el.filter_id}"]`).length === 0) {
+      $this.find('.tags-list').append(`
+       <a class="checked-tags remove_checked_filter" data-filter-chip-id="${el.filter_id}" href="javascript:void(0)">
           <span class="checked-mark-value">${el.value} ${el.mark}</span>
           <span class="remove-checked-icon flex-cntr">
             <i class="las la-times"></i>
@@ -1088,3 +1092,19 @@ function advanced_table_filter(type, fn, dl) {
 function remove_modal() {
   $('.modal').remove();
 }
+
+
+$(document).on('click', '.change-button-tags', function() {
+	let new_class_list = $(this).data('class-list').trim();
+
+	let old_class_list = $(this).closest('.fields').find('.button-tags').attr('data-old-class').trim();
+
+	$(this).closest('.fields').find('.button-tags').removeClass(old_class_list).addClass(new_class_list).attr('data-old-class', new_class_list);
+
+
+  if($(this).closest('.fields').find('.button-tags').hasClass('change-button-tags-value')) {
+      let val = $(this).attr('value');
+
+    $(this).closest('.fields').find('.button-tags').html(val)
+  }
+});

@@ -1,0 +1,76 @@
+{% set custom_arr = [{}] %}
+
+
+{% for key, val in data.list %}
+
+    {% set custom_arr = custom_arr|merge({(loop.index0) : {
+        title: 'Rəng seçin',
+        data_id: val.tags_id,
+        value: val.tags_id,
+        class_list: val.class_list
+    }})
+    
+     %}
+
+{% endfor %}
+ 
+    {% set tags_config = {
+        label: 'Rəng',
+
+        fields: {
+            class_list: 'form-fields'
+        },
+
+        container: {
+            class_list: 'container'
+        },
+        input: {
+            class_list: ' mark-tags width-100 height-100 button-tags  input-validate-length input-required',
+            attribute: {
+                'data-old-class': 'mark-tags width-100 height-100'
+            },
+            value: 'Fiş'
+        },
+        hidden_input: {
+            class_list: 'create-payment-method-input edited',
+            attribute: {
+                'data-fields-name': 'create_payment_method_tags_id',
+                value: data.list|keys|last   
+            }
+        },
+
+        list: {
+            container: {
+                class_list: 'unset-max-width'
+            },            
+            item: {
+                class_list: 'change-button-tags',
+                attribute: {
+                }
+            },
+            
+            data: custom_arr,
+        }
+    }
+    %} 
+
+
+<div class="stock-from-container">
+    <span class="sub-title stock-from-title flex">Ödəniş üsulu əlavə edin</span>
+
+    <div class="filter-form-content">
+
+        <div class="fields form-fields">
+            <span class="fields-label">Ödəniş üsulu</span>
+           <input type="text" class="input edit form-input input-validate-length input-required create-payment-method-input" placeholder="..." data-fields-name="create_payment_method_name">
+        </div>
+
+        {% include '/component/parts/select-tags.twig' with tags_config %}
+     
+
+        <div class="fields form-fields width-100">
+            <button class="btn btn-success add-payment-method">Göndər</button>
+        </div>
+
+    </div>
+</div>

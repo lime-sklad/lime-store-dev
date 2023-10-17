@@ -1,0 +1,56 @@
+{%  set default_arr = [{}] %}
+{% set custom_arr = [{}] %}
+
+{% for k, val in row.custom_data %}
+
+    {% set custom_arr = custom_arr|merge({(loop.index0) : {
+        title: 'Rəng seçin',
+        class_list:  val.class_list,
+        data_id: val.tags_id,
+        value: val.tags_id,
+    }}) %} 
+
+
+    {% if val.tags_id == row.value %}
+        {% set default_arr = default_arr|merge({'default': val}) %}
+    {% endif %}
+
+{% endfor %}
+
+    {% set tags_config = {
+        label: 'Rəngini dəyişmək',
+        container: {
+            class_list: 'container'
+        },
+        input: {
+            class_list: default_arr.default.class_list ~ ' button-tags ',
+            attribute: {
+                'data-old-class': default_arr.default.class_list,
+            },
+            value: 'Ödəniş üsulu'
+        },
+        hidden_input: {
+            class_list: 'edit-payment-method-info',
+            attribute: {
+                'data-fields-name': 'change_payment_method_tags_id',
+                'data-old-id': '',
+            }
+        },
+
+        list: {
+            container: {
+                class_list: ''
+            },
+
+            item: {
+                class_list: 'change-button-tags ',
+                attribute: {}
+            },
+            
+            data: custom_arr,
+        }
+    }%}
+
+
+{% include '/component/parts/select-tags.twig' with tags_config   %}
+

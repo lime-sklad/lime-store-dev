@@ -1,0 +1,104 @@
+    {# 
+    
+        title: '  .',
+        class_list:  val.class_list,
+        data_id: val.tags_id,
+        value: val.tags_id,
+
+
+
+    {% set tags_config = {
+        label: 'Заголовок',
+
+        fields: {
+            class_list: ''
+        },
+
+        container: {
+            class_list: 'container'
+        },
+        input: {
+            class_list: row.custom_data[row.value] ~ ' button-tags ',
+            attribute: {
+                'data-old-class': row.custom_data[row.value],
+            },
+            value: 'BUTTON'
+        },
+        hidden_input: {
+            class_list: '',
+            attribute: {
+                'data-fields-name': 'fdsfds',
+                'data-old-id': '',
+                
+            }
+        },
+
+        list: {
+            container: {
+                class_list: ''
+            },
+            item: {
+                class_list: 'change-button-tags',
+                attribute: {
+                }
+            },
+            
+            data: row.custom_data,
+        }
+    }
+    %} 
+    
+    
+    #}
+
+
+<div class="fields {{tags_config.fields.class_list}}">
+    <span class="fields-label">{{tags_config.label}}</span>
+    
+        <div class="area-container width-100 input-dropdown-parent {{tags_config.container.class_list}}">
+
+            {# .tags-active-button - добавить этот класс если нужно менять цвет кнопки на цвет выбраной   #}
+            {#  search-action  scroll-auto  mark-tags mark-danger-fill width-100 height-100 #}
+            <button type="button" class="btn area-button scroll-auto edit input-dropdown {{tags_config.input.class_list}}" 
+            
+            {% if tags_config.input.attribute %}
+                {% for attr_name, attr_value in tags_config.input.attribute %}
+                    {{attr_name}} = "{{attr_value}}"
+                {% endfor %}
+            {% endif %} 
+            
+            >{{tags_config.input.value}}</button>
+
+            <div class="area-content widget__content search-content input-dropdown-auto-list-parent animate__animated animate__lsFadeIn25 animate__faster">
+                <div class="flex flex-wrap  ls-custom-scrollbar select-list select-saerch-list search-list-content input-dropdown-auto-ul {{tags_config.list.container.class_list}}">
+                    {% for value, rows in tags_config.list.data %}
+                    <div class="select-item">
+                        <a href="javascript:void(0)" class="selectable-search-item area-closeable select-hidden-fields-input input-dropdown-auto-list-li {{tags_config.list.item.class_list}} {{rows.class_list}}" data-class-list="{{rows.class_list}}"
+                                    
+                                    data-id="{{rows.data_id}}"
+                                    value="{{rows.title}}"
+
+                                    {% if tags_config.list.item.attribute %}
+                                        {% for attr_name, attr_value in tags_config.list.item.attribute %}
+                                            {{attr_name}} = "{{attr_value}}"
+                                        {% endfor %}
+                                    {% endif %}  >
+
+
+                        <span class="widget__button-text">{{rows.title}}</span>
+                        </a>
+                    </div>  
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" class="hidden_input hidden-fields-input edit {{tags_config.hidden_input.class_list}}"
+            {% if tags_config.hidden_input.attribute %}
+                {% for attr_name, attr_value in tags_config.hidden_input.attribute %}
+                    {{attr_name}} = "{{attr_value}}"
+                {% endfor %}
+            {% endif %}   
+        />    
+
+</div>

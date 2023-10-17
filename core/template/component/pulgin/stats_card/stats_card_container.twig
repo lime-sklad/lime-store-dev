@@ -6,13 +6,21 @@
 <script defer>
         var date = $('.report-date-picker').val();
 
-        load_stats_card(date);
-        
 
-        $('body').on('click', '.report-date-picker-item--cards-load', function(){
-            var pick_date = $(this).data('sort-value');
-            load_stats_card(pick_date);
-        });
+        if(!$('.report-date-picker-item--cards-load').hasClass('clicked')) {
+            load_stats_card(date);
+        }
+    
+            $('body').on('click', '.report-date-picker-item--cards-load', function() {            
+                if(!$(this).hasClass('clicked')) {
+                    
+                    $(this).addClass('clicked');
+
+                    var pick_date = $(this).data('sort-value');
+                    load_stats_card(pick_date);
+                }
+            });
+
     
 
     function load_stats_card(date = null) {
@@ -36,6 +44,8 @@
             },            
             success: (data) => {
                 $('.stats-card-list').html(data.report_cards);
+
+                $('.report-date-picker-item--cards-load').removeClass('clicked');
             }
         });
     }

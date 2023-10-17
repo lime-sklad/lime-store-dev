@@ -20,6 +20,7 @@ function init_controller($page) {
 		'write_off_report'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/write-off-products/write-off-report/write-off-report.controller.php',
         'admin'         	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/admin/admin.controller.php',
         'create_warehouse'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/warehouse/create-warehouse.controller.php',
+        'payment_method_form'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/payment_method_form/payment-method-form.controller.php',
 	];
 
     

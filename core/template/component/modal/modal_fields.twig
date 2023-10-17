@@ -128,6 +128,17 @@
     {% include fields_path ~ 'report/report_order_note_fields.twig' %}
 {% endif %}
 
+{% if row.block_name == 'report_change_tags' %}
+    {% include fields_path ~ 'report/report_change_tags.twig' %}
+{% endif %}
+
+{% if row.block_name == 'save_report_change' %}
+    {% include fields_path ~ 'report/save_report_change.twig' %}
+{% endif %}
+
+
+
+
 
 {# admin #}
 {% if row.block_name == 'seller_id' %}
@@ -245,7 +256,7 @@
 {% endif %}
 
 {% if row.block_name == 'edit_append_new_category' %}
-    {% include '/component/modal/fields/edit/category/edit_append_new_category.twig' %}
+    {% include fields_path ~ 'edit/category/edit_append_new_category.twig' %}
 {% endif %}
 
 
@@ -258,7 +269,7 @@
 {% endif %}
 
 {% if row.block_name == 'edit_append_new_provider' %}
-    {% include '/component/modal/fields/edit/provider/edit_append_new_provider.twig' %}
+    {% include fields_path ~ 'edit/provider/edit_append_new_provider.twig' %}
 {% endif %}
 
 
@@ -280,15 +291,40 @@
 
 
 {% if row.block_name == 'edit_warehouse_name' %}
-    {% include '/component/modal/fields/warehouse/edit-warehouse-name.twig' %}
+    {% include fields_path ~ 'warehouse/edit-warehouse-name.twig' %}
 {% endif %}
 
 
 {% if row.block_name == 'save_warehouse_edited' %}
-    {% include '/component/modal/fields/warehouse/save-warehouse-edited.twig' %}
+    {% include fields_path ~ 'warehouse/save-warehouse-edited.twig' %}
 {% endif %}
 
 
 {% if row.block_name == 'delete_warehouse' %}
-    {% include '/component/modal/fields/warehouse/delete-warehouse.twig' %}
+    {% include fields_path ~ 'warehouse/delete-warehouse.twig' %}
 {% endif %}
+
+
+
+{% if row.block_name == 'edit_payment_method_name' %}
+    {% include fields_path ~ 'payment_method/edit_payment_method_name.twig' %}
+{% endif %}
+
+{% if row.block_name == 'save_payment_method_info' %}
+    {% include fields_path ~ 'payment_method/save_payment_method_info.twig' %}
+{% endif %}
+
+{% if row.block_name == 'modal_payment_method_id' %}
+    {% include fields_path ~ 'payment_method/payment_method_id.twig' %}
+{% endif %}
+
+{% if row.block_name == 'edit_payment_method_tags' %}
+    {% include fields_path ~ 'payment_method/edit_payment_method_tags.twig' %}
+{% endif %}
+
+{% if row.block_name == 'modal_delete_payment_method' %}
+    {% include fields_path ~ 'payment_method/delete_payment_method.twig' %}
+{% endif %}
+
+
+

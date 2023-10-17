@@ -29,7 +29,8 @@ return [
         'param' => array(
             'query' => array(
                 'param' =>  " AND stock_order_report.stock_id = stock_list.stock_id
-                              AND stock_order_report.order_stock_count > 0 ",
+                              AND stock_order_report.order_stock_count > 0 
+                              ",
                 "joins" => "  
                 
                                 LEFT JOIN products_provider_list ON products_provider_list.id_from_stock = stock_list.stock_id
@@ -41,7 +42,8 @@ return [
                                 LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id 
 
                                 LEFT JOIN user_control as sales_manager ON sales_manager.user_id = stock_order_report.sales_man
-
+   
+                                LEFT JOIN payment_method_list ON payment_method_list.id = stock_order_report.payment_method                                  
                               ",		
                 'bindList' => array(
                 )
@@ -54,20 +56,20 @@ return [
     'page_data_list' => [
         'sort_key' => 'order_stock_id',
         'get_data' => [
-            'report_order_id'	=> 'order_stock_id',
+            'report_order_id'	    => 'order_stock_id',
             // 'sales_time'        => 'sales_time',
-            'sales_date'  		=> 'order_date',
-            'name'			 	=> 'stock_name',
-            'description'		=> 'stock_phone_imei',
-            'category'			=> 'product_category_list',
-            'provider'			=> 'product_provider_list',
-            'report_note'		=> 'order_who_buy',
-            'first_price'		=> 'stock_first_price',
-            'second_price'		=> 'order_stock_sprice',
+            'sales_date'  		    => 'order_date',
+            'name'			 	    => 'stock_name',
+            'description'		    => 'stock_phone_imei',
+            'category'			    => 'product_category_list',
+            'provider'			    => 'product_provider_list',
+            'report_note'		    => 'order_who_buy',
+            'first_price'		    => 'stock_first_price',
+            'second_price'		    => 'order_stock_sprice',
             'report_barcode'		=> 'barcode_value',
-            'count'				=> 'order_stock_count',
-            'report_total_amount' => 'order_stock_total_price',
-            'report_profit'		=> 'order_total_profit',
+            'count'				    => 'order_stock_count',
+            'report_total_amount'   => 'order_stock_total_price',
+            'report_profit'		    => 'order_total_profit',
             'report_order_date'		=> 'order_my_date',
             'payment_method'        => 'payment_method',
             'report_sales_man'      => 'user_name',
@@ -113,8 +115,18 @@ return [
                     'custom_data' => false,
                     'premission' => true
                 ],
+                'report_change_tags' => [
+                    'db' => 'id',
+                    'custom_data' =>  get_tags_list(true),
+                    'premission' => true
+                ],
                 'report_order_note' => [
                     'db' => 'order_who_buy',
+                    'custom_data' => false,
+                    'premission' => true
+                ],
+                'save_report_change' => [
+                    'db' => false,
                     'custom_data' => false,
                     'premission' => true
                 ],

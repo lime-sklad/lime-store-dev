@@ -1,6 +1,29 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/core/function/db.wrapper.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/core/function/user.function.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/core/function/db.dump.php';
+
+
+$backup_settings = ls_db_request([
+    'table_name' => 'function_settting',
+    'col_list' => '*',
+    'base_query' => ' WHERE sett_name = :name ',
+    'param' => [
+        'query' => [
+
+            'bindList' => [
+                ':name' => 'telegram_backup'
+            ]
+        ],
+    ]
+]);
+
+$is_backup = $backup_settings[0]['sett_on'];
+
+if(!$is_backup) {
+    return;
+}
+
 
 $db_dump_config = db_dump_config();
     make_db_dump();

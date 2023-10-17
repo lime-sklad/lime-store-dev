@@ -8,7 +8,7 @@
 
 
 {% block info_product  %}
-<h3 class="modal-title">Məlumat</h3>
+<span class="modal-title">Məlumat</span>
 <div class="module_order_wrp ls-custom-scrollbar">
 	<div class="modal_order_form" data-order-id="{{res.get.id}}">
 		{% include '/component/modal/include_fields.twig' %}
@@ -18,7 +18,7 @@
 
 
 {% block report_return %}
-<h3 class="modal-title">Məlumat</h3>
+<span class="modal-title">Məlumat</span>
 <div class="module_order_wrp ls-custom-scrollbar">
 	<div class="modal_order_form" data-order-id="{{res.get.id}}">
 		{% include '/component/modal/include_fields.twig' %}
@@ -27,7 +27,7 @@
 {% endblock %}
 
 {% block edit_product %}
-<h3 class="modal-title">Redaktə et</h3>
+<span class="modal-title">Redaktə et</span>
 <div class="module_order_wrp ls-custom-scrollbar">
 	<div class="modal_order_form" data-order-id="{{res.get.id}}">
 		{% include '/component/modal/include_fields.twig' %}
@@ -37,7 +37,7 @@
 
 {# admin #}
 {% block edit_user %}
-<h3 class="modal-title">Redaktə et</h3>
+<span class="modal-title">Redaktə et</span>
 <div class="module_order_wrp ls-custom-scrollbar">
 	<div class="modal_order_form" data-order-id="{{res.get.id}}">
 		{% include '/component/modal/include_fields.twig' %}
@@ -47,7 +47,7 @@
 
 {# category #}
 {% block edit_modal %}
-<h3 class="modal-title">Redaktə et</h3>
+<span class="modal-title">Redaktə et</span>
 <div class="module_order_wrp ls-custom-scrollbar">
 	<div class="modal_order_form" data-order-id="{{res.get.id}}">
 		{% include '/component/modal/include_fields.twig' %}

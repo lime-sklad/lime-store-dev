@@ -989,11 +989,11 @@ i {
     height: 21px;
 }
 
-.chips-list {
+.tags-list {
     display: flex;
 }
 
-.checked-chips {
+.checked-tags {
     display: flex;
     background: var(--gray_100);
     border-radius: 19px;
@@ -1003,7 +1003,7 @@ i {
     width: max-content;
 }
 
-.checked-chips:hover {
+.checked-tags:hover {
     background: var(--blue_100);
 }
 
@@ -1354,10 +1354,11 @@ i {
     align-items: center;
     justify-content: center;
     box-shadow: var(--shadow_bottom) var(--gray_150);
-    color: #000000;
-    font-weight: 500;
+    color: #2e2e2e;
+    font-weight: 600;
     background: #fff;
     z-index: 10;
+    font-family: var(--font_montserrat);
 }
 
 .module_order_wrp {

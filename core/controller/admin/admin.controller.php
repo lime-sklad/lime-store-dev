@@ -15,6 +15,7 @@ return [
             'list' => [
                 'tab_admin',
                 'tab_create_warehouse',
+                'tab_payment_method_manage',
                 'tab_category_form',
                 'tab_provider_form',
                 'tab_filter_form',

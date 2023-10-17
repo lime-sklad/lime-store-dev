@@ -27,6 +27,9 @@
 					'user_list' => $user_list,
 					'current_user' => $get_session_user
 				],
+				'payment_method' => [
+					'list' => get_payment_method_list()
+				],	
 				'page' => $page,
 				'type' => 'phone',
 				'attribute' => [
