@@ -3,6 +3,13 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
 
 header('Content-type', 'Application/json');
 
+$report = new \core\classes\report;
+
+var_dump($report->edit($_POST));
+
+
+
+exit;
 $option = [
     'before' => ' UPDATE stock_order_report SET ',
     'after' => ' WHERE order_stock_id = :report_id  ',

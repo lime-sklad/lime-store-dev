@@ -485,13 +485,7 @@ i {
     animation-duration: .6s;
 }
 
-.content_container {
-    position: relative;
-    padding: 25px;
-    border-radius: 9px;
-    background: #fff;
-    box-shadow: var(--shadow_border) var(--gray_100), var(--shadow_bottom) var(--gray_400);
-}
+
 
 .menu-content {
     height: fit-content;
@@ -1716,13 +1710,16 @@ i {
 }
 
 .stats-item {
-    margin: 0 20px;
+    margin: 0 10px;
     display: flex;
-    height: 110px;
+    height: 116px;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: var(--shadow_border) var(--gray_250), var(--shadow_top) var(--gray_300), var(--shadow_bottom) var(--gray_500);
-    min-width: 275px;
+    box-shadow: 8px 6px 0px var(--gray_100), var(--shadow_border) var(--gray_150), var(--shadow_top) var(--gray_50);
+    min-width: 269px;
+    /* padding: 11px; */
+    align-items: center;
+    flex: auto;
 }
 
 .stats-card-list {
@@ -1737,8 +1734,11 @@ i {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 77px;
-    height: 100%;
+    width: 68px;
+    height: auto;
+    padding: 10px;
+    border-radius: 50%;
+    margin-right: 15px;
 }
 
 .stats-item:nth-child(1) .stats-item-icon {
@@ -1762,8 +1762,8 @@ i {
 }
 
 .stats-item-icon > svg {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
 }
 
 .stats-item-icon > svg > path {
@@ -1772,32 +1772,33 @@ i {
 
 .stats-content {
     flex: auto;
-    display: flex;
-    flex-direction: column;
+    /* margin-right: 15px; */
+    height: 100%;
+    padding: 11px;
 }
 
 .stats-title {
     display: block;
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
+    width: max-content;
+    font-size: 11px;
     text-transform: uppercase;
     font-weight: 600;
     font-family: var(--font_montserrat);
-    padding: 10px 0;
-    box-shadow: var(--shadow_bottom) var(--gray_200);
+    padding: 3px 8px;
+    border-radius: 6px;
 }
 
 .stats-value {
     display: flex;
     width: 100%;
-    height: 100%;
     align-items: center;
-    justify-content: center;
-    font-size: 36px;
-    font-weight: 400;
-    font-family: var(--font_montserrat);
+    /* justify-content: center; */
+    font-size: 45px;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
     color: #222;
+    /* padding: 6px 10px; */
+    height: calc(100% - 25px);
 }
 
 .update-text-item {
@@ -1953,8 +1954,8 @@ i {
 
 .barcode-edit-modal {
     z-index: 800;
-    margin: 10% auto;
-    border-radius: 15px;
+    margin: 5% auto;
+    border-radius: 9px;
     max-width: 700px;
 }
 

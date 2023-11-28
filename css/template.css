@@ -464,6 +464,15 @@ height: 37px;
     width: 20px;
     height: 20px;
 }
+
+.mrgn-top-10 {
+    margin-top: 10px !important;
+}
+
+.mrgn-bottom-10 {
+    margin-bottom: 20px !important;
+}
+
 .mrgn-bottom-20 {
     margin-bottom: 20px !important;
 }
@@ -1165,3 +1174,20 @@ tbody:before {
   } 
    */
   
+
+
+.content_container {
+    position: relative;
+    padding: 25px;
+    border-radius: 9px;
+    background: #fff;
+    box-shadow: var(--shadow_border) var(--gray_100), var(--shadow_bottom) var(--gray_400);
+}
+
+.component_container {
+    position: relative;
+    padding: 10px;
+    border-radius: 9px;
+    background: #fff;
+    box-shadow: var(--shadow_border) var(--gray_100), var(--shadow_bottom) var(--gray_400);
+}

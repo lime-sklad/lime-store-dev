@@ -1078,6 +1078,26 @@ $(document).on('click', '.add-submit-rasxod', function() {
 });
 
 
+
+// загрузить баркоды товара
+$(document).on('click', '.report-return-btn-modal', function() {
+	var data = $(this).data('value');
+
+	remove_modal();
+
+	$.ajax({
+		type: 'POST',
+		url: 'core/action/report/refaund_modal.php',
+		data: {data: data},
+		dataType: 'json',
+		success: (data) => {
+			$('.container').append(data.res);
+		}
+	});
+});
+
+
+
 // сохранить баркод
 $(document).on('click', '.save-edit-stock-barcode', function() {
 	var data = $(this).data('id');

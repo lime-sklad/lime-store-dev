@@ -1,10 +1,8 @@
 <?php 
-
 // require_once $_SERVER['DOCUMENT_ROOT'].'/core/template/tpl_function.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
 
 $template = $twig->load('/component/modal/modal_view.twig');
-
 
 if(isset($_POST['product_id'], $_POST['type'], $_POST['page'])) {
 	//массив в который будем заносить данные товара

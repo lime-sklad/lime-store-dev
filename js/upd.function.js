@@ -1108,3 +1108,36 @@ $(document).on('click', '.change-button-tags', function() {
     $(this).closest('.fields').find('.button-tags').html(val)
   }
 });
+
+
+// let maxVal = 250;
+// let data = [
+//   {
+//     title: 'Telefon Satisi',
+//     value: 2580
+//   },
+//   {
+//     title: 'USB',
+//     value: 576
+//   },
+//   {
+//     title: 'basliq',
+//     value: 185 
+//   }
+// ];
+
+// let values = data.map(item => item.value);
+
+// // Используйте метод Math.max() для нахождения максимального значения
+// maxVal += Math.max(...values);
+
+// console.log(maxVal);
+// data.forEach((element) => {
+//  $('.bar-list').append(`
+//     <div class="bar-container">
+//       <div class="bar" style="height: ${element.value / maxVal * 100}%"> ${element.value}</div>
+//       <div>${element.title}</div>
+//     </div>
+//       `)	
+
+// });

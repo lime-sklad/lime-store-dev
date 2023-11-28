@@ -168,6 +168,7 @@ function page_tab_list() {
 	// return array_map(function($post) { return $post['tab']; }, page_data(false));
 
 	$page_data = init_controller(false);
+
 	$res = [];
 	foreach ($page_data as $key => $value) {
 		if($value['tab']['is_main']) {
@@ -1620,3 +1621,4 @@ function get_tags_list($user_payment_list, $default_tags = null) {
 	// если нужно вывести только теги 
 	return $default_data;
 }
+

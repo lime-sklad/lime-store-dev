@@ -132,6 +132,11 @@
     {% include fields_path ~ 'report/report_change_tags.twig' %}
 {% endif %}
 
+
+{% if row.block_name == 'report_edit_order_count' %}
+    {% include fields_path ~ 'report/report_edit_order_count.twig' %}
+{% endif %}
+
 {% if row.block_name == 'save_report_change' %}
     {% include fields_path ~ 'report/save_report_change.twig' %}
 {% endif %}

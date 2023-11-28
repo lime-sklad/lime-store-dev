@@ -1,7 +1,6 @@
 <?php
 
 
-
 //получем активный фильтр 
 function get_active_filters($prefix, $id) {
 	global $dbpdo;
@@ -9,34 +8,48 @@ function get_active_filters($prefix, $id) {
 	$array = [];
 
 	$data = ls_db_request([
-		'table_name' => 'filter',
+		'table_name' => 'user_control',
 		'col_list' => '*',
 		'param' => [
 			'query' => [
-				'param' => "INNER JOIN stock_filter ON stock_filter.stock_id = :id
-							INNER JOIN filter_list ON filter_list.filter_list_prefix = :prefix
+				'param' => "
 
-							WHERE filter.filter_type = filter_list.filter_list_id AND filter.filter_id = stock_filter.active_filter_id
-							",
+					INNER JOIN stock_filter ON stock_filter.stock_id = :id
+					left JOIN filter ON filter.filter_id = stock_filter.active_filter_id
+
+
+					GROUP BY stock_filter.active_filter_id	 
+				",
 				'bindList' => [
 					':id' => $id,
-					':prefix' => $prefix
+					// ':prefix' => $prefix
 				],
 			]
 		]
 	], PDO::FETCH_ASSOC);
 
-	if(count($data) > 0) {
-		$row = $data[0];
 
-		$active_filter_id = $row['filter_id']; 
-		$active_filter_val = $row['filter_value']; 
-		$active = 'actived';
-		$array = ['res' => $active, 'filter_id' => $active_filter_id, 'filter_val' => $active_filter_val];		
+
+
+	if(count($data) > 0) {
+
+		foreach($data as $key => $row) {
+			// $row = $data[0];
+
+			if($row['filter_type'] == $prefix) {
+				$active_filter_id = $row['filter_id']; 
+				$active_filter_val = $row['filter_value']; 
+				$active = 'actived';
+				$array = ['res' => $active, 'filter_id' => $active_filter_id, 'filter_val' => $active_filter_val];	
+				
+			}
+		}
+	
 	}
 
 	return $array;
 }
+
 
 
 // ----------------------------------------- upd ------------------------------------------------ //
@@ -113,6 +126,7 @@ function get_all_filter_value_list() {
  */
 function ls_collect_filter(int $id  = null, array $type_list = array()) {
 	$filter_prefix_list = get_all_filter_prefix_list();
+
 	$filter_value_list = get_all_filter_value_list();
 
 	// ls_var_dump($filter_value_list);
@@ -120,13 +134,14 @@ function ls_collect_filter(int $id  = null, array $type_list = array()) {
 	// ну хз что тут, главное работает как мне нужно. Не помню когда и зачем, но работает. 
 	if(!empty($filter_prefix_list)) {
 		foreach ($filter_prefix_list as $key => $prefix_value) {
+
 			$filter_prefix_list[$key] = array_merge([
 				'list' => $filter_value_list[$prefix_value['filter_prefix_id']]
 			], 
 				$filter_prefix_list[$key]
 			);
 	
-			$filter_prefix_list[$key]['active'] = get_active_filters($key, $id);
+			$filter_prefix_list[$key]['active'] = get_active_filters($prefix_value['filter_prefix_id'], $id);
 		}
 	}
 

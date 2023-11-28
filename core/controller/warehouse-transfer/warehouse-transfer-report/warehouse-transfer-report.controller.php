@@ -11,7 +11,7 @@ return [
         'param' => array(
             'query' => array(
                 'param' =>  "  INNER JOIN stock_list ON stock_list.stock_id = transfer_list.stock_id 
-                               LEFT JOIN warehouse_list ON warehouse_list.id = transfer_list.warehouse_id ",
+                               INNER JOIN warehouse_list ON warehouse_list.id = transfer_list.warehouse_id ",
                 'joins' => " ",		
                 'bindList' => array(						
                 )

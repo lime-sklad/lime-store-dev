@@ -40,6 +40,9 @@
 			'/component/pulgin/stats_card/stats_card_container.twig' => [
 				'date_type' => 'date'
 			],
+			'/component/pulgin/charts/report_charts.twig' => [
+				// data
+			],				
 			'/component/related_component/include_widget.twig' => [
 				'/component/widget/report_date_picker.twig' => [
 					'res' => $report_date_list,
@@ -88,7 +91,8 @@
 			],
 			'/component/table/table_footer_wrapper.twig' => [
 				'table_total' => table_footer_result($page_config['table_total_list'], $table_result['base_result'])
-			]
+			],
+		
 		]
 	]);
 

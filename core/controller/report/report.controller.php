@@ -90,7 +90,7 @@ return [
             'order_profit',
             'rasxod',
             'order_margin',
-            'order_count',
+            // 'order_count',
         ],
         'modal' => [
             'template_block' => 'report_return',
@@ -122,6 +122,11 @@ return [
                 ],
                 'report_order_note' => [
                     'db' => 'order_who_buy',
+                    'custom_data' => false,
+                    'premission' => true
+                ],
+                'report_edit_order_count' => [
+                    'db' => 'order_stock_count',
                     'custom_data' => false,
                     'premission' => true
                 ],

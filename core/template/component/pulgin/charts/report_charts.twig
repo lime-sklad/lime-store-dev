@@ -1,0 +1,56 @@
+<div class="component_container mrgn-bottom-50">
+    <canvas id="myChart" height="50"></canvas>
+</div>
+
+
+<script defer>
+        $.ajax({
+            type: 'GET',
+            url: 'core/pulgin/charts/report_month_chart_stats.php',
+            dataType: 'json',
+            beforeSend: function( ){
+                console.log('sd');
+            },
+            complete: function() {
+                console.log('s');
+            },            
+            success: (data) => {
+                var xValues = data.date_list;
+                var yValues = data.sum_list;
+                var barColors = ["red", "green","blue","orange","brown"];
+
+
+                console.log(xValues);
+
+                new Chart("myChart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        data: yValues,
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false,
+                        text: 'dsds'
+                    },
+                    title: {
+                        display: true,
+                        text: "World Wine Production 2018"
+                    },
+                    plugins: {
+                        colors: {
+                            enabled: true,
+                            forceOverride: false
+                        }
+                    }                    
+                }
+                });
+
+
+
+            }
+        });
+    
+</script>

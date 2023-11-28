@@ -25,6 +25,7 @@ function lib_include_list() {
 			'js/dark-theme.js',
             // 'js/network-status.js',
             'lib/xlsx-convert/xlsx.full.min.js',
-         ]
+            'lib/chart/chart.min.js'
+            ]
     ];
 } 
