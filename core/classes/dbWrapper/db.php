@@ -1,7 +1,7 @@
 <?php
 namespace core\classes\dbWrapper;
 
-class db 
+class db extends \core\classes\dbWrapper\dbConfig
 {
     use \core\classes\dbWrapper\traits\select,
         \core\classes\dbWrapper\traits\update,

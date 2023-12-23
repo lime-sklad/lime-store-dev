@@ -125,11 +125,23 @@ return [
                     'custom_data' => false,
                     'premission' => true
                 ],
+
                 'report_edit_order_count' => [
                     'db' => 'order_stock_count',
                     'custom_data' => false,
                     'premission' => true
                 ],
+
+
+                'report_edit_price' => [
+                    'db' => 'order_stock_sprice',
+                    'custom_data' => false,
+                    'premission' => true
+                ],
+
+
+ 
+
                 'save_report_change' => [
                     'db' => false,
                     'custom_data' => false,

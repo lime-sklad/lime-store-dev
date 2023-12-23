@@ -98,6 +98,11 @@ $(document).ready(function(){
           $this.find('.res-rasxod-description').find('.stock-list-title').html(value);
           break;
         
+
+        case 'edit_report_order_note': 
+          $this.find('.res_note').find('.stock-list-title').html(value);
+        break;             
+
         case 'upd_rasxod_amount': 
           $this.find('.res-rasxod-amount').find('.stock-list-title').html(value);
           break; 
@@ -113,7 +118,8 @@ $(document).ready(function(){
 
         case 'edit_warehouse_name': 
           $this.find('.res-warehouse-name').find('.stock-list-title').html(value);
-          break;
+          break;       
+
         case 'edit_payment_method_name':
           $this.find('.res-payment-method-title').find('.stock-list-title').html(value);
           break;  
@@ -137,9 +143,9 @@ $(document).ready(function(){
       $('.body_prelodaer').find('.preloader').removeClass('hide').addClass('flex-cntr'); 
     },
     preloaderHide: function() {
-      setTimeout(function(){
+      setTimeout(function() {
         $('.body_prelodaer').find('.preloader').removeClass('flex-cntr').addClass('hide');
-      }, 40);
+      }, 10);
     },
     rightSideModal: function(data) {
       var $modal_wrp = $('.module_fix_right_side');
@@ -1109,35 +1115,6 @@ $(document).on('click', '.change-button-tags', function() {
   }
 });
 
-
-// let maxVal = 250;
-// let data = [
-//   {
-//     title: 'Telefon Satisi',
-//     value: 2580
-//   },
-//   {
-//     title: 'USB',
-//     value: 576
-//   },
-//   {
-//     title: 'basliq',
-//     value: 185 
-//   }
-// ];
-
-// let values = data.map(item => item.value);
-
-// // Используйте метод Math.max() для нахождения максимального значения
-// maxVal += Math.max(...values);
-
-// console.log(maxVal);
-// data.forEach((element) => {
-//  $('.bar-list').append(`
-//     <div class="bar-container">
-//       <div class="bar" style="height: ${element.value / maxVal * 100}%"> ${element.value}</div>
-//       <div>${element.title}</div>
-//     </div>
-//       `)	
-
-// });
+$(document).on('dblclick', '.stock-list', function() {
+  $(this).find('.info-stock').trigger('click');
+});

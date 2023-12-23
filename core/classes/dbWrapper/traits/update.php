@@ -2,7 +2,8 @@
 
 namespace core\classes\dbWrapper\traits;
 
-trait update {
+trait update 
+{
     /**
      * Первым аргументом передаём массив с настройками запрса: 
      * 	@param option = [
@@ -35,10 +36,8 @@ trait update {
      * 				); 
      *  
      * */	 
-    public function update($option, $data) {
-
-        global $dbpdo;
-
+    public function update($option, $data) 
+    {
         $before 	= $option['before'];
         $after 		= $option['after'];
         $post_list  = $option['post_list'];
@@ -52,7 +51,7 @@ trait update {
                             'error' => 'Заполните все обязательные поля!'
                         ]);
                     }
-                }
+                }            
     
                 if($post_value['query']) {
                     $conditions[] = $post_value['query'];
@@ -60,11 +59,21 @@ trait update {
                 
                 // ужас, я не знаю что делает эта штука и зачем я ее написал
                 if($post_value['bind']) {
-                    $bind_list[$post_value['bind']] = $data[$post_key];
+                    if(is_array($post_value['bind'])) {
+                        foreach ($post_value['bind'] as $k => $v) {
+                            $bind_list[$v] = $data[$post_key];
+                        }
+                    } else {
+                        $bind_list[$post_value['bind']] = $data[$post_key];
+                    }
+
                 }
             }
         }
     
+        // echo "<pre>";
+        // var_dump($bind_list);   
+        // echo "</pre>";    
     
         $query = $before;
         if($conditions) {
@@ -72,9 +81,9 @@ trait update {
             $query .= $conditions;
         }
         $query .= $after;
-        
+            
         try {
-            $update = $dbpdo->prepare($query);
+            $update = $this->dbpdo->prepare($query);
         
             foreach($bind_list as $bind_key => $bind_value) {
                 $update->bindValue($bind_key, $bind_value);

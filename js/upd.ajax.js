@@ -8,6 +8,7 @@ $.ajaxSetup({
 });
 
 
+
 $(document).ready(function() {
 	$.ajax({
 		type: 'POST',
@@ -118,12 +119,12 @@ $(document).on('click', '.download-update', function(){
  * START report 
  * удаление отчёта
  */
-$(document).on('click', '.report-return-btn', function(){
+$(document).on('click', '.report-refaund-btn', function(){
     //id - отячёта
     var report_order_id = $('.report_order_id').data('id');
   
     $.ajax({
-        url: 'core/action/report/delete_report.php',
+        url: 'core/action/report/refaund.php',
         type: 'POST',
         data: {
             report_id: report_order_id
@@ -1662,11 +1663,18 @@ $(document).on('click', '.edit-report-order', function() {
 console.log(prepare)
 
 	$.ajax({
-		url: 'core/action/report/edit_report.php',
+		url: 'core/action/report/edit.php',
 		type: 'POST',
+		dataType: 'json',
 		data: prepare,
 		success: (data) => {
-			console.log(data)
+			if(data.type == 'success') {
+				for (key in prepare) {
+					pageData.update_table_row(key, prepare[key], id);
+				}
+			}
+
+			pageData.alert_notice(data.type, data.text);		
 		}
 	});
 });

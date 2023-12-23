@@ -14,8 +14,7 @@ trait select
      */
     
     public function select(array $query, $pdo_fetch_type = \PDO::FETCH_ASSOC, string $placeholders = 'named')
-     {
-        global $dbpdo;
+    {
 
         $param_row = $query['param'];
 
@@ -40,7 +39,7 @@ trait select
     
         $conditions = array_merge($conditions, $bind_list);
     
-        $stock_view = $dbpdo->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_SCROLL));
+        $stock_view = $this->dbpdo->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_SCROLL));
     
         if($placeholders == 'named') {
             foreach($conditions as $bind_key => $bindValue) {

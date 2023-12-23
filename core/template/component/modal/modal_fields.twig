@@ -133,6 +133,11 @@
 {% endif %}
 
 
+{% if row.block_name == 'report_edit_price' %}
+    {% include fields_path ~ 'report/report_edit_price.twig' %}
+{% endif %}
+
+
 {% if row.block_name == 'report_edit_order_count' %}
     {% include fields_path ~ 'report/report_edit_order_count.twig' %}
 {% endif %}

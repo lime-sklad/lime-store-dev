@@ -19,7 +19,5 @@ $option = [
 	]
 ];
 
-
-// ls_var_dump($_POST);
 echo ls_db_upadte($option, $_POST);
 
