@@ -296,6 +296,7 @@ function is_check_data_premission($data, $value) {
 	}	
 }
 
+// *******
 //проверяем и выводим название таблицы
 function check_th_return_name($th) {
 	global $dbpdo;
@@ -600,7 +601,7 @@ function get_user_access_list($var) {
 
 
 
-
+// ****
 //данные товаров с учетом правилами 
 function query_clear_by_user_access($arr) {
 	$query = $arr['query'];

@@ -1,4 +1,7 @@
 <?php 
+
+$main = new \core\classes\privates\user;
+
 return [
     'tab' => [
         'is_main' => true,
@@ -97,7 +100,7 @@ return [
             'modal_fields' => array(
                 'user' => [
                     'db' 			=> false, 
-                    'custom_data' 	=> getUser('get_id'), 
+                    'custom_data' 	=> $main->getUser('get_id'), 
                     'premission' 	=> true
                 ],
                 'report_order_id' => [
@@ -117,7 +120,7 @@ return [
                 ],
                 'report_change_tags' => [
                     'db' => 'id',
-                    'custom_data' =>  get_tags_list(true),
+                    'custom_data' => [] /* get_tags_list(true) */,
                     'premission' => true
                 ],
                 'report_order_note' => [

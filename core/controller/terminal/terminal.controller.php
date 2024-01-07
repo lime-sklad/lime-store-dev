@@ -1,5 +1,7 @@
 <?php 
 
+$accessManager = new \core\classes\privates\accessManager;
+
 return [
     'tab' => [
         'is_main' => true,
@@ -98,7 +100,7 @@ return [
                 'info_product_first_price' => [
                     'db' => 'stock_first_price',
                     'custom_data' => false,
-                    'premission' => is_data_access_available('th_buy_price')
+                    'premission' => $accessManager->isDataAvailable('th_buy_price')
                 ],
                 'info_product_second_price' => [
                     'db' => 'stock_second_price',

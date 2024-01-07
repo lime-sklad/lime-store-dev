@@ -1,10 +1,13 @@
 <?php
-	$data_page = page_data($page);
+	$data_page = $init->initController($page);
+
+	$user = new \Core\Classes\Privates\User;
 
 	$page_config = $data_page['page_data_list'];
-	$user_list_arr = get_all_user_list();
+	
+	$user_list_arr = $user->getAllUser();
 
-	$get_session_user = getUser();
+	$get_session_user = $user->getUser();
 
 	$user_list = [];
 	// ls_var_dump($user_list);
@@ -28,7 +31,7 @@
 					'current_user' => $get_session_user
 				],
 				'payment_method' => [
-					'list' => get_payment_method_list()
+					'list' => $utils->getPaymentMethodList()
 				],	
 				'page' => $page,
 				'type' => 'phone',

@@ -1,8 +1,15 @@
-<?php 
-require $_SERVER['DOCUMENT_ROOT'].'/db/config.php';
-require $_SERVER['DOCUMENT_ROOT'].'/core/function/db.wrapper.php';
-require $_SERVER['DOCUMENT_ROOT'].'/core/function/user.function.php';
-require $_SERVER['DOCUMENT_ROOT'].'/include/lib_include.php';
+<?php
+
+//deprecated
+// require $_SERVER['DOCUMENT_ROOT'].'/db/config.php';
+// require $_SERVER['DOCUMENT_ROOT'].'/core/function/db.wrapper.php';
+// require $_SERVER['DOCUMENT_ROOT'].'/core/function/user.function.php';
+// require $_SERVER['DOCUMENT_ROOT'].'/include/lib_include.php';
+
+
+require_once 'start.php';
+
+
 
 if(isset($_SESSION['user'])) {
 	require_once $_SERVER['DOCUMENT_ROOT']."/core/main/check_files.php";

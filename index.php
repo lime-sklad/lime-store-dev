@@ -6,16 +6,29 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 
-require_once 'function.php';
-require_once 'vendor/autoload.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/core/function/update.function.php';
+// deprecated
+// require_once 'function.php';
+// require_once 'vendor/autoload.php';
 
-require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
-	
+// пока что уберем 
+// require_once $_SERVER['DOCUMENT_ROOT'].'/core/function/update.function.php';
+// require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
 
 
 
-	// ls_var_dump(license_expired_notify());
+	require_once 'start.php';
+
+
+	if(!isset($_SESSION['user'])) {
+		$login_dir = '/login.php';
+		header("Location: $login_dir");
+		exit();      
+	}
+
+
+	$sysConfig = new \Core\Classes\System\SystemConfig;
+	$updater = new \Core\Classes\System\Updater;
+	$user = new \Core\Classes\Privates\User;
 
 
 	$image_dir = array_diff(scandir('img/pattern/'), array('.', '..'));
@@ -26,7 +39,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
 	echo $twig->render('/component/include_component.twig', [
 		'renderComponent' => [
 			'/component/index/head.twig' => [
-				'lib_list' => lib_include_list(),
+				'lib_list' => $sysConfig->loadAssets(),
 				'v' => time() 
 			],
 			'/component/widget/notice.twig' => [
@@ -45,13 +58,13 @@ require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
 		'renderComponent' => [
 
 			'/component/index/show_current_version.twig' => [
-				'current_version' => get_current_version()
+				'current_version' => $updater->getCurrentVersion()
 			],
 
 			// sidebar
 			'/component/index/sidebar.twig' => [
 				'menu_list' => [
-					'data' => page_tab_list()
+					'data' => $main->getMenuList()
 				],
 			],
 
@@ -64,14 +77,14 @@ require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
 							'includs' => [
 								'renderTopNavComponent' => [
 									'/component/index/top_nav_content/nav_list_options.twig' => [
-										'username' => getUser('get_name'),
+										'username' => $user->getUser('get_name'),
 										// вложеность в шаблоне, рендерим друигие шаблоны
 										'includs' => [
 											'renderUpdateNotify' => [
 												'/component/notify/update/update_notify_item.twig' => [
 													'notify' => [
-														'expired_notify' => license_expired_notify(),
-														'update_notify' => is_check_update()
+														// 'expired_notify' => license_expired_notify(),
+														// 'update_notify' => is_check_update()
 													]
 												]
 											],
@@ -83,7 +96,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
 
 						// menu
 						'/component/main/menu_list.twig' => [
-							'menu' => page_tab_list(),
+							'menu' => $main->getMenuList(),
 							'main_image' => $random_main_background_image
 						],	
 						

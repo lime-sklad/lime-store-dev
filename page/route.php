@@ -1,9 +1,9 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/start.php';
 
     define('root_dir', $_SERVER['DOCUMENT_ROOT']);
 
-    $menu = page_tab_list();
+    $menu = $main->getMenuList();
 
     if(isset($_POST['data_page_route'])) {
         $page = $_POST['data_page_route'];
@@ -15,13 +15,15 @@
 
 
     if(isset($_POST['tab'])) {
+        
         if(isset($_POST['page'])) {
             $page = $_POST['page'];
         }
+
         $get_tab = $_POST['tab'];
         
         
-        $tab = get_tab_data([$get_tab]);
+        $tab = $main->getTabs([$get_tab]);
         
         $tab_this = $tab[$get_tab];
 
@@ -29,7 +31,7 @@
 
         $link = $tab_this['tab_link'];
 
-        if(access_request_uri($link)) {
+        if($accessManager->checkPagePremission($link)) {
             include root_dir.$link;
         }
     }

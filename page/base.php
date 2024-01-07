@@ -7,7 +7,7 @@
     $active = $this_menu['tab']['active'];
     $title = $this_menu['title'];
     
-    $tab_list = get_tab_data($menu_list, $active);
+    $tab_list = $main->getTabs($menu_list, $active);
         
     $tab = $tab_list[$active];
     
@@ -19,8 +19,7 @@
     
     // $tab_this = $tab[$get_tab];
 
-
-
+   
     echo $twig->render('/component/include_component.twig', [
         'renderComponent' => [
             '/component/widget/title.twig' => [

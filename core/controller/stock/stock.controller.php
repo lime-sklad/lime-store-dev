@@ -1,4 +1,8 @@
 <?php 
+
+$accessManager = new \core\classes\privates\accessManager;
+$main = new \core\classes\privates\user;
+
 return [
     'tab' => [
         'is_main' => true,
@@ -71,7 +75,7 @@ return [
             'modal_fields' => array(
                 'user' => [
                     'db' 			=> false, 
-                    'custom_data' 	=> getUser('get_id'), 
+                    'custom_data' 	=> $main->getUser('get_id'), 
                     'premission' 	=> true
                 ],
                 'edit_stock_id' => [
@@ -82,7 +86,7 @@ return [
                 'edit_stock_name' => [
                     'db'			=> 'stock_name', 
                     'custom_data' 	=> false, 
-                    'premission'	=> is_data_access_available('th_prod_name')
+                    'premission'	=> $accessManager->isDataAvailable('th_prod_name')
                 ],
                 'edit_stock_description' => [
                     'db'			=> 'stock_phone_imei', 
@@ -92,7 +96,7 @@ return [
                 'edit_stock_category' => [
                     'db' 			=> 'category_name', 
                     'class_list'	=> 'edit',
-                    'custom_data' 	=> get_category_list(), 
+                    'custom_data' 	=> [] /*get_category_list()*/, 
                     'user_function' => [
                         'function_name' => 'get_products_categorty_list',
                         'function_args' => 'id',
@@ -102,7 +106,7 @@ return [
                 'edit_stock_provider' => [
                     'db' 			=> 'provider_name', 
                     'class_list'	=> 'edit',
-                    'custom_data' 	=> get_provider_list(), 
+                    'custom_data' 	=> [] /*get_provider_list()*/, 
                     'user_function' => [
                         'function_name' => 'get_products_provider_list',
                         'function_args' => 'id',
@@ -127,7 +131,7 @@ return [
                 'edit_stock_first_price' => [
                     'db' 			=> 'stock_first_price',
                     'custom_data' 	=> false,
-                    'premission' 	=> is_data_access_available('th_buy_price')
+                    'premission' 	=> $accessManager->isDataAvailable('th_buy_price')
                 ],
                 'edit_stock_second_price' => [
                     'db' 			=> 'stock_second_price',
@@ -181,11 +185,11 @@ return [
             ],						
             [
                 'block_name' => 'add_stock_provider',
-                'custom_data' => get_provider_list()
+                'custom_data' => [] //get_provider_list()
             ],
             [
                 'block_name' => 'add_stock_category',
-                'custom_data' => get_category_list()
+                'custom_data' => [] //get_category_list()
             ],	
             [
                 'block_name' => 'add_stock_count'

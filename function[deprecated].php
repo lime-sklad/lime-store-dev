@@ -1,6 +1,9 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'].'/db/config.php';
+// deprecated 
+// require $_SERVER['DOCUMENT_ROOT'].'/db/config.php';
+
+
 require $_SERVER['DOCUMENT_ROOT'].'/core/function/db.wrapper.php';
 //upd  
 require $_SERVER['DOCUMENT_ROOT'].'/private.function.php';
@@ -159,7 +162,7 @@ function ls_var_dump($var) {
 }
 
 
-
+// ***
 //получаем массив для меню на главной странице и сайдбаре
 function page_tab_list() {
 	// для версия выше 7.4 return array_map(fn($post) => $post['tab'], page_data(false));
@@ -179,7 +182,7 @@ function page_tab_list() {
 	return $res;
 }
 
-
+// ****
 //тут описываем вкладки и страницы
 function get_tab_data($key = null, $active = null) {
 	$result = [];
@@ -428,10 +431,9 @@ function get_tab_data($key = null, $active = null) {
 	} else {
 		return $tab_arr;
 	}
-	
-
 }
 
+// ***
 // тут адов говно код, который тем не менее работает. Переделать!
 function collect_product_data($stock_list, $page_data_list) {
 	$result 	= [];
@@ -992,6 +994,7 @@ function page_data($page) {
 	return init_controller($page);
 }
 
+// ****
 // в этой функцие описываем какие данные таблицы нужны для определённой категории
 // пример вызова функции
 /**
@@ -1512,6 +1515,7 @@ function get_warehouse_list() {
 	]);
 }
 
+// ***
 function get_payment_method_list() {
 	return ls_db_request([
 		'table_name' => 'payment_method_list',
