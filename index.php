@@ -28,7 +28,6 @@ header("Pragma: no-cache");
 
 	$sysConfig = new \Core\Classes\System\SystemConfig;
 	$updater = new \Core\Classes\System\Updater;
-	$user = new \Core\Classes\Privates\User;
 
 
 	$image_dir = array_diff(scandir('img/pattern/'), array('.', '..'));

@@ -1,16 +1,16 @@
 <?php 
-    require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
 
     // header('Content-type: application/json');
 
+    $data = $_POST['data'];
+
+    
+if(isset($data['items'])) {
+
+    $myPost = $data['items'];
 
 
-if(isset($_POST['items'])) {
-
-    $myPost = $_POST['items'];
-
-
-    switch ($_POST['mode']) {
+    switch ($data['mode']) {
         
         case 'arrivals_products':
             $render_tpl_path = '/component/arrival-products/form/cart-item.twig';

@@ -268,13 +268,17 @@ function send_autocomplete($this) {
 		$this.data('timer', setTimeout(function(){
 			$.ajax({
 				type: 'POST',
-				url: 'core/action/search/autocomplete.php',
+				url: 'ajax_route.php',
 				data: {
-					value: search_data,
-					action: data_name,
-					page: pageData.page(),
-					type: pageData.type(),
-					autocmplt_type: autocmplt_type
+					url: '/core/action/search/autocomplete.php',
+					route: 'autocomplete',
+					data: {
+						value: search_data,
+						action: data_name,
+						page: pageData.page(),
+						type: pageData.type(),
+						autocmplt_type: autocmplt_type
+					}
 				},
 				beforeSend: () => {
 				},

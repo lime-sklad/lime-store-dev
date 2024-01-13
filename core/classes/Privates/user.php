@@ -1,8 +1,8 @@
 <?php 
 
-namespace core\classes\privates;
+namespace Core\Classes\Privates;
 
-class user extends \Core\Classes\dbWrapper\db
+class User extends \Core\Classes\dbWrapper\db
 {
     
     /**

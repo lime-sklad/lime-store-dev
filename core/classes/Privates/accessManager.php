@@ -1,6 +1,6 @@
 <?php 
 
-namespace core\classes\privates;
+namespace Core\Classes\Privates;
 
 
 
@@ -53,9 +53,6 @@ namespace core\classes\privates;
 */
 class accessManager extends user
 {    
-
-
-
 
     // проверка на доступ юзера к таблице
     public function isDataAvailable($data) 

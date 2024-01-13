@@ -1,5 +1,7 @@
 <?php 
-	$data_page = page_data($page);
+	$data_page = $main->initController($page);
+	
+	$productsFilter = new \Core\Classes\Services\ProductsFilter;
 
 	$page_config = $data_page['page_data_list'];
 	
@@ -28,13 +30,13 @@
 	);
 	
 	
-	$table_result = render_data_template($data_page['sql'], $data_page['page_data_list'], PDO::FETCH_ASSOC);
+	$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list'], PDO::FETCH_ASSOC);
 	
 	echo $twig->render('/component/inner_container.twig', [
 		'renderComponent' => [
 			'/component/related_component/include_widget.twig' => [
 				'/component/filter/filter_sort.twig' => [
-					'filter_list' => ls_collect_filter(NULL, [])
+					'filter_list' => $productsFilter->compareProductsFIlter(NULL, [])
 				],
 
 				'/component/search/advanced/advanced_search.twig' => [
@@ -42,10 +44,10 @@
 						'stock_name' => true,
 						'stock_description' => true,
 						'category' => [
-							'row' => ['custom_data' => get_category_list()]
+							'row' => ['custom_data' => $category->getCategoryList()]
 						],
 						'provider' => [
-							'row' => ['custom_data' => get_provider_list()]
+							'row' => ['custom_data' => $provider->getProviderList()]
 						],
 					]
 				],
@@ -94,7 +96,7 @@
 			],
 
 			'/component/table/table_footer_wrapper.twig' => [
-				'table_total' => table_footer_result($page_config['table_total_list'], $table_result['base_result'])
+				'table_total' => $utils->compareTableFooterData($page_config['table_total_list'], $table_result['base_result'])
 			],
 		]
 	]);

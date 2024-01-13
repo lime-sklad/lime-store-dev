@@ -1,12 +1,12 @@
 <?php
 
-namespace core\classes\system;
+namespace Core\Classes\System;
 
-use \core\classes\privates\accessManager;
-use \core\classes\system\utils;
-use \core\classes\dbWrapper\db;
+use \Core\Classes\Privates\AccessManager;
+use \Core\Classes\System\Utils;
+use \Core\Classes\dbWrapper\db;
 
-class main extends \core\classes\system\init 
+class Main extends \Core\Classes\System\Init 
 {
 
     private $utils;
@@ -472,8 +472,10 @@ class main extends \core\classes\system\init
     }    
 
 
-
-
+	/**
+	 * 
+	 * old function name get_th_list
+	 */
     function getTableHeaderList() 
     {
 		$th_list = [

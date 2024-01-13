@@ -30,11 +30,15 @@ $(document).ready(function(){
 
       if(item_list.length > 0) {
         $.ajax({
-          url: '/core/action/cart/cart_item_row.php',
+          url: 'ajax_route.php',
           type: 'POST',
           data: {
-            mode: cart.get_carts_mode(),
-            items: item_list
+            url: '/core/action/cart/cart_item_row.php',
+            route: 'addToCart',
+            data: {
+              mode: cart.get_carts_mode(),
+              items: item_list
+            }
           },
           success: function(data) {
             cart.render(data);
@@ -117,12 +121,16 @@ $(document).ready(function(){
     // делает запрос и получает товар по id и добавляет в массив
     request_data(id) {
       $.ajax({
-        url: '/core/action/stock/get_barcode_product.php',
+        url: 'ajax_route.php',
         type: 'POST',
         dataType: 'json',
         data: {
-          id: id,
-          page: pageData.page()
+          url: '/core/action/stock/get_products_by_id.php',
+          route: 'getProductsById',
+          data: {
+            id: id,
+            page: pageData.page()
+          }
         },
         success: (data) => {
           cart.push_cart(data);
@@ -270,13 +278,17 @@ $(document).ready(function(){
         const sales_man = $('.cart-sales-man').val();
         
         $.ajax({
-          url: '/core/action/cart/checkout.php',
+          url: 'ajax_route.php',
           type: 'POST',
           dataType: 'json',
           data: {
-            cart: cart.get_cart_list(),
-            payment_method: payment_method,
-            sales_man: sales_man
+            url: '/core/action/cart/checkout.php',
+            route: 'checkout',
+            data: {
+              cart: cart.get_cart_list(),
+              payment_method: payment_method,
+              sales_man: sales_man
+            }
           },
           success: (data) => {
             if(data.type == 'success') {

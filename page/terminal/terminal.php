@@ -4,8 +4,6 @@
 
 	$page_config = $data_page['page_data_list'];
 
-	$productsFilter = new \Core\Classes\Services\ProductsFilter;
-
 
 // ls_var_dump($data_page[]);
 	//параметры поиска
@@ -40,10 +38,10 @@
 						'stock_description' => true,
 
 						'category' => [
-							'row' => ['custom_data' => 'get_category_list()' ]
+							'row' => ['custom_data' => $category->getCategoryList()]
 						],
 						'provider' => [
-							'row' => ['custom_data' => 'get_provider_list()']
+							'row' => ['custom_data' => $provider->getProviderLIst()]
 						],
 					]
 				],				
@@ -66,7 +64,7 @@
 			],
 						
 			'/component/table/table_footer_wrapper.twig' => [
-				'table_total' => '' //table_footer_result($page_config['table_total_list'], $table_result['base_result'])
+				'table_total' => $utils->compareTableFooterData($page_config['table_total_list'], $table_result['base_result'])
 			]
 		]
 	]);

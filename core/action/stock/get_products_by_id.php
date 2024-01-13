@@ -1,16 +1,25 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
-
 header('Content-type: Application/json');
 
+$data = $_POST['data'];
 
-$id = $_POST['id'];
+$id = $data['id'];
 
 
-$get_prod = $dbpdo->prepare('SELECT * FROM stock_list WHERE stock_id = :id');
-$get_prod->bindParam('id', $id);
-$get_prod->execute();
-$row = $get_prod->fetch(PDO::FETCH_ASSOC);
+$row = $db->select([
+	'table_name' => 'stock_list',
+	'col_list' => '*',
+	'base_query' => ' WHERE stock_id = :id ',
+	'param' => [
+		'query' => [
+			'bindList' => [
+				'id' => $id
+			]
+		],
+	],
+
+])->first()->get();
+
 
 $stock_id 				= $row['stock_id'];
 $stock_name 			= $row['stock_name'];
@@ -25,7 +34,7 @@ $complete = array(
 	'description'		  => $row['stock_phone_imei'],
 	'stock_second_price'  => $stock_second_price, 
 	'stock_count'         => $stock_count, 	 
-	'manat_image' 		  => $manat_image 	 	 
+	// 'manat_image' 		  => $manat_image 	 	 
 );
 
 

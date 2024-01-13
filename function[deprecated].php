@@ -71,10 +71,12 @@ $order_myear = date("m.Y");
 $weak_now = date("l"); //date("l");
 $deactive_date = date('d.m.Y', strtotime('+30 day'));
 
+// ******
 function get_my_dateyear() {
 	return date("m.Y");
 }
 
+// ****
 function get_my_datetoday() {
 	return  date("d.m.Y");
 }
@@ -1058,6 +1060,7 @@ function get_stock_first_price_sum($stock_list) {
 }
 
 
+// *************************
 function table_footer_result($type_list, $data) {
 	// $page_config['sql']['col_list'] = ' stock_list.stock_count ';
 	// $page_config['sql']['param']['query']['joins'] = " ";
@@ -1254,6 +1257,7 @@ function table_footer_result($type_list, $data) {
 
 
 // получаем список поставщиков
+//  ************************
 function get_provider_list() {
 	$provider = ls_db_request([
 		'table_name' => ' stock_provider ',
@@ -1275,6 +1279,7 @@ function get_provider_list() {
 
 
 // получаем список поставщиков
+// ****************
 function get_category_list() {
 	$provider = ls_db_request([
 		'table_name' => ' stock_category ',
@@ -1303,6 +1308,7 @@ function get_category_list() {
  *  'query' 	 => 'WHERE date_query = 0'
  * ];
  */
+// *****************************
 function get_report_date_list($data) {
 	$table_name 	= $data['table_name'];
 	$col_name 		= $data['col_name'];
@@ -1333,6 +1339,7 @@ function get_report_date_list($data) {
 
 
 // расход месячные
+// ******
 function get_total_rasxod($date) {
 	$res = ls_db_request([
 		'table_name' => 'rasxod',
@@ -1377,6 +1384,7 @@ function search_rasxod_by_date($date) {
 }
 
 // расход
+// *******
 function get_today_total_rasxod($date) {
 	$res = ls_db_request([
 		'table_name' => 'rasxod',
@@ -1445,7 +1453,7 @@ function get_rasxod_day_list() {
 }
 
 
-
+// ********************
 function decorate_num($price) {
 	return number_format($price, 0, '', ' ');
 }
@@ -1528,7 +1536,7 @@ function get_payment_method_list() {
 }
 
 // ls_var_dump(get_tags_list(true));
-
+// ************
 function get_tags_list($user_payment_list, $default_tags = null) {
 	$default_data = [
 		[

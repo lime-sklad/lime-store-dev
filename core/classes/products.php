@@ -1,12 +1,12 @@
 <?php
 
-namespace core\classes;
+namespace Core\Classes;
 
-class products extends \core\classes\dbWrapper\db
+class Products extends \Core\Classes\dbWrapper\db
 {
 
 
-    public function get_products_by_id(int $id) 
+    public function getProductsById(int $id) 
     {
         return $this->select([
             'table_name' => 'stock_list',

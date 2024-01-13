@@ -12,6 +12,7 @@ define('DBUSER','root');
 define('DBPASS','');
 define('DBNAME','lime_sklad');
 define('SITEEMAIL','noreply@domain.com');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 class dbConfig 
 {

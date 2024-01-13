@@ -1,24 +1,28 @@
 <?php 
-require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
+
+// $utils->lsVarDump($_POST);
+
+
+$data = $_POST['data'];
 
 // autocmplt-type
-if(!isset($_POST['type'], $_POST['page'])) {
+if(!isset($data['type'], $data['page'])) {
 	echo 'error';
 	exit();
 }
 
 $get_data 	  = [];
-$search_value = ls_trim($_POST['value']);
-$type 		  = $_POST['type'];
-$page 	      = $_POST['page'];
+$search_value = trim($data['value']);
+$type 		  = $data['type'];
+$page 	      = $data['page'];
 
-$th_list = get_th_list();
+$th_list = $main->getTableHeaderList();
 
-$sql_data = page_data($page);
+$sql_data = $main->initController($page);
 
 $td_data = $sql_data['page_data_list'];
 
-$auto_type = $_POST['autocmplt_type'];
+$auto_type = $data['autocmplt_type'];
 
 $sql_query_data = $sql_data['sql'];
 
@@ -57,7 +61,7 @@ foreach($page_data_row as $key => $col_name_prefix) {
 			]
 		];
 		
-		$d = ls_db_request($search_array);		
+		$d = $db->select($search_array)->get();		
 		
 		
 		foreach($d as $key) {

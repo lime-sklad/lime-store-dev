@@ -1,7 +1,7 @@
 <?php
-namespace core\classes\system;
+namespace Core\Classes\System;
 
-class updater 
+class Updater 
 {
 
     /**

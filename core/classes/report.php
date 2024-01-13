@@ -1,7 +1,7 @@
 <?php 
-namespace core\classes;
+namespace Core\Classes;
 
-class report extends \core\classes\dbWrapper\db {
+class Report extends \Core\Classes\dbWrapper\db {
     /**
      * @param int $id  id отчета
      * @return array
@@ -155,5 +155,49 @@ class report extends \core\classes\dbWrapper\db {
 
     public function getDifferenceOrderCount(int $orderCount, int $changeCount) {
 
+    }
+
+
+
+    /** 
+     * @param array $arr
+     * $arr = [
+     * 	'table_name' => 'stock_list',
+     * 	'col_name'	 => 'stock_name',
+     * 	'order'		 => ' date desc ',
+     *  'query' 	 => 'WHERE date_query = 0'
+     * ];
+     * 
+     * @return array|null
+     * 
+     * old function name get_report_date_list
+     */
+    public function getReportDateList($data) 
+    {
+        $table_name 	= $data['table_name'];
+        $col_name 		= $data['col_name'];
+        $order 			= $data['order'];
+        $query 			= $data['query'];
+        $default 		= $data['default'];
+
+        $res = $this->select([
+            'table_name' => $table_name,
+            'col_list' => " DISTINCT $col_name",
+            'base_query' => $query,
+            'param' => [
+                'query' => [
+                    'param' => "",
+                    'joins' => "",
+                    'bindList' => array()
+                ],
+                'sort_by' => " ORDER BY $order "
+            ]
+        ])->get();
+        
+        $dd = array_column($res, $col_name);
+
+        $dd['default'] = $default;
+
+        return $dd;
     }
 } 

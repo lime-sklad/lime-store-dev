@@ -18,7 +18,7 @@ $loader = new \Twig\Loader\FilesystemLoader($_SERVER['DOCUMENT_ROOT'].'/core/tem
 $twig = new \Twig\Environment($loader);
 
 
-// $dd = new \core\classes\dbWrapper\dbConfig;
+$db = new \core\classes\dbWrapper\db;
 
 $main = new \Core\Classes\System\Main;
 
@@ -27,3 +27,11 @@ $accessManager = new \Core\Classes\Privates\AccessManager;
 $init = new \Core\Classes\System\Init;
 
 $utils = new \Core\Classes\System\Utils;
+
+$productsFilter = new \Core\Classes\Services\ProductsFilter;
+
+$category = new \Core\Classes\Services\Category;
+
+$provider = new \Core\Classes\Services\Provider;
+
+$user = new \Core\Classes\Privates\User;

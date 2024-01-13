@@ -1,7 +1,7 @@
 <?php 
-namespace core\classes\system;
+namespace Core\Classes\System;
 
-class init extends \core\classes\dbWrapper\db
+class Init extends \Core\Classes\dbWrapper\db
 {
     
     public function initController($page) 
@@ -9,8 +9,8 @@ class init extends \core\classes\dbWrapper\db
         $controller_list = [
             'cart_terminal'   	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/cart-terminal/cart-terminal.controller.php',
             'terminal'      	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/terminal/terminal.controller.php',
-            // 'stock'         	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/stock/stock.controller.php',
-            // 'report'        	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/report/report.controller.php',
+            'stock'         	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/stock/stock.controller.php',
+            'report'        	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/report/report.controller.php',
             // 'rasxod'        	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/rasxod/rasxod.controller.php',
             // 'category_form' 	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/category_form/category_form.controller.php',
             // 'provider_form' 	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/provider_form/provider_form.controller.php',

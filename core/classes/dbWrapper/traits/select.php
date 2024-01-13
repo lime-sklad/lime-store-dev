@@ -16,6 +16,26 @@ trait select
     public function select(array $query, $pdo_fetch_type = \PDO::FETCH_ASSOC, string $placeholders = 'named')
     {
 
+        /**
+        *    $res = $db->select([
+        *        'table_name' => 'stock_list',
+        *        'col_list' => '*',
+        *        'base_query' => '',
+        *        'param' => [
+        *            'query' => [
+        *                'param' => '',
+        *                'joins' => '',
+        *                'bindList' => [
+        *                    'param' => $param
+        *                ]
+        *            ],
+        *            'sort_by' => '',
+        *            'limit' => ''
+        *        ],
+        *    ])->get(); 
+        **/
+       
+
         $param_row = $query['param'];
 
         $conditions 		= [];
