@@ -1,31 +1,18 @@
 <?php 
-
-require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
-
 header('Content-type: Application/json');
 
+$postData = $_POST['data'];
 
 //удалить товар
-if(isset($_POST['stock_id']) && !empty($_POST['stock_id'])) {
-
-	$product_id = $_POST['stock_id'];
-
-	$update_data = [
-		'before' => 'UPDATE stock_list SET ',
-		'after' => ' WHERE stock_id = :prod_id ',
-		'post_list' => [
-			'id' => [
-				'query' => ' stock_list.stock_visible = 1 ',
-				'bind' => 'prod_id'
-			]
-		]
-	];
-
-	echo ls_db_upadte($update_data, [
-		'id' => $product_id
+if(!empty($postData['stock_id'])) {
+	$products->deleteProduct($postData['stock_id']);
+	return $utils::abort([
+		'type'	=> 'success',
+		'text'	=> 'Ok'
 	]);
-
-	
 } else {
-	echo json_encode(['error' => 'Cant find id']);
+	return $utils::abort([
+		'type'	=> 'error',
+		'text' 	=> 'Cant find id'
+	]);
 }

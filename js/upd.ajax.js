@@ -230,11 +230,15 @@ function send_filter(filter_list) {
 	//переключаем состяние на активный
 	$.ajax({
 		type: 'POST',
-		url:  'core/action/stock/get_filter_stock.php',
+		url:  'ajax_route.php',
 		data: {
-			id: filter_list,
-			page: pageData.page(),
-			type: pageData.type()
+			url: 'core/action/stock/get_filter_stock.php',
+			route: 'filtredProducts', 
+			data: {
+				id: filter_list,
+				page: pageData.page(),
+				type: pageData.type()
+			}
 		},
         dataType: 'JSON',
 		success: (data) => { 
@@ -314,12 +318,16 @@ $(document).on('click', '.search-item', function(){
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/search/search.php',
+		url: 'ajax_route.php',
 		data: {
-			search_item_value	: search_item_value, 
-			page				: pageData.page(), 
-			type			    : pageData.type(),
-			sort_data 			: sort_data
+			route: 'search',
+			url: 'core/action/search/search.php',
+			data: {
+				search_item_value	: search_item_value, 
+				page				: pageData.page(), 
+				type			    : pageData.type(),
+				sort_data 			: sort_data
+			}
 		},
 		dataType: 'json',
 		success: (data) => {
@@ -356,13 +364,17 @@ $('body').on('click', '.info-stock', function(){
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/modal/order.php',
+		url: 'ajax_route',
 		cache: false,
 		data:{
-			product_id : product_id,
-			order_id: order_id, 
-			type  : pageData.type(), 
-			page  : pageData.page()
+			url: 'core/action/modal/modal.php',
+			route: 'modal',
+			data: {
+				product_id : product_id,
+				order_id: order_id, 
+				type  : pageData.type(), 
+				page  : pageData.page()
+			}
 		},
 		success: (data) => {
 			pageData.rightSideModal(data);
@@ -484,17 +496,21 @@ $('body').on('click', '.submit-save-stock', function() {
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/stock/edit_product.php',
+		url: 'ajax_route.php',
 		data: {
-			product_id: 		stock_id,
-			prepare_data: 		prepare_data,
-			edited_category: 	edited_category,
-			new_added_category: new_added_category,
-			deleted_category: 	deleted_category,
-
-			edited_provider: 	edited_provider,
-			new_added_provider: new_added_provider,
-			deleted_provider: 	deleted_provider			
+			url: 'core/action/stock/edit_product.php',
+			route: 'editProduct',
+			data: {
+				product_id: 		stock_id,
+				prepare_data: 		prepare_data,
+				edited_category: 	edited_category,
+				new_added_category: new_added_category,
+				deleted_category: 	deleted_category,
+	
+				edited_provider: 	edited_provider,
+				new_added_provider: new_added_provider,
+				deleted_provider: 	deleted_provider			
+			}
 		},
 		dataType: "json",
 		success: (data) => {		
@@ -531,8 +547,14 @@ $(document).on('click', '.delete-stock', function() {
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/stock/delete_products.php',
-		data: {stock_id: id},
+		url: 'ajax_route.php',
+		data: {
+			url: 'core/action/stock/delete_products.php',
+			route: 'deleteProducts',
+			data: {
+				stock_id: id
+			}
+		},
 		dataType: 'json',
 		success: (data) => {
 			pageData.alert_notice(data.type, data.text);
@@ -557,6 +579,8 @@ $(document).on('click', '.delete-stock', function() {
 
 /** добавить товар товар start */
 $('body').on('click', '.submit-stock-addd-form', function() {
+	$('.wrapper').stop().animate({scrollTop:0}, 500, 'swing');
+
 	let prepare_data = {};
 	let barcode_list = {};
 	let category_list = [];
@@ -599,24 +623,23 @@ $('body').on('click', '.submit-stock-addd-form', function() {
 		
 		$.ajax({
 			type: 'POST',
-			url: 'core/action/stock/add_stock.php',
+			url: 'ajax_route.php',
 			data: {
-				prepare_data: prepare_data
+				url: 'core/action/stock/add_stock.php',
+				route: 'addProduct',
+				data: {
+					prepare_data: prepare_data
+				}
 			},
 			dataType: "json",
 			success: (data) => {
-				var error 	= data['error'];
-				var success = data['success'];
+				pageData.alert_notice(data.type, data.text);
 
-
-				if(error) {
-					pageData.alert_notice('error', error);
-				}
-
-				if(success) {
-					pageData.alert_notice('success', 'Ок');
+				if(data.type == 'success') {
 					$('.form-input').val('');
+
 				}
+
 			}			
 
 		});
@@ -1073,8 +1096,12 @@ $(document).on('click', '.add-submit-rasxod', function() {
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/barcode/load_edit_barcode.php',
-		data: {data: data},
+		url: 'ajax_route',
+		data: {
+			url: '/core/action/barcode/edit_product_barcode_modal.php',
+			route: 'editProductBarcodeModal',
+			data: data
+		},
 		dataType: 'json',
 		success: (data) => {
 			$('.container').append(data.res);
@@ -1105,25 +1132,53 @@ $(document).on('click', '.report-return-btn-modal', function() {
 
 // сохранить баркод
 $(document).on('click', '.save-edit-stock-barcode', function() {
-	var data = $(this).data('id');
+	var productId = $(this).data('id');
 
-	var update_barcodle_list = [];
+	let new_barcode = [];
+	let removed_barcode = [];
+	let edited_barcode = [];
 
 
 	$('.edit-barcode-input').each(function(index, key){
-		var val = $(this).val();
-
-		if(val) {
-			update_barcodle_list[index] = val;
+		
+		// НОВЫЙ БАРКОД
+		if($(this).hasClass('new') && !$(this).parent().hasClass('hide')) {
+			new_barcode[index] = $(this).val();
 		}
+
+		// УДАЛЕННЫЫЙ БАРКОД
+		if(!$(this).hasClass('new') && $(this).parent().hasClass('hide')) {
+			removed_barcode.push({
+				barcodeId: $(this).data('barcode-id'),
+				value: $(this).val()				
+			});
+		}		
+
+		// ИЗМЕНЕННЫЙ БАРКОД
+		if(!$(this).hasClass('new') && !$(this).parent().hasClass('hide')) {
+			if($(this).hasClass('edited')) {
+				edited_barcode.push({
+					barcodeId: $(this).data('barcode-id'),
+					value: $(this).val()
+				});
+			}
+		}		
 	});
+
+	console.log({
+		edited_barcode,
+		removed_barcode,
+		new_barcode
+	})	
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/barcode/upd_stock_barcode.php',
+		url: 'ajax_route.php',
 		data: {
-			data: data,
-			update_barcodle_list: update_barcodle_list
+			url: 'core/action/barcode/set_product_barcode.php',
+			route: 'setProductBarcode',
+			productId: productId,
+			edited_barcode: edited_barcode
 		},
 		dataType: 'json',
 		success: (data) => {
@@ -1322,11 +1377,15 @@ $(document).on('click', '.advanced-search-submit', function() {
 	// data-
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/search/advanced_search.php',
+		url: 'ajax_route.php',
 		data: {
-			page: pageData.page(),
-			type: pageData.type(),
-			post_list: post_list,
+			url: 'core/action/search/advanced_search.php',
+			route: 'advancedSearch',
+			data: {
+				page: pageData.page(),
+				type: pageData.type(),
+				post_list: post_list,
+			}
 		},
 		dataType: 'json',		
 		success: (data) => {
@@ -1351,9 +1410,13 @@ $(document).on('click', '.append-new-input', function() {
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/add_more_fields.php',
+		url: 'ajax_route.php',
 		data: {
-			fields_name: fields_name
+			url: 'core/action/add_more_fields.php',
+			route: 'appendMoreFields',
+			data: {
+				fields_name: fields_name
+			}
 		},
 		beforeSend: function( ){
 			

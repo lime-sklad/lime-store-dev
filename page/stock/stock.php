@@ -31,8 +31,8 @@
 	
 	
 	$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list'], PDO::FETCH_ASSOC);
-	
-	echo $twig->render('/component/inner_container.twig', [
+
+	echo $Render->view('/component/inner_container.twig', [
 		'renderComponent' => [
 			'/component/related_component/include_widget.twig' => [
 				'/component/filter/filter_sort.twig' => [

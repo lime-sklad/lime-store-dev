@@ -5,6 +5,7 @@
  */
 
 
+//  *************
  function get_last_added_stock() {
     return ls_db_request([
         'table_name' => 'stock_list',
@@ -129,6 +130,7 @@ function get_products_provider_list($id) {
  * Изменяем категорию товара
  * @param array $data
  */
+// **********************
 function edit_product_category($data) {
 	$option = [
 		'before' => " UPDATE products_category_list SET ",
@@ -165,6 +167,7 @@ function edit_product_category($data) {
  * @param int $product_id
  * @param array $data 
  */
+// ******************
 function add_product_category($product_id, $data) {
 	$collect_data = [];
 	
@@ -188,6 +191,7 @@ function add_product_category($product_id, $data) {
  * Удаляем категори для товара
  * @param array $data  
  */
+//************ 
 function delete_product_category($data) {
 	foreach ($data as $key => $val) {
 		ls_db_delete([
@@ -213,6 +217,7 @@ function delete_product_category($data) {
  * Изменяем поставщика товара
  * @param array $data
  */
+// ***********
 function edit_product_provider($data) {
 	$option = [
 		'before' => " UPDATE products_provider_list SET ",
@@ -249,6 +254,7 @@ function edit_product_provider($data) {
  * @param int $product_id
  * @param array $data 
  */
+// *******************
 function add_product_provider($product_id, $data) {
 	$collect_data = [];
 	
@@ -272,6 +278,7 @@ function add_product_provider($product_id, $data) {
  * Удаляем поставщика для товара
  * @param array $data  
  */
+// ********************
 function delete_product_provider($data) {
 	foreach ($data as $key => $val) {
 		ls_db_delete([

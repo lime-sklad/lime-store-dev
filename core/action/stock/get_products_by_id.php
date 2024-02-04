@@ -9,14 +9,12 @@ $id = $data['id'];
 $row = $db->select([
 	'table_name' => 'stock_list',
 	'col_list' => '*',
-	'base_query' => ' WHERE stock_id = :id ',
-	'param' => [
-		'query' => [
-			'bindList' => [
-				'id' => $id
-			]
-		],
+	'query' => [
+		'base_query' => ' WHERE stock_id = :id ',
 	],
+	'bindList' => [
+		'id' => $id
+	]
 
 ])->first()->get();
 

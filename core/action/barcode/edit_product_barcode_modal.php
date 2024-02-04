@@ -1,5 +1,4 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
 
 header('Content-type: Application/json');
 
@@ -7,21 +6,7 @@ header('Content-type: Application/json');
 $stock_id = $_POST['data'];
 
 
-$res = ls_db_request([
-        'table_name' => ' stock_barcode_list ',
-        'col_list' => ' * ',
-        'base_query' => ' WHERE br_stock_id = :id ',
-        'param' => [
-            'query' => [
-                'param' => '',
-                'joins' => '',
-                'bindList' => array(
-                    'id' => $stock_id
-                )
-            ],
-            'sort_by' => 'ORDER BY barcode_id DESC'
-        ]            
-    ]);
+$res = $products->getProductBarcodeList($stock_id);
 
 
 // $total = $twig->render('/component/include_component.twig', [
@@ -34,7 +19,7 @@ $res = ls_db_request([
 // ]);
 
 
-$total = $twig->render('/component/include_component.twig', [
+$total = $Render->view('/component/include_component.twig', [
 	'renderComponent' => [
 		'/component/modal/custom_modal/u_modal.twig' => [
             'title' => 'Redaktə et',
@@ -48,8 +33,6 @@ $total = $twig->render('/component/include_component.twig', [
 ]);
 
 
-
-
-echo json_encode([
+ $utils::abort([
 	'res' => $total,
 ]);

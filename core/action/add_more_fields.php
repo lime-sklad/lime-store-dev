@@ -1,35 +1,38 @@
 <?php 
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
 header('Content-type: Application/json');
 // $template = $twig->load('/component/modal/modal_fields.twig');
 $custom_data = false;
 
+$postData = $_POST['data'];
+
+$categoryList = $category->getCategoryList();
+$providerList = $provider->getProviderList();
 
 
-if($_POST['fields_name'] == 'edit_append_new_category') {
-    $custom_data = get_category_list();
+if($postData['fields_name'] == 'edit_append_new_category') {
+    $custom_data = $categoryList;
 }
 
-if($_POST['fields_name'] == 'add_append_new_category' || $_POST['fields_name'] == 'search_add_category_fields' ) {
-    $custom_data = get_category_list();
+if($postData['fields_name'] == 'add_append_new_category' || $postData['fields_name'] == 'search_add_category_fields' ) {
+    $custom_data = $categoryList;
 }
 
-if($_POST['fields_name'] == 'edit_append_new_provider' || $_POST['fields_name'] ==  'add_append_new_provider' || $_POST['fields_name'] === 'search_append_new_provider') {
-    $custom_data = get_provider_list();
+if($postData['fields_name'] == 'edit_append_new_provider' || $postData['fields_name'] ==  'add_append_new_provider' || $postData['fields_name'] === 'search_append_new_provider') {
+    $custom_data = $providerList;
 }
 
 
-if($_POST['fields_name'] == 'search_warehouse_list') {
+if($postData['fields_name'] == 'search_warehouse_list') {
     $custom_data = get_warehouse_list();
 }
 
 
 
-if($_POST['fields_name']) {
-    $get_block_name = $_POST['fields_name'];
+if($postData['fields_name']) {
+    $get_block_name = $postData['fields_name'];
 
-    $tp =  $twig->render('/component/modal/include_fields.twig',
+    $tp =  $Render->view('/component/modal/include_fields.twig',
         [
             'res' => [
                 array(
@@ -41,7 +44,7 @@ if($_POST['fields_name']) {
         ]
     );
 
-    echo json_encode([
+    echo $utils::abort([
         'fields'  => $tp
     ]);
 

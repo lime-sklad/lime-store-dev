@@ -1,44 +1,48 @@
 <?php
-require_once  $_SERVER['DOCUMENT_ROOT'].'/function.php';
 header('Content-type: Application/json');
 
-// ls_var_dump($_POST);
-if(!isset($_POST['type'], $_POST['page'])) {
-	echo json_encode([
-		'error' => "Ошибка! Параметры не найдены \n Обновите страницу и попробуйде снова, если ошибка сохранится, обратитесь в тех потдержку"
-	]);
+$postData = $_POST['data'];
 
-	exit;
-	die;
+
+
+// ls_var_dump(postData);
+if(!isset($postData['type'], $postData['page'])) {
+	return $utils::abort([
+		'type' => 'error',
+		'text' => "Ошибка! Параметры не найдены \n Обновите страницу и попробуйде снова, если ошибка сохранится, обратитесь в тех потдержку"
+	]);
 }
 
 $search_bind_list = [];
 
-$type = $_POST['type'];
-$page = $_POST['page'];
-$data = page_data($page);
+$type = $postData['type'];
+$page = $postData['page'];
 
-$td_data = $data['page_data_list'];
+$data = $main->getControllerData($page);
+
+$allData = $data->allData;
+
+$td_data = $allData['page_data_list'];
 
 $base_result = [];
 $res = [];
 $table = '';
 
-$sql_query_data = $data['sql'];
+$sql_query_data = $allData['sql'];
 
-$col_list 			= $sql_query_data['col_list'];
-$param 			= $sql_query_data['param'];
-$bind_list 		= $sql_query_data['param']['query']['bindList'];
-$table_name 	= $sql_query_data['table_name'];
-$base_query 	= $sql_query_data['base_query'];
-$sort_by 		= $sql_query_data['param']['sort_by'];
-$joins 			= $sql_query_data['param']['query']['joins'];
-$limit 			= $sql_query_data['param']['limit'];
+$col_list 		= $data->columnList;
+$param 			= $data->body;
+$bind_list 		= $data->bindList;
+$table_name 	= $data->tableName;
+$base_query 	= $data->baseQuery;
+$sort_by 		= $data->sortBy;
+$joins 			= $data->joins;
+$limit 			= $data->limit;
 
 $page_data_row = $td_data['get_data'];
 
-if(isset($_POST['id'])) {
-	$filter_list = $_POST['id'];
+if(isset($postData['id'])) {
+	$filter_list = $postData['id'];
 	$filter_query = [];
 	foreach($filter_list as $key => $row) {
 		$filter_query[$row['filter_type']][] = $row['filter_id'];
@@ -75,26 +79,24 @@ if(isset($_POST['id'])) {
 $search_array = [
     'table_name' => 'user_control',
     'col_list'   => $col_list,
-    'base_query' => $base_query,			
-    'param' => [
-        'query' => [
-            'param' => $param['query']['param'],
-            'joins' => $query . $joins,
-            'bindList' => $search_bind_list
-        ],
-        'sort_by' 	 => $sort_by,
-		'limit'	=> $limit
-    ]
+    'query' => [
+		'base_query' => $base_query,			
+        'body' 		=> $param,
+        'joins' 	=> $query . $joins,
+        'sort_by' 	=> $sort_by,
+		'limit'		=> $limit
+	],
+	'bindList' => $search_bind_list
 ];
 
-$render_tpl = render_data_template($search_array, $td_data);
+$render_tpl = $main->prepareData($search_array, $td_data);
 
 
 // exit();
 
 
 
-$table = $twig->render('/component/include_component.twig', [
+$table = $Render->view('/component/include_component.twig', [
 	'renderComponent' => [
 		'/component/table/table_row.twig' => [		
 			'table' => $render_tpl['result'],
@@ -105,18 +107,18 @@ $table = $twig->render('/component/include_component.twig', [
 ]);	
 
 
-$total = $twig->render('/component/include_component.twig', [
+$total = $Render->view('/component/include_component.twig', [
 	'renderComponent' => [
 		'/component/table/table_footer_row.twig' => [		
-			'table_total' => table_footer_result($td_data['table_total_list'], $render_tpl['base_result'])  
+			'table_total' => $utils->compareTableFooterData($td_data['table_total_list'], $render_tpl['base_result'])  
 		]  
 	]
 ]);
 
 
-echo json_encode([
+
+
+return $utils->abort([
 	'table' => $table,
 	'total' => $total
 ]);
-
-exit();

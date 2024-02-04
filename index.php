@@ -14,9 +14,9 @@ header("Pragma: no-cache");
 // require_once $_SERVER['DOCUMENT_ROOT'].'/core/function/update.function.php';
 // require $_SERVER['DOCUMENT_ROOT'].'/core/main/check_license.php';
 
+require_once 'start.php';
 
 
-	require_once 'start.php';
 
 
 	if(!isset($_SESSION['user'])) {
@@ -35,7 +35,7 @@ header("Pragma: no-cache");
 	$random_main_background_image = $image_dir[array_rand($image_dir, 1)];
 	
 	
-	echo $twig->render('/component/include_component.twig', [
+	echo $Render->view('/component/include_component.twig', [
 		'renderComponent' => [
 			'/component/index/head.twig' => [
 				'lib_list' => $sysConfig->loadAssets(),
@@ -53,7 +53,7 @@ header("Pragma: no-cache");
 		]
 	]);
 	
-	echo $twig->render('/component/related_component/main_page.twig', [
+	echo $Render->view('/component/related_component/main_page.twig', [
 		'renderComponent' => [
 
 			'/component/index/show_current_version.twig' => [

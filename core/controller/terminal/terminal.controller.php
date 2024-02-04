@@ -27,27 +27,25 @@ return [
         'col_list'	=> ' *, GROUP_CONCAT( DISTINCT stock_category.category_name SEPARATOR  " \n -- ") as product_category_list, 
                             GROUP_CONCAT( DISTINCT stock_provider.provider_name SEPARATOR  " \n -- ") as product_provider_list 
         ',
-        'base_query' =>  "  INNER JOIN stock_list ON stock_list.stock_visible != 3  ",
-        'param' => array(
-            'query' => array(
-                'param' =>  " AND stock_list.stock_visible = 0 AND IF (stock_list.stock_count > 0, stock_list.stock_count > 0, stock_list.stock_count < 0)  ",
-                "joins" => "
-                              LEFT JOIN products_provider_list ON products_provider_list.id_from_stock = stock_list.stock_id
-                              LEFT JOIN products_category_list ON products_category_list.id_from_stock = stock_list.stock_id
-                              
-                              LEFT JOIN stock_provider ON stock_provider.provider_id = products_provider_list.id_from_provider
-                              LEFT JOIN stock_category ON stock_category.category_id = products_category_list.id_from_category
+        'query' => array(
+            'base_query' =>  "  INNER JOIN stock_list ON stock_list.stock_visible != 3  ",     
+            'body' =>  " AND stock_list.stock_visible = 0 AND IF (stock_list.stock_count > 0, stock_list.stock_count > 0, stock_list.stock_count < 0)  ",
+            "joins" => "
+                            LEFT JOIN products_provider_list ON products_provider_list.id_from_stock = stock_list.stock_id
+                            LEFT JOIN products_category_list ON products_category_list.id_from_stock = stock_list.stock_id
+                            
+                            LEFT JOIN stock_provider ON stock_provider.provider_id = products_provider_list.id_from_provider
+                            LEFT JOIN stock_category ON stock_category.category_id = products_category_list.id_from_category
 
-                              LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id									 
-                             
-                              ",									  
-                'bindList' => array(
-                )
-            ),
+                            LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id									 
+                            
+                            ",									  
             'sort_by' => " 	GROUP BY stock_list.stock_id DESC  
                             ORDER BY stock_list.stock_id DESC ",
             'limit' => " LIMIT 50 "
         ),	
+        'bindList' => array(
+        )        
     ],
     'page_data_list' => [
         'sort_key' => 'stock_id',
@@ -61,7 +59,6 @@ return [
             'provider' 			=> 'product_provider_list',
             'category'			=> 'product_category_list',	
             'stock_barcode'		=> 'barcode_value',
-            'return_status' 	=> 'stock_return_status',
             'terminal_add_basket' => null,
             'terminal_basket_count_plus' => null,
         ],

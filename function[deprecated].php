@@ -1361,7 +1361,7 @@ function get_total_rasxod($date) {
 }
 
 
-//искать расход по не четкой дате
+//искать расход по не четкой дате **************
 function search_rasxod_by_date($date) {
 	$res = ls_db_request([
 		'table_name' => 'rasxod',

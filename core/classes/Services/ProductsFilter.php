@@ -3,6 +3,7 @@
 namespace Core\Classes\Services;
 
 use \core\classes\dbWrapper\db;
+use Core\Classes\System\Utils;
 
 class ProductsFilter 
 {
@@ -70,15 +71,14 @@ class ProductsFilter
         $r = $this->db->select([
             'table_name' => 'filter_list',
             'col_list' => '*',
-            'base_query' => ' ',
-            'param' => [
-                'query' => [
-                    'param' => ' WHERE filter_list_visible = 0',
-                    'joins' => '',
-                    'bindList' => []
-                ],
+            'query' => [
+                'base_query' => ' ',
+                'body' => ' WHERE filter_list_visible = 0',
+                'joins' => '',
                 'sort_by' => ''
-            ]
+            ],
+            'bindList' => []
+            
         ])->get();
     
         $result = [];
@@ -107,15 +107,14 @@ class ProductsFilter
         $r = $this->db->select([
             'table_name' => ' `filter` ',
             'col_list' => '*',
-            'base_query' => ' ',
-            'param' => [
-                'query' => [
-                    'param' => ' WHERE `filter_visible` = 0 ',
-                    'joins' => '',
-                    'bindList' => []
-                ],
+            'query' => [
+                'base_query' => ' ',
+                'body' => ' WHERE `filter_visible` = 0 ',
+                'joins' => '',
                 'sort_by' => ''
-            ]
+            ],
+            'bindList' => []
+            
         ])->get();
     
         $result = [];
@@ -141,22 +140,21 @@ class ProductsFilter
         $data = $this->db->select([
             'table_name' => 'user_control',
             'col_list' => '*',
-            'param' => [
-                'query' => [
-                    'param' => "
-    
-                        INNER JOIN stock_filter ON stock_filter.stock_id = :id
-                        left JOIN filter ON filter.filter_id = stock_filter.active_filter_id
-    
-    
-                        GROUP BY stock_filter.active_filter_id	 
-                    ",
-                    'bindList' => [
-                        ':id' => $id,
-                        // ':prefix' => $prefix
-                    ],
-                ]
-            ]
+            'query' => [
+                'body' => "
+
+                    INNER JOIN stock_filter ON stock_filter.stock_id = :id
+                    left JOIN filter ON filter.filter_id = stock_filter.active_filter_id
+
+
+                    GROUP BY stock_filter.active_filter_id	 
+                ",
+                
+            ],
+            'bindList' => [
+                ':id' => $id,
+                // ':prefix' => $prefix
+            ],
         ], \PDO::FETCH_ASSOC)->get();
     
     
@@ -183,32 +181,78 @@ class ProductsFilter
         
         
 
-
-
-
-
-
-    // ==================== under old deprecated
-    
-    
-    
-
-    
-    
-    // ----------------------------------------- upd ------------------------------------------------ //
-    
-
-    
-
-
-    
+        
     /**
+     * изменить фильтр товара
+     * @param array $post_data - массив с данными POST
+     * @param int $id - id товара
+     * 
+     * old function name ls_edit_stock_filter
+     */
+    public function editProductFilter($post_data, $stock_id) 
+    {
+        $result = [];
+        $reset_result = [];
+    
+        // https://ru.stackoverflow.com/questions/1494106/%d0%9a%d0%b0%d0%ba-%d0%be%d1%81%d1%82%d0%b0%d0%b2%d0%b8%d1%82%d1%8c-%d0%b2-%d0%bc%d0%b0%d1%81%d1%81%d0%b8%d0%b2%d0%b5-%d0%b7%d0%bd%d0%b0%d1%87%d0%b5%d0%bd%d0%b8%d1%8f-%d0%bd%d0%b0%d1%87%d0%b8%d0%bd%d0%b0%d1%8e%d1%89%d0%b8%d0%b5%d1%81%d1%8f-%d1%81-%d0%be%d0%bf%d1%80%d0%b5%d0%b4%d0%b5%d0%bb%d0%b5%d0%bd%d0%bd%d0%be%d0%b3%d0%be-%d1%81%d0%bb%d0%be%d0%b2%d0%b0?noredirect=1#comment2678652_1494106
+        $result = array_filter($post_data, function ($key) { 
+            return strpos($key, 'filter_') === 0 ? true : false; 
+        }, ARRAY_FILTER_USE_KEY);
+    
+        $reset_result = array_filter($post_data, function ($key) { 
+            return strpos($key, 'reset_filter_') === 0 ? true : false; 
+        }, ARRAY_FILTER_USE_KEY);	
+    
+    
+        $reset_result = array_merge($result, $reset_result);
+    
+        foreach($reset_result as $filter_id) {
+            // сбрасываем фиьтры товара с данной категорией
+            $this->resetProductFilter($stock_id, $filter_id);
+        }
+    
+        // добавляем фильтер для товара
+        $this->setProductFilter($result, $stock_id);
+    }
+    
+
+
+        /**
+     * Удалаяем фильтер для товара
+     * 
+     * @param int $stock_id - id товара
+     * @param int $filter_id - id фильтра
+     * 
+     * old function name ls_reset_stock_filter 
+     */ 
+    public function resetProductFilter($stock_id, $filter_id) 
+    {
+        $this->db->delete(array(
+            [
+                'table_name' => 'stock_filter',
+                'joins' => ' INNER JOIN filter as tb ON tb.filter_id = :filter_id 
+                             INNER JOIN filter ON filter.filter_type = tb.filter_type
+                ',
+                'where' => ' stock_filter.active_filter_id = `filter`.filter_id AND stock_filter.stock_id = :id ',
+                'bindList' => [
+                    ':id' => $stock_id,
+                    ':filter_id' => $filter_id
+                ]			
+            ]
+        ));
+    }
+    
+
+   /**
      * добавляем фильтры в базу для товара
      * 
      * @param array $post_data - массив $_POST
      * @param int $stock_id - id товара
+     * 
+     * old function name ls_insert_stock_filter
      */
-    function ls_insert_stock_filter(array $post_data, int $stock_id) {
+    public function setProductFilter(array $post_data, int $stock_id) 
+    {
         $result = [];
         $data = [];
         if(!empty($post_data)) {
@@ -228,72 +272,31 @@ class ProductsFilter
             }
         
             if($data) {
-                ls_db_insert('stock_filter', $data);
+                $this->db->insert('stock_filter', $data);
             } else {
                 return false;
             }
             
             return true;
         }
-    }
-    
-    
-    /**
-     * Удалаяем фильтер для товара
-     * 
-     * @param int $stock_id - id товара
-     * @param int $filter_id - id фильтра 
-     */ 
-    function ls_reset_stock_filter($stock_id, $filter_id) {
-        ls_db_delete(array(
-            [
-                'table_name' => 'stock_filter',
-                'joins' => ' INNER JOIN filter as tb ON tb.filter_id = :filter_id 
-                             INNER JOIN filter ON filter.filter_type = tb.filter_type
-                ',
-                'where' => ' stock_filter.active_filter_id = `filter`.filter_id AND stock_filter.stock_id = :id ',
-                'bindList' => [
-                    ':id' => $stock_id,
-                    ':filter_id' => $filter_id
-                ]			
-            ]
-        ));
-    }
+    }    
+
+
+
+
+    // ==================== under old deprecated
     
     
     
-    
-    /**
-     * изменить фильтр товара
-     * @param array $post_data - массив с данными POST
-     * @param int $id - id товара
-     */
-    function ls_edit_stock_filter($post_data, $stock_id) {
-        $result = [];
-        $reset_result = [];
-    
-        // https://ru.stackoverflow.com/questions/1494106/%d0%9a%d0%b0%d0%ba-%d0%be%d1%81%d1%82%d0%b0%d0%b2%d0%b8%d1%82%d1%8c-%d0%b2-%d0%bc%d0%b0%d1%81%d1%81%d0%b8%d0%b2%d0%b5-%d0%b7%d0%bd%d0%b0%d1%87%d0%b5%d0%bd%d0%b8%d1%8f-%d0%bd%d0%b0%d1%87%d0%b8%d0%bd%d0%b0%d1%8e%d1%89%d0%b8%d0%b5%d1%81%d1%8f-%d1%81-%d0%be%d0%bf%d1%80%d0%b5%d0%b4%d0%b5%d0%bb%d0%b5%d0%bd%d0%bd%d0%be%d0%b3%d0%be-%d1%81%d0%bb%d0%be%d0%b2%d0%b0?noredirect=1#comment2678652_1494106
-        $result = array_filter($post_data, function ($key) { 
-            return strpos($key, 'filter_') === 0 ? true : false; 
-        }, ARRAY_FILTER_USE_KEY);
-    
-        $reset_result = array_filter($post_data, function ($key) { 
-            return strpos($key, 'reset_filter_') === 0 ? true : false; 
-        }, ARRAY_FILTER_USE_KEY);	
+
     
     
-        $reset_result = array_merge($result, $reset_result);
+    // ----------------------------------------- upd ------------------------------------------------ //
     
-        foreach($reset_result as $filter_id) {
-            // сбрасываем фиьтры товара с данной категорией
-            ls_reset_stock_filter($stock_id, $filter_id);
-        }
+
     
-        // добавляем фильтер для товара
-        ls_insert_stock_filter($result, $stock_id);
-    }
-    
-    
+
+  
     // получаем послденюю добавленный фильтер
     function get_last_add_filter() {
         $res = ls_db_request([
@@ -314,10 +317,7 @@ class ProductsFilter
     
         return $res[0];
     }
-    
-    
-    
-    
+   
     
     // получаем список пунктов фильтра по id
     function get_filter_option_list_by_id($id) {

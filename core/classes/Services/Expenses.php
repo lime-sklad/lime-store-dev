@@ -26,17 +26,15 @@ class Expenses
         $res = $this->db->select([
             'table_name' => 'rasxod',
             'col_list' => ' sum(rasxod_money) as total_rasxod_money  ',
-            'base_query' => ' ',
-            'param' => [
-                'query' => [
-                    'param' => " WHERE rasxod_day_date = :mydaydate  AND rasxod_visible = 0",
-                    'joins' => "",
-                    'bindList' => array(
-                        'mydaydate' => $date
-                    )
-                ],
+            'query' => [
+                'base_query' => ' ',
+                'body' => " WHERE rasxod_day_date = :mydaydate  AND rasxod_visible = 0",
+                'joins' => "",
                 'sort_by' => ' ORDER BY rasxod_id DESC '
-            ]
+            ],
+            'bindList' => array(
+                'mydaydate' => $date
+            ),            
         ])->get();
     
         return $res[0]['total_rasxod_money'];
@@ -51,21 +49,44 @@ class Expenses
      * 
      * old function name get_total_rasxod
      */    
-    public function getExpensesByMonth($month) {
+    public function getExpensesByMonth($month) 
+    {
         $res = $this->db->select([
             'table_name' => 'rasxod',
             'col_list' => ' sum(rasxod_money) as total_rasxod_money  ',
-            'base_query' => ' ',
-            'param' => [
-                'query' => [
-                    'param' => " WHERE rasxod_year_date = :mydateyear  AND rasxod_visible = 0",
-                    'joins' => "",
-                    'bindList' => array(
-                        'mydateyear' => $month
-                    )
-                ],
+            'query' => [
+                'base_query' => ' ',
+                'body' => " WHERE rasxod_year_date = :mydateyear  AND rasxod_visible = 0",
+                'joins' => "",
                 'sort_by' => ' ORDER BY rasxod_id DESC '
-            ]
+            ],
+            'bindList' => array(
+                'mydateyear' => $month
+            )
+        ])->get();
+    
+        return $res[0]['total_rasxod_money'];
+    }    
+
+
+    /**
+     * Ищем расход по дате
+     */
+    public function seachExpensesByDate($date) 
+    {
+        $res = $this->db->select([
+            'table_name' => 'rasxod',
+            'col_list' => ' sum(rasxod_money) as total_rasxod_money  ',
+            'query' => [
+                'base_query' => ' ',
+                'body' => " WHERE rasxod_year_date = :mydateyear OR rasxod_day_date = :mydateday  AND rasxod_visible = 0",
+                'joins' => "",
+                'sort_by' => ' ORDER BY rasxod_id DESC '
+            ],
+            'bindList' => array(
+                'mydateyear' => $date,
+                'mydateday' => $date,
+            )
         ])->get();
     
         return $res[0]['total_rasxod_money'];

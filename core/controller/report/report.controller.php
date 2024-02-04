@@ -26,34 +26,31 @@ return [
         'table_name' => ' user_control ',
         'col_list'	=> '*, GROUP_CONCAT( DISTINCT stock_category.category_name SEPARATOR  " \n -- ") as product_category_list, 
                            GROUP_CONCAT( DISTINCT stock_provider.provider_name SEPARATOR  " \n -- ") as product_provider_list',
-        'base_query' =>  " INNER JOIN stock_list ON stock_list.stock_id  != 0 
-                           INNER JOIN stock_order_report ON  stock_order_report.stock_order_visible = 0
-                            ",
-        'param' => array(
-            'query' => array(
-                'param' =>  " AND stock_order_report.stock_id = stock_list.stock_id
-                              AND stock_order_report.order_stock_count > 0 
-                              ",
-                "joins" => "  
-                
-                                LEFT JOIN products_provider_list ON products_provider_list.id_from_stock = stock_list.stock_id
-                                LEFT JOIN products_category_list ON products_category_list.id_from_stock = stock_list.stock_id
-                                
-                                LEFT JOIN stock_provider ON stock_provider.provider_id = products_provider_list.id_from_provider
-                                LEFT JOIN stock_category ON stock_category.category_id = products_category_list.id_from_category
-                                
-                                LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id 
 
-                                LEFT JOIN user_control as sales_manager ON sales_manager.user_id = stock_order_report.sales_man
-   
-                                LEFT JOIN payment_method_list ON payment_method_list.id = stock_order_report.payment_method                                  
-                              ",		
-                'bindList' => array(
-                )
-            ),
+        'query' => array(
+            'base_query' =>  " INNER JOIN stock_list ON stock_list.stock_id  != 0 
+                               INNER JOIN stock_order_report ON  stock_order_report.stock_order_visible = 0
+            ",
+            'body' =>  " AND stock_order_report.stock_id = stock_list.stock_id
+                          AND stock_order_report.order_stock_count > 0 
+                            ",
+            "joins" => "    LEFT JOIN products_provider_list ON products_provider_list.id_from_stock = stock_list.stock_id
+                            LEFT JOIN products_category_list ON products_category_list.id_from_stock = stock_list.stock_id
+                            
+                            LEFT JOIN stock_provider ON stock_provider.provider_id = products_provider_list.id_from_provider
+                            LEFT JOIN stock_category ON stock_category.category_id = products_category_list.id_from_category
+                            
+                            LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id 
+
+                            LEFT JOIN user_control as sales_manager ON sales_manager.user_id = stock_order_report.sales_man
+
+                            LEFT JOIN payment_method_list ON payment_method_list.id = stock_order_report.payment_method                                  
+                            ",		
             'sort_by' => " GROUP BY stock_order_report.order_stock_id DESC
-                           ORDER BY stock_order_report.order_stock_id DESC "
+                           ORDER BY stock_order_report.order_stock_id DESC ",
         ),
+        'bindList' => array(
+        )        
             
     ],
     'page_data_list' => [

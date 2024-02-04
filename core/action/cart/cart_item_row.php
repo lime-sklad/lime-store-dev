@@ -33,5 +33,5 @@ if(isset($data['items'])) {
     }
 
     // ls_var_dump($myPost);
-   echo $twig->render($render_tpl_path,  ['items' => $myPost]);
+   echo $Render->view($render_tpl_path,  ['items' => $myPost]);
 }

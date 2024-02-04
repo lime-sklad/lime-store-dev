@@ -1,8 +1,28 @@
-<?php 
+<?php
 
-// $utils->lsVarDump($_POST);
+$data = $_POST['data'];
+
+// autocmplt-type
+if(!isset($data['type'], $data['page'])) {
+	$utils::abort([
+		'type' => 'error',
+		'text' => 'No result'
+	]);
+}
+
+$search_value = trim($data['value']);
+$page 	      = $data['page'];
+
+return $main->autocomplete($search_value, $page);
 
 
+
+
+
+
+
+
+exit;
 $data = $_POST['data'];
 
 // autocmplt-type
@@ -11,7 +31,6 @@ if(!isset($data['type'], $data['page'])) {
 	exit();
 }
 
-$get_data 	  = [];
 $search_value = trim($data['value']);
 $type 		  = $data['type'];
 $page 	      = $data['page'];
@@ -22,17 +41,14 @@ $sql_data = $main->initController($page);
 
 $td_data = $sql_data['page_data_list'];
 
-$auto_type = $data['autocmplt_type'];
-
 $sql_query_data = $sql_data['sql'];
 
-$param 			= $sql_query_data['param'];
-$col_list 			= $sql_query_data['col_list'];
-$bind_list 		= $sql_query_data['param']['query']['bindList'];
+$col_list 		= $sql_query_data['col_list'];
 $table_name 	= $sql_query_data['table_name'];
-$base_query 	= $sql_query_data['base_query'];
-$sort_by 		= $sql_query_data['param']['sort_by'];
-$joins 			= $sql_query_data['param']['query']['joins'];
+$base_query 	= $sql_query_data['query']['base_query'];
+$joins 			= $sql_query_data['query']['joins'];
+$sort_by 		= $sql_query_data['query']['sort_by'];
+$bind_list 		= $sql_query_data['bindList'];
 
 $page_data_row = $td_data['get_data'];
 
@@ -49,16 +65,14 @@ foreach($page_data_row as $key => $col_name_prefix) {
 
 		$search_array = [
 			'table_name' => $table_name,
-			'col_list'   => "DISTINCT $col_name_prefix, $sort_column ",
-			'base_query' => $base_query,			
-			'param' => [
-				'query' => [
-					'param' => $param['query']['param'],
-					'joins' => $joins . " WHERE $col_name_prefix LIKE :search ",
-					'bindList' => $bind_list
-				],
+			'col_list'   => "DISTINCT $col_name_prefix, $sort_column ",			
+			'query' => [
+				'base_query' => $base_query,			
+				'body' => $sql_query_data['query']['body'],
+				'joins' => $joins . " WHERE $col_name_prefix LIKE :search ",
 				'sort_by' 	 => $sort_by,
-			]
+			],
+			'bindList' => $bind_list
 		];
 		
 		$d = $db->select($search_array)->get();		
@@ -81,3 +95,8 @@ foreach($page_data_row as $key => $col_name_prefix) {
 		}
 	}
 }
+
+
+
+
+// __________________________________________________

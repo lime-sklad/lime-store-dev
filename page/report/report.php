@@ -1,6 +1,10 @@
 <?php
-	$data_page = $main->initController($page);
-	$page_config = $data_page['page_data_list'];
+
+$controllerData = $main->getControllerData($page);
+	
+$data_page = $controllerData->allData;
+
+$page_config = $data_page['page_data_list'];
 
 	$report = new \Core\Classes\Report;
 	$expenses = new \Core\Classes\Services\Expenses;
@@ -31,8 +35,8 @@
 		)
 	);
 		
-	$data_page['sql']['param']['query']['param'] = $data_page['sql']['param']['query']['param'] . "  AND stock_order_report.order_my_date = :mydateyear";
-	$data_page['sql']['param']['query']['bindList']['mydateyear'] = date("m.Y");
+	$data_page['sql']['query']['body'] = $data_page['sql']['query']['body']  . "  AND stock_order_report.order_my_date = :mydateyear";
+	$data_page['sql']['bindList']['mydateyear'] = date("m.Y");
 
 	$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list']);
 
@@ -41,7 +45,7 @@
 	
 	array_push($table_result['base_result'], ['rasxod_money' => $getExpensesCost]);
 	
-	echo $twig->render('/component/inner_container.twig', [
+	echo $Render->view('/component/inner_container.twig', [
 		'renderComponent' => [
 			'/component/pulgin/stats_card/stats_card_container.twig' => [
 				'date_type' => 'date'

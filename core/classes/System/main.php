@@ -5,6 +5,7 @@ namespace Core\Classes\System;
 use \Core\Classes\Privates\AccessManager;
 use \Core\Classes\System\Utils;
 use \Core\Classes\dbWrapper\db;
+use \Core\Classes\Services\RenderTemplate;
 
 class Main extends \Core\Classes\System\Init 
 {
@@ -12,12 +13,14 @@ class Main extends \Core\Classes\System\Init
     private $utils;
     private $accessManager;
     private $db;
+	public $Render;
 
     public function __construct()
     {
         $this->utils = new utils;
         $this->accessManager = new accessManager;
         $this->db = new db;
+		$this->Render = new RenderTemplate; 
     }
 
 
@@ -388,12 +391,6 @@ class Main extends \Core\Classes\System\Init
 
                 $mass = [];
                 foreach ($stock_list as $key => $row) {
-                    //fix return	
-                    if(array_key_exists('stock_return_status', $row)) {
-                        ($row['stock_return_status'] == 1) ? $row['stock_return_status'] = ' ' : $row['stock_return_status'] = false;
-                    }
-
-
                     if(array_key_exists('payment_method', $row)) {
                         $mark_text = '';
                         $mark_modify_class = '';
@@ -904,7 +901,77 @@ class Main extends \Core\Classes\System\Init
 
 		];
 	
-	return $th_list;
-}    
+		return $th_list;
+	}    
 
+
+
+
+    /**
+     * 
+     */
+    public function autocomplete($search_value, $controller_index)
+    {
+		$th_list = $this->getTableHeaderList();
+		$controllerData = $this->getControllerData($controller_index);
+		$allData = $controllerData->allData;
+
+		$td_data = $allData['page_data_list'];
+		
+		$page_data_row = $td_data['get_data'];
+		
+		$sort_column = $td_data['sort_key'];
+
+		$col_list 		= $controllerData->columnList;
+		$table_name 	= $controllerData->tableName;
+		$base_query 	= $controllerData->baseQuery;
+		$joins 			= $controllerData->joins;
+		$sort_by 		= $controllerData->sortBy;
+		$bind_list 		= $controllerData->bindList;
+
+
+        foreach($page_data_row as $key => $col_name_prefix) {
+            $th_this = $th_list[$key];
+        
+        
+            $data_sort = $th_this['data_sort'];
+        
+            if($data_sort) {
+                $bind_list['search'] = "%{$search_value}%";
+        
+                $search_array = [
+                    'table_name' => $table_name,
+                    'col_list'   => "DISTINCT $col_name_prefix, $sort_column ",			
+                    'query' => [
+                        'base_query' 	=> $base_query,			
+                        'body' 			=> $controllerData->body,
+                        'joins' 		=> $joins . " WHERE $col_name_prefix LIKE :search ",
+                        'sort_by' 	 	=> $sort_by,
+                    ],
+                    'bindList' => $bind_list
+                ];
+
+                
+                $d = $this->db->select($search_array)->get();		
+                
+                
+                foreach($d as $key) {
+                    if(array_key_exists($col_name_prefix, $key)) {
+                        echo $this->Render->view('/component/search/search_list.twig', [
+                            'data' 				=>  $key[$col_name_prefix],
+                            // 'link_modify_class' => 'get_item_by_filter search-item area-closeable selectable-search-item',
+                            'link_modify_class' => !empty($allData['component_config']['search']['autocomplete']['autocomlete_class_list']) 
+                                                ? $allData['component_config']['search']['autocomplete']['autocomlete_class_list'] 
+                                                : 'get_item_by_filter search-item area-closeable selectable-search-item',
+                            'data_sort_value' 	=> true,
+                            'data_sort' 		=> $data_sort,
+                            'data_id'			=> $key[$sort_column],
+                            'mark'				=> ''
+                        ]);		
+                    }
+                }
+            }
+        }        
+    }
+ 	
 }

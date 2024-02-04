@@ -52,15 +52,14 @@ class User extends \Core\Classes\dbWrapper\db
         return $this->select([
             'table_name' => 'user_control',
             'col_list' => '*',
-            'base_query' => ' WHERE user_visible = 0',
-            'param' => [
-                'query' => [
-                    'param' => '',
-                    'joins' => '',
-                    'bindList' => [],
-                ],
-                'sort_by' => ' ORDER BY user_id'
-            ]
+            'query' => [
+                'base_query' => ' WHERE user_visible = 0',
+                'body' => '',
+                'joins' => '',
+                'sort_by' => ' ORDER BY user_id',
+                'limits'
+            ],
+            'bindList' => [],
         ])->get();
     }    
 

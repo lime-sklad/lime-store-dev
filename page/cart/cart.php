@@ -1,8 +1,6 @@
 <?php
 	$data_page = $init->initController($page);
 
-	$user = new \Core\Classes\Privates\User;
-
 	$page_config = $data_page['page_data_list'];
 	
 	$user_list_arr = $user->getAllUser();
@@ -20,7 +18,7 @@
 		];
 	}
 
-	echo $twig->render('/component/inner_container.twig', [
+	echo $Render->view('/component/inner_container.twig', [
 		'renderComponent' => [
 			'/component/related_component/include_widget.twig' => [			
 				'/component/search/search.twig' => $data_page['component_config']['search']

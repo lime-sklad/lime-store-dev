@@ -4,6 +4,16 @@ namespace Core\Classes\System;
 class Init extends \Core\Classes\dbWrapper\db
 {
     
+    public $tableName;
+    public $columnList;
+    public $baseQuery;
+    public $body;
+    public $joins;
+    public $sortBy;
+    public $limit;
+    public $allData;
+    public $bindList;
+
     public function initController($page) 
     {    
         $controller_list = [
@@ -46,21 +56,41 @@ class Init extends \Core\Classes\dbWrapper\db
         if($data_param) {
             $sql_param = $data_param['sql'];
             $table_name = $sql_param['table_name'];
-            $base_query = $sql_param['base_query'];
+            $base_query = $sql_param['query']['base_query'];
             $col_list = $sql_param['col_list'];
             $get_param = false;
             $get_sort  = false;
-            $param =  $sql_param['param'];
-            if(array_key_exists('query', $param)) {
-                $get_param = $param['query'];
-            }
-            if(array_key_exists('sort_by', $param)) {
-                $get_sort = $param['sort_by'];
+
+            if(!empty($sql_param['query'])) {
+                if(array_key_exists('body', $sql_param['query'])) {
+                    $get_param = $sql_param['query']['body'];
+                }
+                if(array_key_exists('sort_by', $sql_param['query'])) {
+                    $get_sort = $sql_param['query']['sort_by'];
+                }
             }
             // return $param;
             return $data_param;	
         }
     }
 
+    public function getControllerData($index)
+    {
+        $data = $this->initController($index);
+
+        $sql = $data['sql'];
+
+        $this->tableName    = $sql['table_name'];
+        $this->columnList   = $sql['col_list'];
+        $this->baseQuery    = $sql['query']['base_query'];
+        $this->body         = $sql['query']['body'];
+        $this->joins        = $sql['query']['joins'];
+        $this->sortBy       = $sql['query']['sort_by'];
+        $this->limit        = $sql['query']['limit'] ?? '';
+        $this->bindList    = $sql['bindList'];
+        $this->allData      = $data;
+        
+        return $this;
+    }
 
 }

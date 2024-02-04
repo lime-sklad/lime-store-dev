@@ -36,22 +36,22 @@ trait select
         **/
        
 
-        $param_row = $query['param'];
+        $query_row = $query['query'];
 
         $conditions 		= [];
         $table_name 		= $query['table_name'] 				?? '';
         $col_list 			= $query['col_list'] 				?? '';
-        $base_query 		= $query['base_query'] 				?? '';
-        $param				= $param_row['query']['param'] 		?? '';
-        $joins				= $param_row['query']['joins'] 		?? '';
-        $bind_list			= $param_row['query']['bindList'] 	?? array();
-        $sort_by			= $param_row['sort_by'] 			?? '';
-        $limit				= $param_row['limit'] 				?? '';
+        $base_query 		= $query_row['base_query'] 				?? '';
+        $body				= $query_row['body'] 		?? '';
+        $joins				= $query_row['joins'] 		?? '';
+        $sort_by			= $query_row['sort_by'] 			?? '';
+        $limit				= $query_row['limit'] 				?? '';
+        $bind_list			= $query['bindList'] 	?? array();
      
     
         $query  = "SELECT $col_list FROM $table_name ";
         $query .= $base_query;
-        $query .= $param;
+        $query .= $body;
         $query .= $joins;
         $query .= $sort_by;
         $query .= $limit;

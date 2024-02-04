@@ -1,39 +1,53 @@
 <?php 
-
-require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
-
 // autocmplt-type
-if(!isset($_POST['type'], $_POST['page'])) {
-	echo 'error';
-	exit();
+
+use Core\Classes\System\Utils;
+use Core\Classes\Services\Expenses;
+
+$Expenses = new Expenses;
+
+
+$postData = $_POST['data'];
+
+
+if(!isset($postData['type'], $postData['page'])) {
+    return Utils::abort([
+        'type' => 'error',
+        'text' => 'Empty'
+    ]);
 }
 
 $get_data 	  = [];
-$search_value = ls_trim($_POST['search_item_value']); 
-$type 		  = $_POST['type'];
-$page 	      = $_POST['page'];
-$get_sort_data    = ls_trim($_POST['sort_data']);
+$search_value = trim($postData['search_item_value']); 
+$type 		  = $postData['type'];
+$page 	      = $postData['page'];
+$get_sort_data    = trim($postData['sort_data']);
 
 
-$th_list = get_th_list();
+$th_list = $main->getTableHeaderList();
 
-$sql_data = page_data($page);
+$data = $main->getControllerData($page);
 
-$td_data = $sql_data['page_data_list'];
+$allData = $data->allData;
+
+
+$td_data = $allData['page_data_list'];
 
 $base_result = [];
 $res = [];
 $table = '';
 
-$sql_query_data = $sql_data['sql'];
+$sql_query_data = $allData['sql'];
 
-$table_name     = $sql_query_data['table_name'];
-$param 			= $sql_query_data['param'];
-$col_list 		= $sql_query_data['col_list'];
-$bind_list 		= $sql_query_data['param']['query']['bindList'];
-$base_query 	= $sql_query_data['base_query'];
-$sort_by 		= $sql_query_data['param']['sort_by'];
-$joins 			= $sql_query_data['param']['query']['joins'];
+$col_list 		= $data->columnList;
+$param 			= $data->body;
+$bind_list 		= $data->bindList;
+$table_name 	= $data->tableName;
+$base_query 	= $data->baseQuery;
+$sort_by 		= $data->sortBy;
+$joins 			= $data->joins;
+$limit 			= $data->limit;
+
 
 
 $page_data_row = $td_data['get_data'];
@@ -52,27 +66,26 @@ foreach($page_data_row as $key => $col_name_prefix) {
             $search_array = [
                 'table_name' => $table_name,
                 'col_list'   => $col_list,
-                'base_query' => $base_query,			
-                'param' => [
-                    'query' => [
-                        'param' => $param['query']['param'],
-                        'joins' => $joins . " WHERE $col_name_prefix = :search ",
-                        'bindList' => $bind_list
-                    ],
+                'query' => [
+                    'base_query' => $base_query,			
+                    'body' => $param,
+                    'joins' => $joins . " WHERE $col_name_prefix = :search ",
                     'sort_by' 	 => $sort_by,
-                ]
+                ],
+                'bindList' => $bind_list
+                
             ];     
             
 
             // ls_var_dump($search_array);
             
-            $render_tpl = render_data_template($search_array, $sql_data['page_data_list'], null, 'named');
+            $render_tpl = $main->prepareData($search_array, $allData['page_data_list'], null, 'named');
             
         } else {
-            $render_tpl = render_data_template($data_page['sql'], $td_data, null, 'named');    
+            $render_tpl = $main->prepareData($data_page['sql'], $td_data, null, 'named');    
         }
 
-        $table .= $twig->render('/component/include_component.twig', [
+        $table .= $Render->view('/component/include_component.twig', [
             'renderComponent' => [
                 '/component/table/table_row.twig' => [
                     'table' => $render_tpl['result'],
@@ -92,15 +105,15 @@ foreach($page_data_row as $key => $col_name_prefix) {
     //for rasxod
     if ($page == 'report') {
         if($get_sort_data == 'date' || $get_sort_data == 'buy_date') {
-            array_push($base_result, ['rasxod_money' => search_rasxod_by_date($search_value)]);
+            array_push($base_result, ['rasxod_money' => $Expenses->seachExpensesByDate($search_value)]);
         }
     }
  
 
-$total = $twig->render('/component/include_component.twig', [
+$total = $Render->view('/component/include_component.twig', [
     'renderComponent' => [
         '/component/table/table_footer_row.twig' => [		
-            'table_total' => table_footer_result($td_data['table_total_list'], $base_result)  
+            'table_total' => $utils->compareTableFooterData($td_data['table_total_list'], $base_result)  
         ]  
     ]
 ]);

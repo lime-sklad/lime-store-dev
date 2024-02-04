@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+
 require_once 'vendor/autoload.php';
 
 spl_autoload_register(function ($class) {
@@ -14,9 +16,10 @@ spl_autoload_register(function ($class) {
 });
 
 
-$loader = new \Twig\Loader\FilesystemLoader($_SERVER['DOCUMENT_ROOT'].'/core/template/');
-$twig = new \Twig\Environment($loader);
+// $loader = new \Twig\Loader\FilesystemLoader($_SERVER['DOCUMENT_ROOT'].'/core/template/');
+// $twig = new \Twig\Environment($loader);
 
+$Render = new \Core\Classes\Services\RenderTemplate;
 
 $db = new \core\classes\dbWrapper\db;
 
@@ -35,3 +38,5 @@ $category = new \Core\Classes\Services\Category;
 $provider = new \Core\Classes\Services\Provider;
 
 $user = new \Core\Classes\Privates\User;
+
+$products = new \Core\Classes\Products;

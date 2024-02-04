@@ -1,4 +1,5 @@
 <?php
+
     /**
      * Тут загружаем вкладки и заголовк страницы 
      */
@@ -20,7 +21,7 @@
     // $tab_this = $tab[$get_tab];
 
    
-    echo $twig->render('/component/include_component.twig', [
+    echo $Render->view('/component/include_component.twig', [
         'renderComponent' => [
             '/component/widget/title.twig' => [
                 'title' => $title

@@ -22,16 +22,14 @@ class Provider
         return $this->db->select([
             'table_name' => ' stock_provider ',
             'col_list' => ' * ',
-            'base_query' => ' WHERE visible = "visible" ',
-            'param' => [
-                'query' => [
-                    'param' => '',
-                    'joins' => '',
-                    'bindList' => array(
-                    )
-                ],
+            'query' => [
+                'base_query' => ' WHERE visible = "visible" ',                
+                'body' => '',
+                'joins' => '',
                 'sort_by' => 'ORDER BY provider_id DESC'
-            ]
+            ],
+            'bindList' => array(
+            )
         ])->get();
     }
 }

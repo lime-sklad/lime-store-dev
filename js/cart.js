@@ -463,17 +463,19 @@ $(document).ready(function(){
 
   $(document).pos();
 
-  $(document).on('scan.pos.barcode', function(event){
+  $(document).on('scan.pos.barcode', function(event) {
     var barcode = event.code;
     
     if($('.cart').length > 0) {
       $.ajax({
-        url: '/core/action/barcode/get_product_data.php',
-          type: 'POST',
-          dataType: 'json',
-          data: {
-          barcode: barcode,
-        },
+        type: 'POST',
+        url: 'ajax_route.php',
+        dataType: 'json',
+        data: {
+            route: 'scanBarcode',
+            url: '/core/action/barcode/scanBarcode.php',
+            barcode: barcode,
+          },
         success: (data) => {
           cart.request_data(data.res_id);
           cart.display_total();
@@ -484,22 +486,27 @@ $(document).ready(function(){
     // ЕСЛИ НА СТРАНИЦЕ АНБАРА 
     if($('.table-list[data-stock-page="stock"]').length > 0) {
       $.ajax({
-        url: '/core/action/barcode/get_product_data.php',
-          type: 'POST',
+        type: 'POST',
+          url: 'ajax_route.php',
           dataType: 'json',
           data: {
+            route: 'scanBarcode',
+            url: '/core/action/barcode/scanBarcode.php',            
             barcode: barcode
         },
         success: (data) => {
 
           $.ajax({
               type: 'POST',
-              url: 'core/action/search.php',
+              url: 'ajax_route.php',
               data: {
-                search_item_value	: data.res_id, 
-                page: pageData.page(), 
-                type: pageData.type(),
-                sort_data: 'id'
+                route: 'search',
+                data: {
+                  search_item_value	: data.res_id, 
+                  page: pageData.page(), 
+                  type: pageData.type(),
+                  sort_data: 'id'
+                }
               },
               dataType: 'json',
               success: (data) => {
@@ -517,7 +524,7 @@ $(document).ready(function(){
 
           $.ajax({
               type: 'POST',
-              url: 'core/action/modal/order.php',
+              url: 'core/action/modal/modal.php',
               data:{
                 product_id : data.res_id,
                 // order_id: order_id, 

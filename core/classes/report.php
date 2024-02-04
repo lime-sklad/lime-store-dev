@@ -12,16 +12,14 @@ class Report extends \Core\Classes\dbWrapper\db {
         return $this->select([
             'table_name' => 'stock_order_report',
             'col_list' => '*',
-            'base_query' => ' WHERE order_stock_id = :id ',
-            'param' => [
-                'query' => [
-                    'bindList' => [
-                        ':id' => $id
-                    ]
-                ],
-
-            'sort_by' => ' GROUP BY order_stock_id DESC ORDER BY order_stock_id DESC  '
+            'query' => [
+                'base_query' => ' WHERE order_stock_id = :id ',
+                'sort_by' => ' GROUP BY order_stock_id DESC ORDER BY order_stock_id DESC  '
+            ],            
+            'bindList' => [
+                ':id' => $id
             ]
+            
         ]);
     }
 
@@ -184,14 +182,13 @@ class Report extends \Core\Classes\dbWrapper\db {
             'table_name' => $table_name,
             'col_list' => " DISTINCT $col_name",
             'base_query' => $query,
-            'param' => [
-                'query' => [
-                    'param' => "",
-                    'joins' => "",
-                    'bindList' => array()
-                ],
+            'query' => [
+                'body' => "",
+                'joins' => "",
                 'sort_by' => " ORDER BY $order "
-            ]
+            ],
+            'bindList' => array()
+            
         ])->get();
         
         $dd = array_column($res, $col_name);

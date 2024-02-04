@@ -42,13 +42,24 @@ class Utils extends \Core\Classes\dbWrapper\db
     
 
     //дебаг функция
-    public function lsVarDump($var) 
+    public static function vardump($var) 
     {
         echo "<pre>";
             print_r($var) ;
         echo "</pre>";
     }
 
+
+
+    /**
+     * Выводить json
+     * @param array $arr 
+     * @return json|null
+     */
+    public static function abort(array $arr)
+    {
+        echo json_encode($arr);
+    }
 
 
    /**
@@ -61,13 +72,12 @@ class Utils extends \Core\Classes\dbWrapper\db
         return $this->select([
             'table_name' => 'payment_method_list',
             'col_list' => 'id AS custom_data_id, title AS custom_value, visible, tags_id ',
-            'base_query' => ' WHERE visible = 0 ',
-            'param' => [
+            'query' => [
+                'base_query' => ' WHERE visible = 0 ',
                 'sort_by' => '  ORDER BY freeze DESC, id '
             ]
         ])->get();
     }
-
 
     /**
      * 
@@ -331,7 +341,6 @@ class Utils extends \Core\Classes\dbWrapper\db
         }
     
         return $res;
-    }
-    
+    }   
 
 }

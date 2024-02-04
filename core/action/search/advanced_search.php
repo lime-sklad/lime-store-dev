@@ -1,33 +1,38 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
 header('Content-type: Application/json');
+
+$postData = $_POST['data'];
+
 // autocmplt-type
-if(!isset($_POST['type'], $_POST['page'])) {
+if(!isset($postData['type'], $postData['page'])) {
 	echo 'error';
 	exit();
 }
 
-$post_list = !empty($_POST['post_list']) ? $_POST['post_list'] : $_POST;
+$post_list = !empty($postData['post_list']) ? $postData['post_list'] : $postData;
 
-$type 		  = $_POST['type'];
-$page 	      = $_POST['page'];
+$type 		  = $postData['type'];
+$page 	      = $postData['page'];
 
 
-$th_list = get_th_list();
+$th_list = $main->getTableHeaderList();
 
-$sql_data = page_data($page);
+$controllerData = $init->getControllerData($page);
+
+$sql_data = $controllerData->allData;
 
 $td_data = $sql_data['page_data_list'];
 
 $sql_query_data = $sql_data['sql'];
+
 $table = ' ';
-$table_name     = $sql_query_data['table_name'];
-$param 			= $sql_query_data['param'];
-$col_list 		= $sql_query_data['col_list'];
-$bind_list 		= $sql_query_data['param']['query']['bindList'];
-$table_name 	= $sql_query_data['table_name'];
-$base_query 	= $sql_query_data['base_query'];
-$sort_by 		= $sql_query_data['param']['sort_by'];
+$table_name     = $controllerData->tableName;
+$param 			= $controllerData->body;
+$col_list 		= $controllerData->columnList;
+$bind_list 		= $controllerData->bindList;
+$table_name 	= $controllerData->tableName;
+$base_query 	= $controllerData->baseQuery;
+$sort_by 		= $controllerData->sortBy;
 $joins 		    = '  ';
 
 if($page == 'report') {
@@ -193,21 +198,19 @@ $joins = $joins . $where;
 $search_array = [
     'table_name' => $table_name,
     'col_list'   => $col_list,
-    'base_query' => $base_query,			
-    'param' => [
-        'query' => [
-            'param' => $param['query']['param'],
-            'joins' => $joins,
-            'bindList' => $data
-        ],
+    'query' => [
+        'base_query' => $base_query,			
+        'body' => $param,
+        'joins' => $joins,
         'sort_by' 	 => $sort_by,
-    ]
+    ],
+    'bindList' => $data
 ];
 
 
-$render_tpl = render_data_template($search_array, $sql_data['page_data_list'], null, 'positional');
+$render_tpl = $main->prepareData($search_array, $sql_data['page_data_list'], null, 'positional');
 
-$table .= $twig->render('/component/include_component.twig', [
+$table .= $Render->view('/component/include_component.twig', [
     'renderComponent' => [
         '/component/table/table_row.twig' => [
             'table' => $render_tpl['result'],
@@ -218,15 +221,15 @@ $table .= $twig->render('/component/include_component.twig', [
 ]);
 
 
-$total = $twig->render('/component/include_component.twig', [
+$total = $Render->view('/component/include_component.twig', [
     'renderComponent' => [
         '/component/table/table_footer_row.twig' => [		
-            'table_total' => table_footer_result($td_data['table_total_list'], $render_tpl['base_result'])  
+            'table_total' => $utils->compareTableFooterData($td_data['table_total_list'], $render_tpl['base_result'])  
         ]  
     ]
 ]);
 
-echo json_encode([
+return $utils::abort([
     'table' => $table,
     'total' => $total
 ]);

@@ -1,7 +1,13 @@
 <?php 
 
 $accessManager = new \core\classes\privates\accessManager;
-$main = new \core\classes\privates\user;
+$user = new \core\classes\privates\user;
+$category = new \Core\Classes\Services\Category;
+$provider = new \Core\Classes\Services\Provider;
+
+
+$providerList = $provider->getProviderList();
+$categoryList = $category->getCategoryList();
 
 return [
     'tab' => [
@@ -28,27 +34,26 @@ return [
         'col_list'	=> ' *, GROUP_CONCAT( DISTINCT stock_category.category_name SEPARATOR  " \n -- ") as product_category_list, 
                             GROUP_CONCAT( DISTINCT stock_provider.provider_name SEPARATOR  " \n -- ") as product_provider_list 
         ',
-        'base_query' =>  " INNER JOIN stock_list ON stock_list.stock_id != 0 ",
-        'param' => array(
-            'query' => array(
-                'param' =>  " AND stock_list.stock_visible = 0 AND IF (stock_list.stock_count >= stock_list.min_quantity_stock, stock_list.stock_count >= stock_list.min_quantity_stock, stock_list.stock_count < 0) 
+        'query' => array(
+            'base_query' =>  " INNER JOIN stock_list ON stock_list.stock_id != 0 ",
+            'body' =>  " AND stock_list.stock_visible = 0 AND IF (stock_list.stock_count >= stock_list.min_quantity_stock, stock_list.stock_count >= stock_list.min_quantity_stock, stock_list.stock_count < 0) 
 
-                                ",
-                "joins" => "  LEFT JOIN products_provider_list ON products_provider_list.id_from_stock = stock_list.stock_id
-                              LEFT JOIN products_category_list ON products_category_list.id_from_stock = stock_list.stock_id
-                              
-                              LEFT JOIN stock_provider ON stock_provider.provider_id = products_provider_list.id_from_provider
-                              LEFT JOIN stock_category ON stock_category.category_id = products_category_list.id_from_category
+                            ",
+            "joins" => "  LEFT JOIN products_provider_list ON products_provider_list.id_from_stock = stock_list.stock_id
+                            LEFT JOIN products_category_list ON products_category_list.id_from_stock = stock_list.stock_id
+                            
+                            LEFT JOIN stock_provider ON stock_provider.provider_id = products_provider_list.id_from_provider
+                            LEFT JOIN stock_category ON stock_category.category_id = products_category_list.id_from_category
 
-                              LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id ",		
-                'bindList' => array(						
-                )
-            ),
+                            LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id ",		
+            
             'sort_by' => "  GROUP BY stock_list.stock_id  DESC 
                             ORDER BY  stock_list.stock_id DESC
                         ",
-            'limit' => ' LIMIT 50 ',
+            'limit' => ' LIMIT 50 ', 
         ),	
+        'bindList' => array(						
+        )        
     ],
     'page_data_list' => [
         'sort_key' => 'stock_id',
@@ -63,7 +68,6 @@ return [
             'provider' 			=> 'product_provider_list',
             'category'			=> 'product_category_list',
             'stock_barcode'		=> 'barcode_value',
-            'return_status'		=> 'stock_return_status',
             'edit_stock_btn' 	=> null
         ],
         'table_total_list'	=> [
@@ -75,7 +79,7 @@ return [
             'modal_fields' => array(
                 'user' => [
                     'db' 			=> false, 
-                    'custom_data' 	=> $main->getUser('get_id'), 
+                    'custom_data' 	=> $user->getUser('get_id'), 
                     'premission' 	=> true
                 ],
                 'edit_stock_id' => [
@@ -96,9 +100,9 @@ return [
                 'edit_stock_category' => [
                     'db' 			=> 'category_name', 
                     'class_list'	=> 'edit',
-                    'custom_data' 	=> [] /*get_category_list()*/, 
+                    'custom_data' 	=> $categoryList, 
                     'user_function' => [
-                        'function_name' => 'get_products_categorty_list',
+                        'function_name' => [new \Core\Classes\Products, 'getProductCategory'],
                         'function_args' => 'id',
                     ],
                     'premission' 	=> true
@@ -106,9 +110,9 @@ return [
                 'edit_stock_provider' => [
                     'db' 			=> 'provider_name', 
                     'class_list'	=> 'edit',
-                    'custom_data' 	=> [] /*get_provider_list()*/, 
+                    'custom_data' 	=> $providerList, 
                     'user_function' => [
-                        'function_name' => 'get_products_provider_list',
+                        'function_name' => [new \Core\Classes\Products, 'getProductProvider'],
                         'function_args' => 'id',
                     ],							
                     'premission'	=> true
@@ -185,11 +189,11 @@ return [
             ],						
             [
                 'block_name' => 'add_stock_provider',
-                'custom_data' => [] //get_provider_list()
+                'custom_data' => $providerList
             ],
             [
                 'block_name' => 'add_stock_category',
-                'custom_data' => [] //get_category_list()
+                'custom_data' => $categoryList
             ],	
             [
                 'block_name' => 'add_stock_count'

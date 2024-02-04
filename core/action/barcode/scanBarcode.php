@@ -1,38 +1,15 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
 
 header('Content-type: Application/json');
 
 if(!empty($_POST['barcode'])) {
 
-
     $barcode = $_POST['barcode'];
 
-
-    $row = ls_db_request([
-        'table_name' => 'stock_list as tb',
-        'col_list'   => '*',
-        'base_query' => 'INNER JOIN stock_barcode_list ON stock_barcode_list.barcode_value = :barcode ',			
-        'param' => [
-			'query' => array(
-				'param' =>  " ",
-				"joins" => " LEFT JOIN stock_list ON stock_list.stock_visible != 3  
-                             AND stock_list.stock_count >= stock_list.min_quantity_stock 
-                             AND stock_list.stock_visible = 0
-                             AND stock_list.stock_id = stock_barcode_list.br_stock_id
-
-                             ",		
-				'bindList' => array(
-					'barcode' => $barcode
-				)
-			),
-			'sort_by' => " GROUP BY stock_barcode_list.barcode_id, stock_list.stock_id DESC ORDER BY stock_list.stock_id DESC "
-        ]
-    ]);	
-
+    $row = $products->getProductByBarcode($barcode);
 	$row = $row[0];
 
-    echo json_encode([
+    echo $utils::abort([
         'res_id' => $row['stock_id']
     ]);
 
