@@ -31,9 +31,10 @@ return [
     ],
     'sql' => [
         'table_name' => '  user_control  ',
-        'col_list'	=> ' *, GROUP_CONCAT( DISTINCT stock_category.category_name SEPARATOR  " \n -- ") as product_category_list, 
-                            GROUP_CONCAT( DISTINCT stock_provider.provider_name SEPARATOR  " \n -- ") as product_provider_list 
-        ',
+
+        // 'col_list'	=> ' *, GROUP_CONCAT( DISTINCT stock_category.category_name SEPARATOR  " \n -- ") as product_category_list, 
+        //                     GROUP_CONCAT( DISTINCT stock_provider.provider_name SEPARATOR  " \n -- ") as product_provider_list         
+        'col_list'	=> ' * ',
         'query' => array(
             'base_query' =>  " INNER JOIN stock_list ON stock_list.stock_id != 0 ",
             'body' =>  " AND stock_list.stock_visible = 0 AND IF (stock_list.stock_count >= stock_list.min_quantity_stock, stock_list.stock_count >= stock_list.min_quantity_stock, stock_list.stock_count < 0) 
@@ -65,8 +66,8 @@ return [
             'first_price'		=> 'stock_first_price',
             'second_price' 		=> 'stock_second_price',
             'count'				=> 'stock_count',
-            'provider' 			=> 'product_provider_list',
-            'category'			=> 'product_category_list',
+            'provider' 			=> 'provider_name',
+            'category'			=> 'category_name',
             'stock_barcode'		=> 'barcode_value',
             'edit_stock_btn' 	=> null
         ],

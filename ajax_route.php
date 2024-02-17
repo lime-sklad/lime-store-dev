@@ -27,6 +27,12 @@ $routeLis = [
 	'appendMoreFields'		=> ROOT.'/core/action/add_more_fields.php',
 	'editProduct'			=> ROOT.'/core/action/stock/edit_product.php',
 
+
+	'editReport'			=> ROOT.'/core/action/report/edit.php',
+	'deleteOrder'			=> ROOT.'/core/action/report/refaund.php',
+	
+	'includeStats'			=> ROOT.'/core/pulgin/stats_card/stats_report.php',
+
 	'scanBarcode' 			=> ROOT.'/core/action/barcode/scanBarcode.php',		
 ];
 

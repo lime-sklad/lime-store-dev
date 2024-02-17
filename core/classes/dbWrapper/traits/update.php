@@ -48,7 +48,8 @@ trait update
                 if(array_key_exists('require', $post_value)) {
                     if(empty($data[$post_key])) {
                         return json_encode([
-                            'error' => 'Заполните все обязательные поля!'
+                            'type' => 'error', 
+                            'text' => 'Заполните все обязательные поля!'
                         ]);
                     }
                 }            

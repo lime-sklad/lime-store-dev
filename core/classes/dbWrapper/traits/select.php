@@ -2,6 +2,8 @@
 
 namespace core\classes\dbWrapper\traits;
 
+use Core\Classes\System\Utils;
+
 trait select
 {
 
@@ -57,6 +59,7 @@ trait select
         $query .= $limit;
     
     
+
         $conditions = array_merge($conditions, $bind_list);
     
         $stock_view = $this->dbpdo->prepare($query, array(\PDO::ATTR_CURSOR => \PDO::CURSOR_SCROLL));

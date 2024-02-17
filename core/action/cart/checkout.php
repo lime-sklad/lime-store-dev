@@ -52,7 +52,7 @@ foreach($cart_list as $row) {
     //     return alert_error('Заполните поля правильно!');
     // }
 
-    $stock_row = $products->getProductsById($id);
+    $stock_row = $products->getProductById($id);
 
 
      // в запросе указано, если в заказе указано количесто больше чем есть в базе, то вывести пустой результат

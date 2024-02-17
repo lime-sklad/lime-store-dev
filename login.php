@@ -20,7 +20,7 @@ $image_dir = array_diff(scandir('img/pattern/'), array('.', '..'));
 
 $random_main_background_image = $image_dir[array_rand($image_dir, 1)];
 
-	echo $twig->render('/component/include_component.twig', [
+	echo $Render->view('/component/include_component.twig', [
 		'renderComponent' => [
 			'/component/index/head.twig' => [
 				'lib_list' => [
@@ -53,10 +53,10 @@ $random_main_background_image = $image_dir[array_rand($image_dir, 1)];
 		]
 	]); 
 
-	$user_name_list = get_all_user_list();
+	$user_name_list = $user->getAllUser();
 	$user_name_list = array_column($user_name_list, 'user_name');
 
-	echo $twig->render('/component/container.twig', [
+	echo $Render->view('/component/container.twig', [
 		'includs' => [
 			'renderLogin' => [
 				'/component/login/login_form.twig' => [

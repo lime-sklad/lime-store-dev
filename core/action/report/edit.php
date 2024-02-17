@@ -1,9 +1,23 @@
-<?php 
-require_once $_SERVER['DOCUMENT_ROOT'].'/function.php';
+<?php
 
-header('Content-type', 'Application/json');
+use Core\Classes\System\Utils;
 
-$report = new \core\classes\report;
+ header('Content-type', 'Application/json');
 
-echo $report->edit($_POST);
+$report = new \Core\Classes\Report;
+
+if(!empty($_POST['prepare'])) {
+    $data = $_POST['prepare'];
+
+ echo $report->editReport($data);
+
+
+} else {
+    $utils::abort([
+        'type' => 'error',
+        'text' => 'Emprty'
+    ]);
+}
+
+
 

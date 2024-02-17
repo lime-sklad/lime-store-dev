@@ -61,7 +61,7 @@ if(empty($post_list['stock_provider_list'])) {
 if(!empty($post_list['stock_category_list'])) {
     $product_category_list = $post_list['stock_category_list'];
 
-    $id = implode(',', array_fill(0, count($product_category_list), '?'));;
+    $id = implode(',', array_fill(0, count($product_category_list), '?'));
 
     $joins = $joins." INNER JOIN products_category_list ON products_category_list.id_from_category IN ($id) 
                       AND stock_list.stock_id = products_category_list.id_from_stock  
@@ -75,7 +75,7 @@ if(!empty($post_list['stock_category_list'])) {
 if(!empty($post_list['stock_provider_list'])) {
     $product_provider_list = $post_list['stock_provider_list'];
 
-    $id = implode(',', array_fill(0, count($product_provider_list), '?'));;
+    $id = implode(',', array_fill(0, count($product_provider_list), '?'));
 
     $joins = $joins." INNER JOIN products_provider_list ON products_provider_list.id_from_provider IN ($id) 
                       AND stock_list.stock_id = products_provider_list.id_from_stock  

@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 header('Content-type: Application/json');
 
 $postData = $_POST['data'];
@@ -10,11 +9,13 @@ $data = [];
 
 if(!empty($prepare_data) && count($prepare_data) > 0) {
 	try {			
-		$barcode_list = $prepare_data['stock_barcode_list'];
-
-		$products->hasProductBarcode($barcode_list) ?? die;
+		if(!empty($prepare_data['stock_barcode_list'])) { 
+			$barcode_list = $prepare_data['stock_barcode_list'];
+	
+			$products->hasProductBarcode($barcode_list) ?? die;
+		}
 		
-		$products->addProduct($prepare_data	);
+		$products->addProduct($prepare_data);
 
 		// получаем последний добавленный товар, тоесть тот который мы только что добавили
 		$last_stock_id = $products->getLastAddedProduct('stock_id');

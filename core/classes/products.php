@@ -8,7 +8,7 @@ use Core\Classes\Traits\Barcode;
 class Products
 {
     use Barcode;
-    
+
     private $db;
     private $user;
     

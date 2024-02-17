@@ -1,7 +1,11 @@
 <?php 
 namespace Core\Classes;
 
+use Core\Classes\Traits\ReportStatsCard;
+
 class Report extends \Core\Classes\dbWrapper\db {
+    use ReportStatsCard;
+
     /**
      * @param int $id  id отчета
      * @return array
@@ -29,7 +33,7 @@ class Report extends \Core\Classes\dbWrapper\db {
      * @param array $data
      * @return json
      */
-    public function edit($data) 
+    public function editReport($data) 
     {
         $option = [
             'before' => ' UPDATE stock_order_report JOIN stock_list ON stock_list.stock_id = stock_order_report.stock_id SET ',
@@ -61,7 +65,19 @@ class Report extends \Core\Classes\dbWrapper\db {
 
 
         $this->update($option, $data);
-        
+        $this->refaundOrder($data);
+        return $this->changeOrderPrice($data);
+    }
+
+
+
+    /**
+     * Возврат товара, по количеству
+     * 
+     * @param array $data
+     */
+    public function refaundOrder($data)
+    {
         // products count refaund
         $option2 = [
             'before' => ' UPDATE stock_order_report JOIN stock_list ON stock_list.stock_id = stock_order_report.stock_id SET ',
@@ -87,11 +103,17 @@ class Report extends \Core\Classes\dbWrapper\db {
             ]
         ];
 
-        $this->update($option2, $data);
+        return $this->update($option2, $data);        
+    }
 
 
-
-
+    /**
+     * Изменяем цену в отчете 
+     * 
+     * @param array @data
+     */
+    public function changeOrderPrice($data) 
+    {
         // products price change
         $option3 = [
             'before' => ' UPDATE stock_order_report JOIN stock_list ON stock_list.stock_id = stock_order_report.stock_id SET ',
@@ -118,9 +140,10 @@ class Report extends \Core\Classes\dbWrapper\db {
             ]
         ];
 
-
-        return $this->update($option3, $data);
+        return $this->update($option3, $data);        
     }
+
+
 
 
     /**
@@ -128,7 +151,7 @@ class Report extends \Core\Classes\dbWrapper\db {
      * @param array $data
      * @return json 
      */
-    public function refaundOrder($data) 
+    public function deleteOrder($data) 
     {
         $option = [
             'before' => " UPDATE stock_list
@@ -146,15 +169,12 @@ class Report extends \Core\Classes\dbWrapper\db {
             ]
         ];   
         
-        
-
-        return $this->update($option, $data);
+        echo $this->update($option, $data);
     }
 
     public function getDifferenceOrderCount(int $orderCount, int $changeCount) {
 
     }
-
 
 
     /** 

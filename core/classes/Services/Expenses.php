@@ -69,6 +69,7 @@ class Expenses
     }    
 
 
+
     /**
      * Ищем расход по дате
      */
@@ -91,4 +92,32 @@ class Expenses
     
         return $res[0]['total_rasxod_money'];
     }    
+
+
+    /**
+     * ПОлучить даты дневных расходов
+     * @return array|null
+     * 
+     * old function name get_rasxod_day_list
+     */
+    public function getExpenseDayList() 
+    {
+        $res = $this->db->select([
+            'table_name' => "rasxod",
+            'col_list' => " DISTINCT rasxod_day_date ",
+            'query' => [
+                'base_query' => ' WHERE rasxod_visible = 0',
+                'body' => "",
+                'joins' => "",
+                'sort_by' => " ORDER BY rasxod_id DESC "
+            ],
+            'bindList' => array()
+        ])->get();
+        
+        $dd = array_column($res, 'rasxod_day_date');
+
+        $dd['default'] = date("d.m.Y");
+
+        return $dd;
+    }
 }

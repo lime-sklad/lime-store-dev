@@ -27,10 +27,12 @@
         var d_type = $('.stats-card-list').data('stats-search-type');
 
         $.ajax({
-            type: 'GET',
-            url: 'core/pulgin/stats_card/stats_report.php',
+            type: 'POST',
+            url: 'ajax_route.php',
             dataType: 'json',
             data: {
+                url: 'core/pulgin/stats_card/stats_report.php',
+                route: 'includeStats',
                 page: pageData.page(),
                 type: pageData.type(),
                 date: date,
@@ -43,6 +45,8 @@
                 console.log('s');
             },            
             success: (data) => {
+                console.log(data);
+
                 $('.stats-card-list').html(data.report_cards);
 
                 $('.report-date-picker-item--cards-load').removeClass('clicked');

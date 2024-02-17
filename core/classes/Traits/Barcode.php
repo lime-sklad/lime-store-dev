@@ -28,6 +28,30 @@ trait Barcode
         $this->db->insert('stock_barcode_list', $list);
     }
 
+
+    /**
+     * Удалить конкретный штрихкод
+     * 
+     * @param array $barcodeList array(int, int, int)
+     */
+    public function removeProductBarcode($barcodeList)
+    {
+
+        foreach($barcodeList as $id) {
+            $this->db->delete([
+                [
+                    'table_name' => 'stock_barcode_list',
+                    'where' => ' stock_barcode_list.barcode_id = :id ',
+                    'bindList' => [
+                        'id' => $id
+                    ]
+                ]
+            ]);
+
+        }
+    }
+
+
     /**
      * Удалить штрихкоды для твоара
      * 
@@ -99,7 +123,8 @@ trait Barcode
             if (!empty($data)) {
                 return Utils::abort([
                     'type' => 'error',
-                    'text' => 'Bu barkodlu məhsul artıq əlavə edilib'
+                    'text' => 'Bu barkodlu məhsul artıq əlavə edilib',
+                    'barcode' => $barcode
                 ]);
             }
         }
@@ -139,6 +164,7 @@ trait Barcode
      */
     public function editBarcodeValue($list) 
     {
+
         $option = [
             'before' => " UPDATE stock_barcode_list SET ",
             'after' => " WHERE barcode_id = :id",
@@ -155,12 +181,37 @@ trait Barcode
         ];
 
         foreach ($list as $key => $val) {
-            self::vardump($val);
-            $this->update($option, [
+            $this->hasProductBarcode([$val['value']]) ?? die;
+            
+            $this->db->update($option, [
                 'id' => $val['barcodeId'],
                 'value' => $val['value']
             ]);
         }
     }    
+
+
+
+    /**
+     * Поиск по штрихкодам
+     * 
+     * @param array $barcodeList array()
+     */
+    public function getBarcodeInfo($barcodeLists) 
+    {
+        $value = implode(',', array_fill(0, count($barcodeLists), '?'));
+
+        return $this->db->select([
+                'table_name' => 'stock_barcode_list',
+                'col_list' => 'barcode_id as barcodeId, barcode_value as barcodeValue',
+                'query' => [
+                    'base_query' => " WHERE stock_barcode_list.barcode_value IN ($value) "
+                ],
+                'bindList' => $barcodeLists
+                
+            ], 
+            \PDO::FETCH_ASSOC, 'positional')->get();
+
+    } 
 
 }

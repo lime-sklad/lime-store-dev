@@ -1,7 +1,6 @@
 <?php 
 	$data_page = $main->initController($page);
 	
-	$productsFilter = new \Core\Classes\Services\ProductsFilter;
 
 	$page_config = $data_page['page_data_list'];
 	

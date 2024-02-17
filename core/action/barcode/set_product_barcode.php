@@ -1,25 +1,27 @@
 <?php
-
-use Core\Classes\System\Utils;
-
 header('Content-type: Application/json');
+
+$result = [
+    'type' => 'success',
+    'text' => 'Saved'
+];
 
 $stock_id = $_POST['productId'];
 
-$products->editBarcodeValue($_POST['edited_barcode']);
-
-
-exit;
-
-$products->resetProductBarcode($stock_id);
-
-if(!empty($_POST['update_barcode_list'])) {
-    $barcodeList = $_POST['update_barcode_list'];
-    $products->setProductBarcode($barcodeList, $stock_id);
+if(!empty($_POST['edited_barcode_list'])) {
+    $products->editBarcodeValue($_POST['edited_barcode_list']);
 }
 
-$utils::abort([
-    'type' => 'success',
-    'text' => 'Ok'
-]);
+if(!empty($_POST['new_barcode_list'])) {
+    $newBarcodeList = $_POST['new_barcode_list'];
+    
+    $products->setProductBarcode($newBarcodeList, $stock_id);
+    
+    $result['newAddedBarcode'] = $products->getBarcodeInfo($newBarcodeList);
+}
 
+if(!empty($_POST['removed_barcode_list'])) {
+    $products->removeProductBarcode($_POST['removed_barcode_list']);
+}
+
+$utils::abort($result);

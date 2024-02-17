@@ -1,6 +1,11 @@
 <?php
-	$data_page = page_data($page);
+
+use Core\Classes\Services\Expenses;
+
+	$data_page = $main->initController($page);
 	$page_config = $data_page['page_data_list'];
+
+	$expense = new Expenses;
 
 	//параметры поиска
 	$search_arr = array(
@@ -15,17 +20,17 @@
 		'widget_container_class_list' => 'flex-cntr',
 	);
 		
-	$data_page['sql']['param']['query']['param'] = $data_page['sql']['param']['query']['param'] . "  AND rasxod.rasxod_day_date = :rasxodDay";
-	$data_page['sql']['param']['query']['bindList']['rasxodDay'] = date('d.m.Y');
+	$data_page['sql']['query']['base_query'] = $data_page['sql']['query']['base_query'] . "  AND rasxod.rasxod_day_date = :rasxodDay";
+	$data_page['sql']['bindList']['rasxodDay'] = date('d.m.Y');
 
-	$table_result = render_data_template($data_page['sql'], $data_page['page_data_list']);
+	$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list']);
 
 
-	echo $twig->render('/component/inner_container.twig', [
+	echo $Render->view('/component/inner_container.twig', [
 		'renderComponent' => [			
 			'/component/related_component/include_widget.twig' => [			
 				'/component/rasxod/rasxod_date_picker.twig' => [
-					'res' => get_rasxod_day_list(),
+					'res' => $expense->getExpenseDayList(),
                     'rasxod_sort' => 'rasxod-day-date'
 				],
 
@@ -37,7 +42,7 @@
 				'table_type' 		=> $type,
 			],
 			'/component/table/table_footer_wrapper.twig' => [
-				'table_total'    	=> table_footer_result($page_config['table_total_list'], $table_result['base_result'])
+				'table_total'    	=> $utils->compareTableFooterData($page_config['table_total_list'], $table_result['base_result'])
 			]			
 		]
 	]);

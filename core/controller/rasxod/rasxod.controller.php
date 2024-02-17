@@ -23,16 +23,14 @@ return [
     'sql' => [
         'table_name' => ' user_control ',
         'col_list'	=> "*",
-        'base_query' =>  " INNER JOIN rasxod ON rasxod.rasxod_visible !=1  ",
-        'param' => array(
-            'query' => array(
-                'param' =>  " ",
-                "joins" => " ",									  
-                'bindList' => array(
-                )
-            ),
+        'query' => array(
+            'base_query' =>  " INNER JOIN rasxod ON rasxod.rasxod_visible !=1  ",
+            'body' =>  " ",
+            "joins" => " ",									  
             'sort_by' => " 	GROUP BY rasxod.rasxod_id DESC  
-                            ORDER BY rasxod.rasxod_id DESC "
+                            ORDER BY rasxod.rasxod_id DESC 
+            ",
+        'bindList' => array()
         ),	
     ],
     'page_data_list' => [

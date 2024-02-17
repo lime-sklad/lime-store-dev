@@ -143,9 +143,9 @@ $(document).ready(function(){
       $('.body_prelodaer').find('.preloader').removeClass('hide').addClass('flex-cntr'); 
     },
     preloaderHide: function() {
-      setTimeout(function() {
-        $('.body_prelodaer').find('.preloader').removeClass('flex-cntr').addClass('hide');
-      }, 10);
+      $('.body_prelodaer').find('.preloader').removeClass('flex-cntr').addClass('hide');
+      // setTimeout(function() {
+      // }, 10);
     },
     rightSideModal: function(data) {
       var $modal_wrp = $('.module_fix_right_side');
@@ -935,7 +935,7 @@ $(document).on('click', '.remove-fields', function() {
       $(this).closest('.fields').remove();
     }
   } else {
-    $(this).closest('.fields').find('.form-input').val('');
+    $(this).closest('.fields').find('.form-input').val('').addClass('deleted');
   }
 
 

@@ -1,6 +1,6 @@
 <?php 
-
-$main = new \core\classes\privates\user;
+$user = new \core\classes\privates\user;
+$utils = new \Core\Classes\System\Utils;
 
 return [
     'tab' => [
@@ -97,7 +97,7 @@ return [
             'modal_fields' => array(
                 'user' => [
                     'db' 			=> false, 
-                    'custom_data' 	=> $main->getUser('get_id'), 
+                    'custom_data' 	=> $user->getUser('get_id'), 
                     'premission' 	=> true
                 ],
                 'report_order_id' => [
@@ -117,7 +117,7 @@ return [
                 ],
                 'report_change_tags' => [
                     'db' => 'id',
-                    'custom_data' => [] /* get_tags_list(true) */,
+                    'custom_data' => $utils->getTagsList(true),
                     'premission' => true
                 ],
                 'report_order_note' => [

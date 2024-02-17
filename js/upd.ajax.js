@@ -124,23 +124,24 @@ $(document).on('click', '.report-refaund-btn', function(){
     var report_order_id = $('.report_order_id').data('id');
   
     $.ajax({
-        url: 'core/action/report/refaund.php',
+        url: 'ajax_route.php',
         type: 'POST',
         data: {
+			route: 'deleteOrder',
+			url: 'core/action/report/refaund.php',
             report_id: report_order_id
         },
         dataType: 'json',
         success: (data)=> {
             if(data.type == 'success') {
-				pageData.alert_notice(data.type, data.text);
 				pageData.rightSideModalHide();
 				pageData.overlayHide();
 
                 $(`.get_report_order_id[data-sort-value="${report_order_id}"]`).closest('.stock-list').remove();
             }
-            if(data.error) {
-               pageData.alert_notice(data.type, data.text);
-            }
+			
+            pageData.alert_notice(data.type, data.text);
+            
         }
     });
 });
@@ -428,7 +429,7 @@ $('body').on('click', '.submit-save-stock', function() {
 	});
 	
 	// GET NEW ADDED CATEGORY
-	$('.new.edit-product-category').each(function() {
+	$('.new.edit-product-category.edited').each(function() {
 		var get_new_id = $(this).val();
 		
 		if(!$(this).closest('.form-fields').hasClass('hide')) {
@@ -436,6 +437,8 @@ $('body').on('click', '.submit-save-stock', function() {
 				'get_new_id': get_new_id
 			});
 		}
+
+		$(this).attr('data-old-id', get_new_id);
 	});
 
 
@@ -448,6 +451,13 @@ $('body').on('click', '.submit-save-stock', function() {
 				'product_id': stock_id,
 				'del_id': deleted_id
 			});			
+		}
+
+		if($(this).closest('.form-fields').find('.deleted').length  && !$(this).hasClass('new')) {
+			deleted_category.push({
+				'product_id': stock_id,
+				'del_id': $(this).val()
+			});				
 		}
 	});	
 
@@ -470,7 +480,7 @@ $('body').on('click', '.submit-save-stock', function() {
 	});
 	
 	// GET NEW ADDED provider
-	$('.new.edit-product-provider').each(function() {
+	$('.new.edit-product-provider.edited').each(function() {
 		var get_new_id = $(this).val();
 		
 		if(!$(this).closest('.form-fields').hasClass('hide')) {
@@ -478,6 +488,8 @@ $('body').on('click', '.submit-save-stock', function() {
 				'get_new_id': get_new_id
 			});
 		}
+
+		$(this).attr('data-old-id', get_new_id);
 	});
 
 
@@ -491,7 +503,24 @@ $('body').on('click', '.submit-save-stock', function() {
 				'del_id': deleted_id
 			});			
 		}
+
+		if($(this).closest('.form-fields').find('.deleted').length  && !$(this).hasClass('new')) {
+			deleted_provider.push({
+				'product_id': stock_id,
+				'del_id': $(this).val()
+			});				
+		}		
 	});	
+
+	console.log({
+		edited_category: 	edited_category,
+		new_added_category: new_added_category,
+		deleted_category: 	deleted_category,
+
+		edited_provider: 	edited_provider,
+		new_added_provider: new_added_provider,
+		deleted_provider: 	deleted_provider
+	});
 
 
 	$.ajax({
@@ -503,13 +532,15 @@ $('body').on('click', '.submit-save-stock', function() {
 			data: {
 				product_id: 		stock_id,
 				prepare_data: 		prepare_data,
-				edited_category: 	edited_category,
-				new_added_category: new_added_category,
-				deleted_category: 	deleted_category,
-	
-				edited_provider: 	edited_provider,
-				new_added_provider: new_added_provider,
-				deleted_provider: 	deleted_provider			
+				advanced: {
+					edited_category: 	edited_category,
+					new_added_category: new_added_category,
+					deleted_category: 	deleted_category,
+		
+					edited_provider: 	edited_provider,
+					new_added_provider: new_added_provider,
+					deleted_provider: 	deleted_provider
+				}			
 			}
 		},
 		dataType: "json",
@@ -531,6 +562,11 @@ $('body').on('click', '.submit-save-stock', function() {
 					'new',
 					'edited'
 				]);
+
+				$('.edit-product-provider').removeClass([
+					'new',
+					'edited'
+				])				
 
 				$('.edit-append-stock-count').val('').removeClass('edited');
 
@@ -1134,42 +1170,37 @@ $(document).on('click', '.report-return-btn-modal', function() {
 $(document).on('click', '.save-edit-stock-barcode', function() {
 	var productId = $(this).data('id');
 
-	let new_barcode = [];
-	let removed_barcode = [];
-	let edited_barcode = [];
+	let new_barcode_list = [];
+	let removed_barcode_list = [];
+	let edited_barcode_list = [];
 
 
 	$('.edit-barcode-input').each(function(index, key){
 		
 		// НОВЫЙ БАРКОД
 		if($(this).hasClass('new') && !$(this).parent().hasClass('hide')) {
-			new_barcode[index] = $(this).val();
+			new_barcode_list.push($(this).val());
 		}
 
 		// УДАЛЕННЫЫЙ БАРКОД
 		if(!$(this).hasClass('new') && $(this).parent().hasClass('hide')) {
-			removed_barcode.push({
-				barcodeId: $(this).data('barcode-id'),
-				value: $(this).val()				
-			});
+			removed_barcode_list.push($(this).data('barcode-id'));		
 		}		
+
+		if($(this).hasClass('deleted')) {
+			removed_barcode_list.push($(this).data('barcode-id'));
+		}			
 
 		// ИЗМЕНЕННЫЙ БАРКОД
 		if(!$(this).hasClass('new') && !$(this).parent().hasClass('hide')) {
 			if($(this).hasClass('edited')) {
-				edited_barcode.push({
+				edited_barcode_list.push({
 					barcodeId: $(this).data('barcode-id'),
 					value: $(this).val()
 				});
 			}
 		}		
 	});
-
-	console.log({
-		edited_barcode,
-		removed_barcode,
-		new_barcode
-	})	
 
 	$.ajax({
 		type: 'POST',
@@ -1178,11 +1209,29 @@ $(document).on('click', '.save-edit-stock-barcode', function() {
 			url: 'core/action/barcode/set_product_barcode.php',
 			route: 'setProductBarcode',
 			productId: productId,
-			edited_barcode: edited_barcode
+			new_barcode_list: new_barcode_list,
+			removed_barcode_list: removed_barcode_list,
+			edited_barcode_list: edited_barcode_list
 		},
 		dataType: 'json',
-		success: (data) => {
+		success: (data) => {				
 			pageData.alert_notice(data.type, data.text);
+
+				$('.edit-barcode-input').removeClass(['edited', 'new']);
+
+				$(this).closest('.modal-container').find('.form-fields.hide').remove();
+			
+			if(data.newAddedBarcode) {
+				data.newAddedBarcode.forEach((item) => {
+					 $('.edit-barcode-input').each(function() {
+						var val = $(this).val();
+
+						if(item.barcodeValue == val) {
+							$(this).attr('data-barcode-id', item.barcodeId);
+						}
+					 });
+				});
+			}
 		}
 	});
 });
@@ -1730,10 +1779,15 @@ $(document).on('click', '.edit-report-order', function() {
 console.log(prepare)
 
 	$.ajax({
-		url: 'core/action/report/edit.php',
+		url: 'ajax_route.php',
 		type: 'POST',
 		dataType: 'json',
-		data: prepare,
+		data: {
+			route: 'editReport',
+			url: 'core/action/report/edit.php',
+			prepare: prepare,
+
+		},
 		success: (data) => {
 			if(data.type == 'success') {
 				for (key in prepare) {

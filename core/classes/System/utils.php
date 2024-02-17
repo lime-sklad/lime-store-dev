@@ -12,7 +12,7 @@ class Utils extends \Core\Classes\dbWrapper\db
      * @return int
      * old function name decorate_num
      */
-    public function prettyPrintNumber($price) 
+    public static function prettyPrintNumber($price) 
     {
         return number_format($price, 0, '', ' ');
     }
@@ -59,6 +59,14 @@ class Utils extends \Core\Classes\dbWrapper\db
     public static function abort(array $arr)
     {
         echo json_encode($arr);
+    }
+
+    public static function errorAbort(string $errText) 
+    {
+        return self::abort([
+            'type' => 'error',
+            'text' => $errText
+        ]);
     }
 
 
