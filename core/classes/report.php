@@ -176,4 +176,20 @@ class Report extends \Core\Classes\dbWrapper\db {
 
     }
 
+    public function getReportByDate($date) 
+    {
+        return $this->select([
+            'table_name' => 'stock_order_report',
+            'col_list' => '*',
+            'query' => [
+                'base_query' => ' WHERE order_stock_id = :id ',
+                'sort_by' => ' GROUP BY order_stock_id DESC ORDER BY order_stock_id DESC  '
+            ],            
+            'bindList' => [
+                ':date' => $date
+            ]
+            
+        ]);        
+    }
+
 } 
