@@ -1,0 +1,48 @@
+<div class="component_container mrgn-bottom-50 width-50 chartsContainer ">
+    <canvas id="{{data.chartsName}}" class="jjj" height="50" data-rout="{{data.scriptRoute}}"></canvas>
+</div>
+
+<script defer>
+
+    var {{data.chartsName}} = new Chart('{{data.chartsName}}', {
+        type: 'pie',
+        data: {
+            labels: null,
+            datasets: [{
+                data: null,
+                hoverOffset: 5
+            }]      
+        },
+    }); 
+
+
+    list.push({{data.chartsName}});
+
+    routeList.push({
+        '{{data.chartsName}}': '{{ data.scriptRoute }}'
+    });
+
+
+    var date = $('.report-date-picker').val();
+
+    drawCharts({{data.chartsName}}, date, '{{ data.scriptRoute }}');   
+
+    $('body').on('click', '.load-charts', function() {   
+        if(!$(this).hasClass('aclicked')) {
+            $(this).addClass('aclicked');
+            var pick_date = $(this).data('sort-value');
+            
+            console.log(routeList);
+
+            routeList.forEach(re => {
+                list.forEach(el => {
+                    drawCharts(el, pick_date, re[el.canvas.id]);
+                })
+            });
+
+        }
+    });  
+
+
+        
+</script>

@@ -6,9 +6,11 @@ $(document).ready(function() {
 
         if(cart.is_cart_prepared()) {
             $.ajax({
-                url: 'core/action/warehouse-transfer/add-transfer.php',
+                url: 'ajax_route.php',
                 type: 'POST',
                 data: {
+                    route: 'addTransfer',
+                    url: '/core/action/warehouse-transfer/add-transfer.php',
                     warehouse_id: warehouse_id,
                     list: cart.get_cart_list()
                 },

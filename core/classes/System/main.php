@@ -3,7 +3,7 @@
 namespace Core\Classes\System;
 
 use \Core\Classes\Privates\AccessManager;
-use \Core\Classes\System\Utils;
+use \Core\Classes\Utils\Utils;
 use \Core\Classes\dbWrapper\db;
 use \Core\Classes\Services\RenderTemplate;
 
@@ -25,6 +25,47 @@ class Main extends \Core\Classes\System\Init
 		$this->Render = new RenderTemplate; 
     }
 
+
+        /** 
+     * @param array $arr
+     * $arr = [
+     * 	'table_name' => 'stock_list',
+     * 	'col_name'	 => 'stock_name',
+     * 	'order'		 => ' date desc ',
+     *  'query' 	 => 'WHERE date_query = 0'
+     * ];
+     * 
+     * @return array|null
+     * 
+     * old function name get_report_date_list
+     */
+    public function getReportDateList($data) 
+    {
+        $table_name 	= $data['table_name'];
+        $col_name 		= $data['col_name'];
+        $order 			= $data['order'];
+        $query 			= $data['query'];
+        $default 		= $data['default'];
+
+        $res = $this->db->select([
+            'table_name' => $table_name,
+            'col_list' => " DISTINCT $col_name",
+            'query' => [
+                'base_query' => $query,
+                'body' => "",
+                'joins' => "",
+                'sort_by' => " ORDER BY $order "
+            ],
+            'bindList' => array()
+            
+        ])->get();
+        
+        $dd = array_column($res, $col_name);
+
+        $dd['default'] = $default;
+
+        return $dd;
+    }
 
 
     /**
@@ -249,6 +290,7 @@ class Main extends \Core\Classes\System\Init
                     ],
                     'bindList' => $bind_list
                 ];
+                
 
                 
                 $d = $this->db->select($search_array)->get();		

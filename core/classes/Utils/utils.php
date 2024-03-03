@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Classes\System;
+namespace Core\Classes\Utils;
 
 class Utils extends \Core\Classes\dbWrapper\db 
 {
@@ -12,9 +12,18 @@ class Utils extends \Core\Classes\dbWrapper\db
      * @return int
      * old function name decorate_num
      */
-    public static function prettyPrintNumber($price) 
+    public static function prettyPrintNumber($price)
     {
-        return number_format($price, 0, '', ' ');
+        // Проверяем, является ли число дробным
+        if (strpos($price, '.') !== false) {
+            // Преобразуем число в дробное с двумя знаками после запятой
+            $formatted_number = number_format((float)$price, 2, '.', ' ');
+        } else {
+            // Преобразуем число в целое
+            $formatted_number = number_format((float)$price, 0, '.', ' ');
+        }
+
+        return $formatted_number;
     }
     
 
@@ -24,7 +33,7 @@ class Utils extends \Core\Classes\dbWrapper\db
      * 
      * old function name get_my_dateyear
      */
-    public function getDateMY() 
+    public static function getDateMY() 
     {
         return date("m.Y");
     }
@@ -35,21 +44,19 @@ class Utils extends \Core\Classes\dbWrapper\db
      * 
      * old function get_my_datetoday()
      */
-    public function getDateDMY() 
+    public static function getDateDMY() 
     {
         return  date("d.m.Y");
     }
     
 
     //дебаг функция
-    public static function vardump($var) 
+    public static function log($var) 
     {
         echo "<pre>";
             print_r($var) ;
         echo "</pre>";
     }
-
-
 
     /**
      * Выводить json
@@ -350,5 +357,4 @@ class Utils extends \Core\Classes\dbWrapper\db
     
         return $res;
     }   
-
 }

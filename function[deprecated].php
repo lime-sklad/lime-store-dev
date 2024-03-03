@@ -1406,7 +1406,7 @@ function get_today_total_rasxod($date) {
 }
 
 
-// список месячных расходов
+// список месячных расходов ***********
 function get_rasxod_date_list() {
 	$res = ls_db_request([
 		'table_name' => "rasxod",
@@ -1511,7 +1511,7 @@ function license_expired_notify() {
 	return false;
 }
 
-
+// **********
 function get_warehouse_list() {
 	return ls_db_request([
 		'table_name' => 'warehouse_list',

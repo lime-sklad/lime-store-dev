@@ -1,6 +1,6 @@
 <?php
 
-use Core\Classes\System\Utils;
+use Core\Classes\Utils\Utils;
 
 header('Content-type', 'Application/json');
 

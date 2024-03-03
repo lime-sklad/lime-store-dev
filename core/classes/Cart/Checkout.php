@@ -6,7 +6,7 @@ namespace Core\Classes\Cart;
 use \Core\Classes\dbWrapper\db;
 use \Core\Classes\Products;
 use \Core\Classes\Report;
-use \Core\Classes\System\Utils;
+use \Core\Classes\Utils\Utils;
 
 class Checkout 
 {

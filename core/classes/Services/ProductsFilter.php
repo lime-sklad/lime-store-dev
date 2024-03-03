@@ -3,7 +3,7 @@
 namespace Core\Classes\Services;
 
 use \core\classes\dbWrapper\db;
-use Core\Classes\System\Utils;
+use Core\Classes\Utils\Utils;
 
 class ProductsFilter 
 {

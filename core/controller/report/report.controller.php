@@ -1,6 +1,6 @@
 <?php 
 $user = new \core\classes\privates\user;
-$utils = new \Core\Classes\System\Utils;
+$utils = new \Core\Classes\Utils\Utils;
 
 return [
     'tab' => [

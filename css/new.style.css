@@ -1721,6 +1721,7 @@ i {
     /* padding: 11px; */
     align-items: center;
     flex: auto;
+    flex-shrink: 0;
 }
 
 .stats-card-list {

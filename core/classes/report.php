@@ -176,45 +176,4 @@ class Report extends \Core\Classes\dbWrapper\db {
 
     }
 
-
-    /** 
-     * @param array $arr
-     * $arr = [
-     * 	'table_name' => 'stock_list',
-     * 	'col_name'	 => 'stock_name',
-     * 	'order'		 => ' date desc ',
-     *  'query' 	 => 'WHERE date_query = 0'
-     * ];
-     * 
-     * @return array|null
-     * 
-     * old function name get_report_date_list
-     */
-    public function getReportDateList($data) 
-    {
-        $table_name 	= $data['table_name'];
-        $col_name 		= $data['col_name'];
-        $order 			= $data['order'];
-        $query 			= $data['query'];
-        $default 		= $data['default'];
-
-        $res = $this->select([
-            'table_name' => $table_name,
-            'col_list' => " DISTINCT $col_name",
-            'base_query' => $query,
-            'query' => [
-                'body' => "",
-                'joins' => "",
-                'sort_by' => " ORDER BY $order "
-            ],
-            'bindList' => array()
-            
-        ])->get();
-        
-        $dd = array_column($res, $col_name);
-
-        $dd['default'] = $default;
-
-        return $dd;
-    }
 } 

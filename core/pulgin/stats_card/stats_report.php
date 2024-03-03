@@ -1,10 +1,8 @@
 <?php
-
 header('Content-Type: application/json');
 
-use Core\Classes\Report;
 
-$report = new Report;
+$report = new \Core\Classes\Report;
 
 $expense = new \Core\Classes\Services\Expenses;
 
@@ -14,6 +12,7 @@ if($_POST && $_POST['page']) {
 	$type = $_POST['type'];
 	$date = $_POST['date'];
 	$date_type = $_POST['date_types'];
+	$get_expense = 0;
 
 	$data_page = $main->initController($page);
 
@@ -21,10 +20,12 @@ if($_POST && $_POST['page']) {
 
 	if ($date_type == 'date') {
 		$data_page['sql']['query']['base_query'] = $data_page['sql']['query']['base_query']  . "  AND stock_order_report.order_my_date = :mydateyear";
+		$get_expense = $expense->getExpensesByMonth($date);
 	}
 
 	if ($date_type == 'day') {
 		$data_page['sql']['query']['base_query'] = $data_page['sql']['query']['base_query']  . "  AND stock_order_report.order_date = :mydateyear";
+		$get_expense = $expense->getExpensesByDay($date);
 	}
 
 	$data_page['sql']['bindList']['mydateyear'] = $date;
@@ -35,7 +36,7 @@ if($_POST && $_POST['page']) {
 	$res = $Render->view('/component/include_component.twig', [
 		'renderComponent' => [
 			'/component/pulgin/stats_card/stats_card_list.twig' => [
-				'res' => $report->getStatsList($base_result, $data_page['page_data_list']['stats_card'], $expense->getExpensesByMonth($date))
+				'res' => $report->getStatsList($base_result, $data_page['page_data_list']['stats_card'], $get_expense)
 			]
 		]
 	]);

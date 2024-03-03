@@ -2,7 +2,7 @@
 
 namespace core\classes\dbWrapper\traits;
 
-use Core\Classes\System\Utils;
+use Core\Classes\Utils\Utils;
 
 trait select
 {
@@ -58,6 +58,7 @@ trait select
         $query .= $sort_by;
         $query .= $limit;
     
+
     
 
         $conditions = array_merge($conditions, $bind_list);

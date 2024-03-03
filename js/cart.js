@@ -84,7 +84,6 @@ $(document).ready(function(){
         maxCount: stock_count,
       };
 
-      console.log(myData  )
 
 
       return myData;

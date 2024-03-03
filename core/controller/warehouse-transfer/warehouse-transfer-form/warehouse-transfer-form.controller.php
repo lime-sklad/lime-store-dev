@@ -20,18 +20,14 @@ return [
     'sql' => [
         'table_name' => ' user_control  ',
         'col_list'	=> ' * ',
-        'base_query' =>  " INNER JOIN stock_list ON stock_list.stock_id != 0 ",
-        'param' => array(
-            'query' => array(
-                'param' =>  " AND stock_list.stock_visible = 0 ",
-                "joins" => " LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id ",		
-                'bindList' => array(						
-                )
-            ),
-            'sort_by' => " GROUP BY stock_list.stock_id  DESC ORDER BY  stock_list.stock_id DESC
-                             ",
+        'query' => array(
+            'base_query' =>  " INNER JOIN stock_list ON stock_list.stock_id != 0 ",
+            'body' =>  " AND stock_list.stock_visible = 0 ",
+            "joins" => " LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id ",
+            'sort_by' => " GROUP BY stock_list.stock_id  DESC ORDER BY  stock_list.stock_id DESC ",
             'limit' => '',
         ),
+        'bindList' => array()
     ],
     'page_data_list' => [
         'sort_key' => 'stock_id',

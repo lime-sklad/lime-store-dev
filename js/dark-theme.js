@@ -25,9 +25,7 @@ $(document).ready(function () {
 
       WhiteTheme();
       $(".theme-icon").addClass("la-moon");
-      console.log('string created')
     } else if (data == "deactive") {
-      console.log("adi tema aktivdir");
       $(".theme-icon").removeClass("la-sun");
       $(".theme-icon").addClass("la-moon");
       

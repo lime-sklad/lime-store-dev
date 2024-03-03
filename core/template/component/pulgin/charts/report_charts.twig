@@ -2,17 +2,18 @@
     <canvas id="myChart" height="50"></canvas>
 </div>
 
-
 <script defer>
+
         $.ajax({
-            type: 'GET',
-            url: 'core/pulgin/charts/report_month_chart_stats.php',
-            dataType: 'json',
+            type: 'POST',
+            url: 'ajax_route.php',
+            data: {
+                url: 'core/pulgin/charts/report_month_chart_stats.php',
+                route: 'reportChart',
+            },
             beforeSend: function( ){
-                console.log('sd');
             },
             complete: function() {
-                console.log('s');
             },            
             success: (data) => {
                 var xValues = data.date_list;
@@ -20,17 +21,29 @@
                 var barColors = ["red", "green","blue","orange","brown"];
 
 
-                console.log(xValues);
-
+                let delayed;
                 new Chart("myChart", {
                 type: "bar",
                 data: {
                     labels: xValues,
                     datasets: [{
                         data: yValues,
+                        backgroundColor: 'rgb(38 61 221 / 40%)',
                     }]
                 },
                 options: {
+                    animation: {
+                        onComplete: () => {
+                            delayed = true;
+                        },
+                        delay: (context) => {
+                            let delay = 0;
+                            if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                                delay = context.dataIndex * 150 + context.datasetIndex * 150;
+                            }
+                            return delay;
+                        },
+                    },                    
                     legend: {
                         display: false,
                         text: 'dsds'
@@ -42,15 +55,15 @@
                     plugins: {
                         colors: {
                             enabled: true,
-                            forceOverride: false
+                            forceOverride: false,
                         }
                     }                    
                 }
-                });
+            });
 
 
 
             }
         });
-    
+ 
 </script>

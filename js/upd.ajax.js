@@ -512,15 +512,7 @@ $('body').on('click', '.submit-save-stock', function() {
 		}		
 	});	
 
-	console.log({
-		edited_category: 	edited_category,
-		new_added_category: new_added_category,
-		deleted_category: 	deleted_category,
 
-		edited_provider: 	edited_provider,
-		new_added_provider: new_added_provider,
-		deleted_provider: 	deleted_provider
-	});
 
 
 	$.ajax({
@@ -1023,23 +1015,19 @@ $(document).on('click', '.add-submit-rasxod', function() {
 		prepare_data = prepare_form_fields($(this).closest('.stock-from-container'));
 		$.ajax({
 			type: 'POST',
-			url: 'core/action/rasxod/add_rasxod.php',
+			url: 'ajax_route.php',
 			data: {
+				url: 'core/action/expense/add_expense.php',
+				route: 'addExpense',
 				post_data: prepare_data,
 				page: pageData.page(),
 				type: pageData.type()
 			},
 			dataType: "json",
 			success: (data) => {
-				var error 	= data['error'];
-				var success = data['success'];
-				
-				if(error) {
-					pageData.alert_notice('error', error);
-				}
+				pageData.alert_notice(data.type, data.text);
 
-				if(success) {
-					pageData.alert_notice('success', 'Ок');
+				if(data.type == 'success') {
 					$('.form-input').val('');
 
 					if(data.table) {
@@ -1072,12 +1060,14 @@ $(document).on('click', '.add-submit-rasxod', function() {
 	
 		$.ajax({
 			type: 'POST',
-			url: 'core/action/rasxod/update_rasxod.php',
-			data: prepare_data,
+			url: 'ajax_route.php',
+			data: {
+				url: 'core/action/expense/edit_expense.php',
+				route: 'editExpense',
+				data: prepare_data
+			},
 			dataType: "json",
 			success: (data) => {
-	
-
 				if(data.type == 'success') {
 					pageData.alert_notice(data.type, data.text);
 	
@@ -1102,8 +1092,12 @@ $(document).on('click', '.add-submit-rasxod', function() {
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/rasxod/delete_rasxod.php',
-		data: {id: id},
+		url: 'ajax_route.php',
+		data: {
+			url: 'core/action/expense/delete_expense.php',
+			route: 'deleteExpense',
+			id: id
+		},
 		dataType: 'json',
 		success: (data) => {
 			pageData.alert_notice(data.type, data.text);
@@ -1419,8 +1413,6 @@ $(document).on('click', '.advanced-search-submit', function() {
 
 	});
 
-	console.log(stock_category_list	)
-
 
 
 	// data-
@@ -1687,7 +1679,6 @@ $(document).on('click', '.submit-save-edited-payment-method', function(){
 
 	const prepare_data = prepare_form_data($(this).closest('.modal_order_form'), '.edit-payment-method-info.edited', 'fields-name');
 
-	console.log(prepare_data);
 	$.ajax({
 		url: 'core/action/payment_method/edit_payment_method_info.php',
 		type: 'POST',
@@ -1776,7 +1767,7 @@ $(document).on('click', '.edit-report-order', function() {
 
 	
 	$(`#${id}.stock-list`).find('.res-payment-tags').find('.mark').attr('class', '').addClass(class_list).html($item.text());
-console.log(prepare)
+
 
 	$.ajax({
 		url: 'ajax_route.php',

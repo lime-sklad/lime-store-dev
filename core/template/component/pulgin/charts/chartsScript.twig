@@ -1,0 +1,55 @@
+<script defer>
+    {# иницилизируем в самом файле граффика #}
+    {# var chart; #}
+
+
+    var list = [];
+    var routeList = [];
+
+    
+    function updateCharts(charts, xValues, yValues) {   
+        let dataS = {
+            labels: xValues,
+            datasets: [{
+                data: yValues,
+                hoverOffset: 5
+            }]        
+        };
+
+        charts.data = dataS;
+        charts.update();       
+    }          
+
+        function drawCharts(charts, date, route) {
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_route.php',
+                data: {
+                    date: date,
+                    url: "{{ data.scriptUrl }}",
+                    route: route,
+                    
+                    //url: 'core/pulgin/charts/report_category_charts.php',
+                    //route: 'reportChartCategory',
+                },
+                beforeSend: function( ){
+                },
+                complete: function() {
+                },            
+                success: (data) => {
+                    var xValues = data.label_list;
+                    var yValues = data.sum_list;
+                    var barColors = ["red", "green","blue","orange","brown"];
+                 
+                    $('.load-charts').removeClass('aclicked');
+
+                    return updateCharts(charts, xValues, yValues);  
+                }
+            });
+        }
+
+
+
+  
+
+</script>

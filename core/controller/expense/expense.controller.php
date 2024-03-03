@@ -13,11 +13,11 @@ return [
         'background_color'  => '',
         'tab' => array(
             'list' => [
-                'tab_day_rasxod',
-                'tab_rasxod',
-                'tab_rasxod_form'
+                'tab_day_expense',
+                'tab_expense',
+                'tab_expense_form'
             ],
-            'active' => 'tab_day_rasxod'
+            'active' => 'tab_day_expense'
         )
     ],			
     'sql' => [

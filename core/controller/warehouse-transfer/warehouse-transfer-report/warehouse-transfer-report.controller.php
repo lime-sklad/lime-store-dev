@@ -2,24 +2,20 @@
 return [
     'tab' => [
         'is_main' => false,
-        'title'		 		=> 'Hesabatt',
+        'title' => 'Transfer Hesabat',
     ],			
     'sql' => [
         'table_name' => ' user_control  ',
         'col_list'	=> ' * ',
-        'base_query' =>  " INNER JOIN transfer_list ON transfer_list.transfer_id != 0 ",
-        'param' => array(
-            'query' => array(
-                'param' =>  "  INNER JOIN stock_list ON stock_list.stock_id = transfer_list.stock_id 
-                               INNER JOIN warehouse_list ON warehouse_list.id = transfer_list.warehouse_id ",
-                'joins' => " ",		
-                'bindList' => array(						
-                )
-            ),
-            'sort_by' => " GROUP BY transfer_list.transfer_id  DESC ORDER BY  transfer_list.transfer_id DESC
-                             ",
+        'query' => array(
+            'base_query' =>  " INNER JOIN transfer_list ON transfer_list.transfer_id != 0 ",
+            'body' =>  "  INNER JOIN stock_list ON stock_list.stock_id = transfer_list.stock_id 
+                            INNER JOIN warehouse_list ON warehouse_list.id = transfer_list.warehouse_id ",
+            'joins' => " ",		
+            'sort_by' => " GROUP BY transfer_list.transfer_id  DESC ORDER BY  transfer_list.transfer_id DESC ",
             'limit' => '',
         ),
+        'bindList' => array()        
     ],
     'page_data_list' => [
         'sort_key' => 'transfer_id',

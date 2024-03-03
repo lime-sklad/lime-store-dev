@@ -2,7 +2,7 @@
 
 namespace Core\Classes\Traits;
 
-use Core\Classes\System\Utils;
+use Core\Classes\Utils\Utils;
 
 trait Barcode
 {

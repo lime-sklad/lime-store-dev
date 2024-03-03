@@ -2,7 +2,7 @@
 namespace Core\Classes;
 use core\classes\dbWrapper\db;
 use Core\Classes\Privates\User;
-use Core\Classes\System\Utils;
+use Core\Classes\Utils\Utils;
 use Core\Classes\Traits\Barcode;
 
 class Products

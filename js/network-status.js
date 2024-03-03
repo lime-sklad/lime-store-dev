@@ -16,14 +16,12 @@ $(document).ready(function () {
         
         if (result) {
          
-            console.log("Internet aktivdir");
             $('.network-container').css('background-color', "green");
             $('.network-container').attr('title', 'Internet bağlantısı normaldır.');
 
             
         }else{
             
-            console.log("Internet deaktivdir");
             $('.network-container').css('background-color', "red");
             $('.network-container').attr('title', 'Internet bağlantısı yoxdur.');
             

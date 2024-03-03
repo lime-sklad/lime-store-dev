@@ -29,7 +29,7 @@ $accessManager = new \Core\Classes\Privates\AccessManager;
 
 $init = new \Core\Classes\System\Init;
 
-$utils = new \Core\Classes\System\Utils;
+$utils = new \Core\Classes\Utils\Utils;
 
 $productsFilter = new \Core\Classes\Services\ProductsFilter;
 

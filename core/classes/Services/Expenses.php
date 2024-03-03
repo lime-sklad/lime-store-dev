@@ -21,7 +21,7 @@ class Expenses
      * 
      * old function name get_today_total_rasxod
      */
-    function getExpensesByDate($date) 
+    function getExpensesByDay($date) 
     {
         $res = $this->db->select([
             'table_name' => 'rasxod',
@@ -120,4 +120,126 @@ class Expenses
 
         return $dd;
     }
+
+    /**
+     * список месячных расходов
+     * 
+     * old function name get_rasxod_date_list
+     */
+    public function getExpenseMonthList() 
+    {
+        $res = $this->db->select([
+            'table_name' => "rasxod",
+            'col_list' => " DISTINCT rasxod_year_date ",
+            'query' => [
+                'base_query' => ' WHERE rasxod_visible = 0',
+                'body' => "",
+                'joins' => "",
+                'sort_by' => " ORDER BY rasxod_id DESC "
+            ],
+            'bindList' => array()
+        ])->get();
+        
+        $dd = array_column($res, 'rasxod_year_date');
+
+        $dd['default'] = date("m.Y");
+
+        return $dd;
+    }    
+
+
+    /**
+     * Изменить расходы
+     */
+    public function editExpense($data) 
+    {
+        $option = [
+            'before' => " UPDATE rasxod SET ",
+            'after' => " WHERE rasxod_id  = :rasxod_id ",
+            'post_list' => [
+                //id
+                'rasxod_id' => [ 
+                    'query' => false,
+                    'bind' => 'rasxod_id',
+                    'require' => true
+                ],	
+                //изменить название категории
+                'upd_rasxod_description' => [
+                    'query' => "rasxod_description = :description_name",
+                    'bind' => 'description_name',
+                ],
+                'upd_rasxod_amount' => [
+                    'query' => 'rasxod_money = :amount',
+                    'bind' => 'amount'
+                ]
+            ]
+        ];
+        
+        return $this->db->update($option, $data);
+    }
+
+    /**
+     * Удалить расхож
+     */
+    public function deleteExpense($expenseId) 
+    {
+        $update_data = [
+            'before' => 'UPDATE rasxod SET ',
+            'after' => ' WHERE rasxod_id = :rasxod_id ',
+            'post_list' => [
+                'id' => [
+                    'query' => ' rasxod_visible = 1 ',
+                    'bind' => 'rasxod_id',
+                ]
+            ]
+        ];
+    
+        return $this->db->update($update_data, [
+            'id' => $expenseId
+        ]);        
+    }
+
+    /**
+     * Добавить новый расход
+     * 
+     * old function name add_new_rasxod
+     */
+    public function addExpense($post_data) 
+    {
+        $data = [];
+        $arr = [];
+
+        $col_post_list = [
+            'add_rasxod_description' => [
+                'col_name' => 'rasxod_description',
+                'required' => false
+            ],
+            'add_rasxod_sum' => [
+                'col_name' => 'rasxod_money',
+                'required'  => true,
+            ]
+        ];
+        
+    
+        foreach ($col_post_list as $key => $value) {
+            if(array_key_exists($key, $post_data)) {
+                $data = array_merge($data, [
+                    $value['col_name'] => $post_data[$key]
+                ]);
+            }
+        }
+    
+        $default_data = [
+            'rasxod_visible' => 'visible',
+            'rasxod_day_date' => date('d.m.Y'),
+            'rasxod_year_date' => date('m.Y')
+        ];
+    
+        $data = array_merge($data, $default_data);
+        
+        $this->db->insert('rasxod', [$data]);
+    
+        return true;
+    }    
+
 }

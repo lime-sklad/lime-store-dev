@@ -32,7 +32,7 @@
 		'renderComponent' => [			
 			'/component/related_component/include_widget.twig' => [			
 				'/component/rasxod/rasxod_date_picker.twig' => [
-					'res' => get_rasxod_date_list(),
+					'res' => $expense->getExpenseMonthList(),
 					'rasxod_sort' => 'rasxod-date'
 				],
 				'/component/search/search.twig' => $search_arr,				
@@ -43,7 +43,7 @@
 				'table_type' 		=> $type,
 			],
 			'/component/table/table_footer_wrapper.twig' => [
-				'table_total'    	=> $utils->renderTableFooterData($page_config['table_total_list'], $table_result['base_result'])
+				'table_total'    	=> $utils->compareTableFooterData($page_config['table_total_list'], $table_result['base_result'])
 			]			
 		]
 	]);

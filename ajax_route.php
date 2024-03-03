@@ -32,8 +32,18 @@ $routeLis = [
 	'deleteOrder'			=> ROOT.'/core/action/report/refaund.php',
 	
 	'includeStats'			=> ROOT.'/core/pulgin/stats_card/stats_report.php',
-
+	'reportChart'			=> ROOT.'/core/pulgin/charts/report_month_chart_stats.php',
+	'reportChartCategory'	=> ROOT.'/core/pulgin/charts/report_category_charts.php',
+	'reportChartProvider'	=> ROOT.'/core/pulgin/charts/report_provider_charts.php',
+	
 	'scanBarcode' 			=> ROOT.'/core/action/barcode/scanBarcode.php',		
+
+
+	'editExpense'			=> ROOT.'/core/action/expense/edit_expense.php',
+	'deleteExpense'			=> ROOT.'/core/action/expense/delete_expense.php',
+	'addExpense'			=> ROOT.'/core/action/expense/add_expense.php',
+
+	'addTransfer'			=> ROOT.'/core/action/warehouse-transfer/add-transfer.php',
 ];
 
 $route = $_POST['route'];

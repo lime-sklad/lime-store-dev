@@ -207,29 +207,29 @@ trait TabList {
                 'tab_modify_class' 	=> 'pos-relative',
                 'mark' => false
             ),		
-            'tab_rasxod' => array(
+            'tab_expense' => array(
                 'type' 				=> false,
                 'tab_data_page' 	=> 'expense',
                 'tab_title' 		=> 'Aylıq xərclər',
-                'tab_link' 			=> '/page/rasxod/rasxod.php',
+                'tab_link' 			=> '/page/expense/expense.php',
                 'tab_icon' 			=> false,
                 'tab_modify_class' 	=> 'pos-relative',
                 'mark' => false
             ),
-            'tab_day_rasxod' => array(
+            'tab_day_expense' => array(
                 'type' 				=> false,
                 'tab_data_page' 	=> 'expense',
                 'tab_title' 		=> 'GÜNDƏLIK xərclər',
-                'tab_link' 			=> '/page/rasxod/day_rasxod.php',
+                'tab_link' 			=> '/page/expense/day_expense.php',
                 'tab_icon' 			=> false,
                 'tab_modify_class' 	=> 'pos-relative',
                 'mark' => false
             ),		
-            'tab_rasxod_form' => array(
+            'tab_expense_form' => array(
                 'type' 				=> false,
-                'tab_data_page' 	=> 'rasxod',
+                'tab_data_page' 	=> 'expense',
                 'tab_title' 		=> 'Xərc əlavə etmək',
-                'tab_link' 			=> '/page/form/rasxod/rasxod_form.php',
+                'tab_link' 			=> '/page/form/expense/expense_form.php',
                 'tab_icon' 			=> false,
                 'tab_modify_class' 	=> 'pos-relative',
                 'mark' => false

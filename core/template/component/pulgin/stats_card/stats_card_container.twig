@@ -36,16 +36,14 @@
                 page: pageData.page(),
                 type: pageData.type(),
                 date: date,
-                date_types: d_type 
+                date_types: d_type,
             },
             beforeSend: function( ){
-                console.log('sd');
             },
             complete: function() {
-                console.log('s');
             },            
             success: (data) => {
-                console.log(data);
+               
 
                 $('.stats-card-list').html(data.report_cards);
 

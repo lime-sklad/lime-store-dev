@@ -1,14 +1,12 @@
 <?php 
 // autocmplt-type
 
-use Core\Classes\System\Utils;
+use Core\Classes\Utils\Utils;
 use Core\Classes\Services\Expenses;
 
 $Expenses = new Expenses;
 
-
 $postData = $_POST['data'];
-
 
 if(!isset($postData['type'], $postData['page'])) {
     return Utils::abort([
@@ -29,7 +27,6 @@ $th_list = $main->getTableHeaderList();
 $data = $main->getControllerData($page);
 
 $allData = $data->allData;
-
 
 $td_data = $allData['page_data_list'];
 
@@ -77,8 +74,6 @@ foreach($page_data_row as $key => $col_name_prefix) {
             ];     
             
 
-            // ls_var_dump($search_array);
-            
             $render_tpl = $main->prepareData($search_array, $allData['page_data_list'], null, 'named');
             
         } else {
