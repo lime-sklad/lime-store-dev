@@ -3,7 +3,9 @@
     {# var chart; #}
 
 
-    var list = [];
+// Изначально у вас есть объект, в который нужно добавить пары ключ-значение
+    var list = {};
+
     var routeList = [];
 
     
@@ -50,6 +52,19 @@
 
 
 
+    $('body').on('click', '.load-charts', function() {   
+        if(!$(this).hasClass('aclicked')) {
+            
+            $(this).addClass('aclicked');
+
+            var pick_date = $(this).data('sort-value');
+            
+    
+            $.each(list, function(index, value) {
+               drawCharts(value, pick_date, index);
+            });
+        }
+    });  
   
 
 </script>

@@ -53,7 +53,7 @@ echo $Render->view('/component/inner_container.twig', [
 		'/component/pulgin/charts/report_charts.twig' => [
 			// data
 		],
-		'/component/include_once_component.twig' => [
+		'/component/pulgin/charts/pieChartsContainer.twig' => [
 			'includs' => [
 				'script' => [
 					'/component/pulgin/charts/chartsScript.twig' => []

@@ -2100,6 +2100,10 @@ i {
     text-align: center;
 }
 
+.pieCharts {
+    width: 400px;
+}
+
 @keyframes preloaderUpdate {
     0% {
         left: -200px;

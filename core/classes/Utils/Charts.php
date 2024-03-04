@@ -20,6 +20,37 @@ class Charts
     {
         $data = $this->db->select([
             'table_name' => 'stock_order_report',
+            'col_list' => "  order_my_date as smonth , SUM(order_stock_total_price) AS total_profit ",
+            'query' => [
+                'base_query' => '',
+                'body' => " WHERE order_real_time >= DATE_SUB(NOW(), INTERVAL 24 MONTH) AND stock_order_visible = 0 ",
+                'sort_by' => ' GROUP BY smonth ASC ORDER BY order_real_time ASC'
+            ],
+            'bindList' => [],
+        ])->get();     
+        
+
+        $date_list = [];
+        $sum_list = [];
+        
+        foreach ($data as $key => $val) {
+            $date_list[] = $val['smonth'];
+            $sum_list[] = $val['total_profit'];
+        }        
+
+        return [
+            'date_list' => $date_list, 
+            'sum_list' => $sum_list
+        ];
+    }
+
+   /**
+     * 
+     */
+    public function getReportChartListProfit()
+    {
+        $data = $this->db->select([
+            'table_name' => 'stock_order_report',
             'col_list' => "  order_my_date as smonth , SUM(order_total_profit) AS total_profit ",
             'query' => [
                 'base_query' => '',

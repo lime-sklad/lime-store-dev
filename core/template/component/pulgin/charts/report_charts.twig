@@ -16,20 +16,29 @@
             complete: function() {
             },            
             success: (data) => {
-                var xValues = data.date_list;
-                var yValues = data.sum_list;
+                var xValues = data.turnover.date_list;
+                var yValues = data.turnover.sum_list;
                 var barColors = ["red", "green","blue","orange","brown"];
-
+    
 
                 let delayed;
                 new Chart("myChart", {
                 type: "bar",
                 data: {
                     labels: xValues,
-                    datasets: [{
-                        data: yValues,
-                        backgroundColor: 'rgb(38 61 221 / 40%)',
-                    }]
+                    datasets: [
+                        {
+                            label: 'ÜMUMI DÖVRIYYƏ',
+                            data: yValues,
+                            backgroundColor: 'rgb(38 61 221 / 40%)',
+                        },
+                        {
+                            label: 'MƏNFƏƏT',
+                            data: data.profit.sum_list,
+                            backgroundColor: 'rgb(158 255 158 / 80%)',
+                        },
+                                        
+                    ]
                 },
                 options: {
                     animation: {
@@ -45,12 +54,12 @@
                         },
                     },                    
                     legend: {
-                        display: false,
+                        display: true,
                         text: 'dsds'
                     },
                     title: {
                         display: true,
-                        text: "World Wine Production 2018"
+                        text: "вдаывллд",
                     },
                     plugins: {
                         colors: {
