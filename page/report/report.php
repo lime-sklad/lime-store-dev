@@ -35,10 +35,8 @@ $search_arr = array(
 	)
 );
 
-$data_page['sql']['query']['body'] = $data_page['sql']['query']['body']  . "  AND stock_order_report.order_my_date = :mydateyear";
-$data_page['sql']['bindList']['mydateyear'] = date('m.Y');
 
-$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list'], \PDO::FETCH_ASSOC);
+$table_result = $report->getReportByMonth($utils->getDateMY());
 
 
 $getExpensesCost = $expenses->getExpensesByMonth($utils->getDateMY());
@@ -61,6 +59,8 @@ echo $Render->view('/component/inner_container.twig', [
 				'category' => [
 					'/component/pulgin/charts/chartsLoader.twig' => [
 						'classList' => 'reloadCategory',
+						'wrapperClassList' => 'pieCharts',
+						'chartsType' => 'pie',
 						'chartsName' => 'categoryCharts',
 						'scriptUrl' => 'core/pulgin/charts/report_category_charts.php',
 						'scriptRoute' => 'reportChartCategory',
@@ -69,6 +69,8 @@ echo $Render->view('/component/inner_container.twig', [
 				'provider' => [
 					'/component/pulgin/charts/chartsLoader.twig' => [
 						'classList' => 'reloadProvider',
+						'wrapperClassList' => 'pieCharts',
+						'chartsType' => 'pie',
 						'chartsName' => 'providerCharts',
 						'scriptUrl' => 'core/pulgin/charts/report_provider_charts.php',
 						'scriptRoute' => 'reportChartProvider',
@@ -76,17 +78,22 @@ echo $Render->view('/component/inner_container.twig', [
 				]
 			]
 		],
+		
+		'/component/include_once_component.twig' => [
+			'includs' => [
+				'products' => [
+					'/component/pulgin/charts/chartsLoader.twig' => [
+						'classList' => 'reloadTopProducts ',
+						'wrapperClassList' => 'width-100',
+						'chartsType' => 'bar',
+						'chartsName' => 'reportTopProducts',
+						'scriptUrl' => 'core/pulgin/charts/report_top_products.php',
+						'scriptRoute' => 'reportTopProducts',
+					]					
+				]
+			]
+		],
 
-		// '/component/pulgin/charts/report_pie_category.twig' => [
-		// 	'chartsName' => 'categoryCharts',
-		// 	'scriptUrl' => 'core/pulgin/charts/report_category_charts.php',
-		// 	'scriptRoute' => 'reportChartCategory',
-		// ],		
-		// '/component/pulgin/charts/report_pie_provider.twig' => [
-		// 	'chartsName' => 'categoryProvider',
-		// 	'scriptUrl' => 'core/pulgin/charts/report_provider_charts.php',
-		// 	'scriptRoute' => 'reportChartProvider',
-		// ],				
 		'/component/related_component/include_widget.twig' => [
 			'/component/widget/report_date_picker.twig' => [
 				'res' => $report_date_list,

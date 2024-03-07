@@ -35,11 +35,7 @@ $search_arr = array(
 );
 
 
-$data_page['sql']['query']['body'] = $data_page['sql']['query']['body'] . "  AND stock_order_report.order_date = :mydateyear";
-$data_page['sql']['bindList']['mydateyear'] = date("d.m.Y");
-
-$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list']);
-
+$table_result = $report->getReportByDay($utils->getDateDMY());
 
 $getExpenseCost = $expenses->getExpensesByDay($utils->getDateDMY());
 

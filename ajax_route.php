@@ -35,6 +35,7 @@ $routeLis = [
 	'reportChart'			=> ROOT.'/core/pulgin/charts/report_month_chart_stats.php',
 	'reportChartCategory'	=> ROOT.'/core/pulgin/charts/report_category_charts.php',
 	'reportChartProvider'	=> ROOT.'/core/pulgin/charts/report_provider_charts.php',
+	'reportTopProducts'		=> ROOT.'//core/pulgin/charts/report_top_products.php',
 	
 	'scanBarcode' 			=> ROOT.'/core/action/barcode/scanBarcode.php',		
 

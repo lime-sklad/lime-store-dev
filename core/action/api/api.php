@@ -1,21 +1,28 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/start.php';
 
-$controllerData = $main->getControllerData('report');
+use Core\Classes\Report;
+use Core\Classes\Utils\Utils;
 
-$data_page = $controllerData->allData;
+$report = new Report;
 
-$page_config = $data_page['page_data_list'];
+$result = array();
 
-$report = new \Core\Classes\Report;
-$expenses = new \Core\Classes\Services\Expenses;
+if(isset($_GET['getMonthReport'])) {
+    $date = $_GET['getMonthReport'] ?? null;
+    
+    $result = $report->getReportByMonth($date);
 
-$data_page['sql']['query']['body'] = $data_page['sql']['query']['body']  . "  AND stock_order_report.order_my_date = :mydateyear";
-$data_page['sql']['bindList']['mydateyear'] = date('m.Y');
-
-$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list']);
+    $result = $result['base_result'];
+}
 
 
-$table_result = $table_result['base_result'];
+if(isset($_GET['getDayReport'])) {
+    $date = $_GET['getDayReport'] ?? null;
 
-echo json_encode($table_result);
+    $result = $report->getReportByDay($date);
+
+    $result = $result['base_result'];
+}
+
+echo json_encode($result);

@@ -1,4 +1,4 @@
-<div class="component_container mrgn-bottom-50 width-50 pieCharts ">
+<div class="component_container mrgn-bottom-50 {{data.wrapperClassList}} ">
     <canvas id="{{data.chartsName}}" class="jjj" height="50" data-rout="{{data.scriptRoute}}"></canvas>
 </div>
 
@@ -7,7 +7,7 @@
 var key = '{{data.scriptRoute}}';
 
     var {{data.chartsName}} = new Chart('{{data.chartsName}}', {
-        type: 'pie',
+        type: '{{data.chartsType}}',
         data: {
             labels: null,
             datasets: [{

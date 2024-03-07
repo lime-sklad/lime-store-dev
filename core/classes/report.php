@@ -2,9 +2,18 @@
 namespace Core\Classes;
 
 use Core\Classes\Traits\ReportStatsCard;
+use Core\Classes\System\Main;
+use Core\Classes\Utils\Utils;
 
 class Report extends \Core\Classes\dbWrapper\db {
     use ReportStatsCard;
+
+    public $main;
+    
+    public function __construct()
+    {
+        $this->main = new Main;
+    }
 
     /**
      * @param int $id  id отчета
@@ -27,6 +36,38 @@ class Report extends \Core\Classes\dbWrapper\db {
         ]);
     }
 
+
+    /**
+     * Получить отчет за месяц
+     */
+    public function getReportByMonth(string $month = null)
+    {
+
+        $controllerData = $this->main->getControllerData('report');
+
+        $data_page = $controllerData->allData;
+
+        $data_page['sql']['query']['body'] = $data_page['sql']['query']['body']  . "  AND stock_order_report.order_my_date = :mydateyear";
+        $data_page['sql']['bindList']['mydateyear'] = !empty($month) ? $month : date('m.Y');
+        
+
+        return $this->main->prepareData($data_page['sql'], $data_page['page_data_list'], \PDO::FETCH_ASSOC);
+    }
+
+    /**
+     *  Поулчить отчет за день
+     */
+    public function getReportByDay(string $day = null)
+    {
+        $controllerData = $this->main->getControllerData('report');
+
+        $data_page = $controllerData->allData;
+                
+        $data_page['sql']['query']['body'] = $data_page['sql']['query']['body'] . "  AND stock_order_report.order_date = :mayday ";
+        $data_page['sql']['bindList']['mayday'] = !empty($day) ? $day : date('d.m.Y');
+        
+        return $this->main->prepareData($data_page['sql'], $data_page['page_data_list'], \PDO::FETCH_ASSOC);
+    }    
 
     /**
      * Редактировать отчет продажи 
@@ -176,20 +217,7 @@ class Report extends \Core\Classes\dbWrapper\db {
 
     }
 
-    public function getReportByDate($date) 
-    {
-        return $this->select([
-            'table_name' => 'stock_order_report',
-            'col_list' => '*',
-            'query' => [
-                'base_query' => ' WHERE order_stock_id = :id ',
-                'sort_by' => ' GROUP BY order_stock_id DESC ORDER BY order_stock_id DESC  '
-            ],            
-            'bindList' => [
-                ':date' => $date
-            ]
-            
-        ]);        
-    }
+
+
 
 } 
