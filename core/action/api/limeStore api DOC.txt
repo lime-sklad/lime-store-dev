@@ -1,0 +1,25 @@
+______________________________________________________________
+description: Aylıq hesabat. Heç bir parametr yoxdursa, standart olaraq cari ayın hesabatını verir 
+
+name: getMonthReport
+use path: {domain}/core/action/api/api.php?getMonthReport
+param: api/api.php?getMonthReport={date} // 01.2023 mm.YY
+______________________________________________________________
+
+
+
+______________________________________________________________
+description: Gündəlik hesabat. Heç bir parametr yoxdursa, standart olaraq cari günün hesabatını verir 
+
+name: getDayReport
+use path: {domain}/core/action/api/api.php?getDayReport
+param: api/api.php?getDayReport={date} // 01.01.2024 dd.mm.YYYY
+______________________________________________________________
+
+______________________________________________________________
+description: 
+
+name: 
+use path: 
+param: 
+______________________________________________________________
