@@ -2,25 +2,27 @@
 include $_SERVER['DOCUMENT_ROOT'].'/start.php';
 
 use Core\Classes\Report;
+use Core\Classes\Services\Expenses;
 use Core\Classes\Utils\Utils;
 
 $report = new Report;
+$expense = new Expenses;
 
 $result = array();
 
-if(isset($_GET['getMonthReport'])) {
-    $date = $_GET['getMonthReport'] ?? null;
+if(isset($_GET['getMonthlyReport'])) {
+    $date = $_GET['getMonthlyReport'] ?? null;
     
-    $result = $report->getReportByMonth($date);
+    $result = $report->getMonthlyReport($date);
 
     $result = $result['base_result'];
 }
 
 
-if(isset($_GET['getDayReport'])) {
-    $date = $_GET['getDayReport'] ?? null;
+if(isset($_GET['getDailyReport'])) {
+    $date = $_GET['getDailyReport'] ?? null;
 
-    $result = $report->getReportByDay($date);
+    $result = $report->getDailyReport($date);
 
     $result = $result['base_result'];
 }
@@ -68,8 +70,23 @@ if(isset($_GET['getProductsList'])) {
     $data = $main->prepareData($getConfig['sql'], $getConfig['page_data_list'], \PDO::FETCH_ASSOC);
     
     $result = $data['base_result'];
-    
 }
+
+if(isset($_GET['getMonthlyExpenses'])) {
+    $date = !empty($_GET['getMonthlyExpenses']) ? $_GET['getMonthlyExpenses'] : Utils::getDateMY();
+
+    $data = $expense->getMonthlyExpenses($date);
+
+    $result = $data['base_result'];
+}   
+
+if(isset($_GET['getDailyExpenses'])) {
+    $date = !empty($_GET['getDailyExpenses']) ? $_GET['getDailyExpenses'] : Utils::getDateDMY();
+
+    $data = $expense->getDailyExpenses($date);
+
+    $result = $data['base_result'];
+}   
 
 
 echo json_encode($result);

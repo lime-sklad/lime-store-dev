@@ -114,7 +114,7 @@ class Main extends \Core\Classes\System\Init
      * 
      * old function name render_data_template
     **/
-    public function prepareData(array $sql_data, array $get_data,  $pdo_fetch = null, string $placeholders = 'named') 
+    public function prepareData(array $sql_data, array $get_data,  $pdo_fetch = \PDO::FETCH_ASSOC, string $placeholders = 'named') 
     {
         //страница
         $stock_list = $this->db->select($sql_data, $pdo_fetch, $placeholders)->get();

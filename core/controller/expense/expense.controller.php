@@ -22,7 +22,7 @@ return [
     ],			
     'sql' => [
         'table_name' => ' user_control ',
-        'col_list'	=> "*",
+        'col_list'	=> "user_id, user_name, rasxod.*",
         'query' => array(
             'base_query' =>  " INNER JOIN rasxod ON rasxod.rasxod_visible !=1  ",
             'body' =>  " ",

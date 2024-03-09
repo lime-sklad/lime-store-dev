@@ -35,9 +35,9 @@ $search_arr = array(
 );
 
 
-$table_result = $report->getReportByDay($utils->getDateDMY());
+$table_result = $report->getDailyReport($utils->getDateDMY());
 
-$getExpenseCost = $expenses->getExpensesByDay($utils->getDateDMY());
+$getExpenseCost = $expenses->getSumExpensesByDay($utils->getDateDMY());
 
 array_push($table_result['base_result'], ['rasxod_money' => $getExpenseCost]);
 

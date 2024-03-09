@@ -36,10 +36,10 @@ $search_arr = array(
 );
 
 
-$table_result = $report->getReportByMonth($utils->getDateMY());
+$table_result = $report->getMonthlyReport($utils->getDateMY());
 
 
-$getExpensesCost = $expenses->getExpensesByMonth($utils->getDateMY());
+$getExpensesCost = $expenses->getSumExpensesByMonth($utils->getDateMY());
 
 array_push($table_result['base_result'], ['rasxod_money' => $getExpensesCost]);
 

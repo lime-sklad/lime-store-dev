@@ -3,14 +3,46 @@ namespace Core\Classes\Services;
 
 
 use core\classes\dbWrapper\db;
+use Core\Classes\System\Main;
+
 
 class Expenses
 {
     private $db;
+    private $main;
 
     public function __construct()
     {
         $this->db = new DB;
+        $this->main = new main;
+    }
+
+    /**
+     * 
+     */
+    public function getMonthlyExpenses($month = null)
+    {
+        $data_page = $this->main->initController('expense');
+
+        $data_page['sql']['query']['base_query'] = $data_page['sql']['query']['base_query'] . "  AND rasxod.rasxod_year_date = :rasxodYear";
+        $data_page['sql']['bindList']['rasxodYear'] = $month ?? date('m.Y');
+        
+        return $this->main->prepareData($data_page['sql'], $data_page['page_data_list'], \PDO::FETCH_ASSOC);
+    }
+
+
+    
+    /**
+     * 
+     */
+    public function getDailyExpenses($day = null)
+    {
+        $data_page = $this->main->initController('expense');
+
+        $data_page['sql']['query']['base_query'] = $data_page['sql']['query']['base_query'] . "  AND rasxod.rasxod_day_date = :rasxodDay";
+        $data_page['sql']['bindList']['rasxodDay'] = $day ?? date('d.m.Y');
+        
+        return $this->main->prepareData($data_page['sql'], $data_page['page_data_list'], \PDO::FETCH_ASSOC);
     }
 
 
@@ -21,7 +53,7 @@ class Expenses
      * 
      * old function name get_today_total_rasxod
      */
-    function getExpensesByDay($date) 
+    function getSumExpensesByDay($date) 
     {
         $res = $this->db->select([
             'table_name' => 'rasxod',
@@ -49,7 +81,7 @@ class Expenses
      * 
      * old function name get_total_rasxod
      */    
-    public function getExpensesByMonth($month) 
+    public function getSumExpensesByMonth($month) 
     {
         $res = $this->db->select([
             'table_name' => 'rasxod',
@@ -73,7 +105,7 @@ class Expenses
     /**
      * Ищем расход по дате
      */
-    public function seachExpensesByDate($date) 
+    public function searchExpensesByDate($date) 
     {
         $res = $this->db->select([
             'table_name' => 'rasxod',
@@ -122,7 +154,7 @@ class Expenses
     }
 
     /**
-     * список месячных расходов
+     * список даты месячных расходов
      * 
      * old function name get_rasxod_date_list
      */

@@ -20,10 +20,9 @@ use Core\Classes\Services\Expenses;
 		'widget_container_class_list' => 'flex-cntr',
 	);
 		
-	$data_page['sql']['query']['base_query'] = $data_page['sql']['query']['base_query'] . "  AND rasxod.rasxod_day_date = :rasxodDay";
-	$data_page['sql']['bindList']['rasxodDay'] = date('d.m.Y');
 
-	$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list']);
+
+	$table_result = $expense->getDailyExpenses($utils::getDateDMY());
 
 
 	echo $Render->view('/component/inner_container.twig', [

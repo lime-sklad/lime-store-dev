@@ -22,10 +22,9 @@
 		)
 	);
 		
-	$data_page['sql']['query']['base_query'] = $data_page['sql']['query']['base_query'] . "  AND rasxod.rasxod_year_date = :rasxodYear";
-	$data_page['sql']['bindList']['rasxodYear'] = date('m.Y');
 
-	$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list']);
+
+	$table_result = $expense->getMonthlyExpenses($utils::getDateMY());
 
 
 	echo $Render->view('/component/inner_container.twig', [

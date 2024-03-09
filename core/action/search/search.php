@@ -100,7 +100,7 @@ foreach($page_data_row as $key => $col_name_prefix) {
     //for rasxod
     if ($page == 'report') {
         if($get_sort_data == 'date' || $get_sort_data == 'buy_date') {
-            array_push($base_result, ['rasxod_money' => $Expenses->seachExpensesByDate($search_value)]);
+            array_push($base_result, ['rasxod_money' => $Expenses->searchExpensesByDate($search_value)]);
         }
     }
  

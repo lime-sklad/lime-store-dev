@@ -43,7 +43,7 @@ class Report {
     /**
      * Получить отчет за месяц
      */
-    public function getReportByMonth(string $month = null)
+    public function getMonthlyReport(string $month = null)
     {
 
         $controllerData = $this->main->getControllerData('report');
@@ -60,7 +60,7 @@ class Report {
     /**
      *  Поулчить отчет за день
      */
-    public function getReportByDay(string $day = null)
+    public function getDailyReport(string $day = null)
     {
         $controllerData = $this->main->getControllerData('report');
 

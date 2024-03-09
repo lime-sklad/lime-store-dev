@@ -20,12 +20,12 @@ if($_POST && $_POST['page']) {
 
 	if ($date_type == 'date') {
 		$data_page['sql']['query']['base_query'] = $data_page['sql']['query']['base_query']  . "  AND stock_order_report.order_my_date = :mydateyear";
-		$get_expense = $expense->getExpensesByMonth($date);
+		$get_expense = $expense->getSumExpensesByMonth($date);
 	}
 
 	if ($date_type == 'day') {
 		$data_page['sql']['query']['base_query'] = $data_page['sql']['query']['base_query']  . "  AND stock_order_report.order_date = :mydateyear";
-		$get_expense = $expense->getExpensesByDay($date);
+		$get_expense = $expense->getSumExpensesByDay($date);
 	}
 
 	$data_page['sql']['bindList']['mydateyear'] = $date;
