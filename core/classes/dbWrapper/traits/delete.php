@@ -7,7 +7,6 @@ trait delete
     /**
      * удаление
      * @param array $data_list массив с данными
-     * @param var $dbpdo db connetion
      */
     public function delete($data_list) 
     {

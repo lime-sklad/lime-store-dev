@@ -24,7 +24,7 @@ return [
     ],			
     'sql' => [
         'table_name' => ' user_control ',
-        'col_list'	=> '*, GROUP_CONCAT( DISTINCT stock_category.category_name SEPARATOR  " \n -- ") as product_category_list, 
+        'col_list'	=> ' *, GROUP_CONCAT( DISTINCT stock_category.category_name SEPARATOR  " \n -- ") as product_category_list, 
                            GROUP_CONCAT( DISTINCT stock_provider.provider_name SEPARATOR  " \n -- ") as product_provider_list',
 
         'query' => array(

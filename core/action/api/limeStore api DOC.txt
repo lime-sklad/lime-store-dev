@@ -8,6 +8,7 @@ ______________________________________________________________
 
 
 
+
 ______________________________________________________________
 description: Gündəlik hesabat. Heç bir parametr yoxdursa, standart olaraq cari günün hesabatını verir 
 
@@ -16,10 +17,25 @@ use path: {domain}/core/action/api/api.php?getDayReport
 param: api/api.php?getDayReport={date} // 01.01.2024 dd.mm.YYYY
 ______________________________________________________________
 
-______________________________________________________________
-description: 
 
-name: 
-use path: 
-param: 
+
+
+______________________________________________________________
+description: Satışların ayları göstərir
+
+name: getDateListByMonth
+use path: api/api.php?getDateListByMonth
+param: no param
+______________________________________________________________
+
+
+
+
+______________________________________________________________
+description: Satışların gunlerini göstərir
+
+name: getDateListByDay
+use path: api/api.php?getDateListByDay
+param: no param
+return: 
 ______________________________________________________________
