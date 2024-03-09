@@ -71,6 +71,5 @@ if(isset($_GET['getProductsList'])) {
     
 }
 
-Utils::log($result);
 
 echo json_encode($result);
