@@ -127,6 +127,21 @@ class Main extends \Core\Classes\System\Init
     }
 
 
+
+    /**
+     * 
+     */
+    public function getPrepareData($controllerIndex)
+    {
+        $data_page = $this->initController($controllerIndex);
+        $page_config = $data_page['page_data_list'];
+
+        return $this->prepareData($data_page['sql'], $data_page['page_data_list'], \PDO::FETCH_ASSOC);
+    }
+
+
+
+
     /**
      * тут адов говно код, который тем не менее работает. Переделать!
      */

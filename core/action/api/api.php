@@ -54,7 +54,22 @@ if(isset($_GET['getTopSellingProductsOfMonth'])) {
     $result = $report->getTopSellingProductsOfMonth($date);
 }
 
+if(isset($_GET['getProductsList'])) {
+    $limit = $_GET['limit'] ?? '50';
 
+    $getConfig = $main->getControllerData('stock')->allData;
+
+    $getConfig['sql']['query']['limit'] = " limit :limit ";
+    
+    $getConfig['sql']['bindList'] = [
+        'limit' => $limit
+    ];
+    
+    $data = $main->prepareData($getConfig['sql'], $getConfig['page_data_list'], \PDO::FETCH_ASSOC);
+    
+    $result = $data['base_result'];
+    
+}
 
 Utils::log($result);
 

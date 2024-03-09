@@ -27,6 +27,11 @@
 .doc-container {
     margin: 20px 0px;
 }
+
+.text-red {
+    color: red;
+    font-weight: 600;
+}
     </style>
 
 
@@ -275,6 +280,65 @@ Array
                 </div>
 
             </div>    
+
+            <div class="content_container doc-container ui-section">
+                <h1 class="doc-name content__title mrgn-bottom-30">Məhsulların siyahısını göstərin</h1>
+                <h1 class="sub-title">Limit parametri təyin olunmayıbsə, standart olaraq 50 məhsul göstərilir</h1>
+                <div class="doc-content ui-content">
+                    <p class="text doc-item">Name: <span>getProductsList</span></p>
+                    <p class="text doc-item">Use path: <span>{domain}/core/action/api/api.php?getProductsList<span class="text-red">&</span>limit=50</span> </p>
+                    <p class="text doc-item">Param: <span>&limit=10 </span></p>
+
+                    <code >
+                        Return:
+                        <pre style="background-color: #e9e9e9;padding: 10px;border-radius: 6px;margin-top: 5px;">
+Array
+(
+    [0] => Array
+        (
+            [user_id] => 1
+            [user_name] => Emil
+            [user_password] => 123
+            [user_role] => admin
+            [user_visible] => 0
+            [alert_date] => 
+            [stock_id] => 1296
+            [stock_name] => KKD
+            [stock_phone_imei] => 
+            [stock_first_price] => 2
+            [stock_second_price] => 4
+            [stock_count] => -5
+            [stock_provider] => 
+            [stock_visible] => 0
+            [stock_get_fdate] => 17.02.2024
+            [stock_get_year] => 02.2024
+            [stock_return_status] => 1
+            [stock_type] => phone
+            [barcode_article] => 
+            [product_added] => 1
+            [product_provider] => 0
+            [product_category] => 0
+            [min_quantity_stock] => 0
+            [last_edited_date] => 2024-02-17 11:46:26
+            [id] => 1264
+            [id_from_provider] => 
+            [id_from_stock] => 1296
+            [id_from_category] => 104
+            [provider_id] => 
+            [provider_name] => 
+            [visible] => visible
+            [category_id] => 104
+            [category_name] => PEREXODNİK MÜXTƏLİF
+            [barcode_id] => 1798
+            [barcode_value] => KFKF
+            [br_stock_id] => 1296
+        )
+                        </pre>                      
+                    </code>
+
+                </div>
+
+            </div>                
 
         </div>
 
