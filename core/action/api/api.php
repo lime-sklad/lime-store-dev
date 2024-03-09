@@ -48,6 +48,14 @@ if(isset($_GET['getDateListByDay'])) {
 }
 
 
+if(isset($_GET['getTopSellingProductsOfMonth'])) {
+    $date = $_GET['getTopSellingProductsOfMonth'] ?? null;
 
+    $result = $report->getTopSellingProductsOfMonth($date);
+}
+
+
+
+Utils::log($result);
 
 echo json_encode($result);

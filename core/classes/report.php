@@ -1,18 +1,21 @@
 <?php 
 namespace Core\Classes;
 
+use core\classes\dbWrapper\db;
 use Core\Classes\Traits\ReportStatsCard;
 use Core\Classes\System\Main;
 use Core\Classes\Utils\Utils;
 
-class Report extends \Core\Classes\dbWrapper\db {
+class Report {
     use ReportStatsCard;
 
     public $main;
+    public $db;
     
     public function __construct()
     {
         $this->main = new Main;
+        $this->db = new db;
     }
 
     /**
@@ -22,7 +25,7 @@ class Report extends \Core\Classes\dbWrapper\db {
      */
     public function getById(int $id) 
     {
-        return $this->select([
+        return $this->db->select([
             'table_name' => 'stock_order_report',
             'col_list' => '*',
             'query' => [
@@ -69,6 +72,28 @@ class Report extends \Core\Classes\dbWrapper\db {
         return $this->main->prepareData($data_page['sql'], $data_page['page_data_list'], \PDO::FETCH_ASSOC);
     }    
 
+
+    public function getTopSellingProductsOfMonth($date) 
+    {
+        return $this->db->select([
+            'table_name' => 'stock_order_report',
+            'col_list' => "  order_my_date as smonth, order_stock_name,  SUM(order_total_profit) AS total_profit ",
+            'query' => [
+                'base_query' => '',
+                'body' => " WHERE stock_order_report.order_my_date = :mydate
+                            AND stock_order_visible = 0 ",
+                'sort_by' => ' GROUP BY stock_order_report.stock_id ASC ORDER BY total_profit DESC ',
+                'limit' => ' limit 10 '
+            ],
+            'bindList' => [
+                ':mydate' => $date
+            ],
+        ])->get();
+
+    } 
+
+
+
     /**
      * Редактировать отчет продажи 
      * @param array $data
@@ -105,7 +130,7 @@ class Report extends \Core\Classes\dbWrapper\db {
         ];
 
 
-        $this->update($option, $data);
+        $this->db->update($option, $data);
         $this->refaundOrder($data);
         return $this->changeOrderPrice($data);
     }
@@ -144,7 +169,7 @@ class Report extends \Core\Classes\dbWrapper\db {
             ]
         ];
 
-        return $this->update($option2, $data);        
+        return $this->db->update($option2, $data);        
     }
 
 
@@ -181,7 +206,7 @@ class Report extends \Core\Classes\dbWrapper\db {
             ]
         ];
 
-        return $this->update($option3, $data);        
+        return $this->db->update($option3, $data);        
     }
 
 
@@ -210,7 +235,7 @@ class Report extends \Core\Classes\dbWrapper\db {
             ]
         ];   
         
-        echo $this->update($option, $data);
+        echo $this->db->update($option, $data);
     }
 
     public function getDifferenceOrderCount(int $orderCount, int $changeCount) {

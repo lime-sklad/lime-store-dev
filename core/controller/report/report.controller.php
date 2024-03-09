@@ -24,8 +24,14 @@ return [
     ],			
     'sql' => [
         'table_name' => ' user_control ',
-        'col_list'	=> ' *, GROUP_CONCAT( DISTINCT stock_category.category_name SEPARATOR  " \n -- ") as product_category_list, 
-                           GROUP_CONCAT( DISTINCT stock_provider.provider_name SEPARATOR  " \n -- ") as product_provider_list',
+        'col_list'	=> ' user_control.user_name, 
+                         user_control.user_id, 
+                         stock_list.*, 
+                         stock_order_report.*,
+                         payment_method_list.*,  
+                         stock_barcode_list.*,
+                         GROUP_CONCAT( DISTINCT stock_category.category_name SEPARATOR  " \n -- ") as product_category_list, 
+                         GROUP_CONCAT( DISTINCT stock_provider.provider_name SEPARATOR  " \n -- ") as product_provider_list',
 
         'query' => array(
             'base_query' =>  " INNER JOIN stock_list ON stock_list.stock_id  != 0 

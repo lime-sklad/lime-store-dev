@@ -1,17 +1,18 @@
 <?php
 
 use Core\Classes\Utils\Charts;
-use Core\Classes\Services\Provider;
+use Core\Classes\Report;
+
 header('Content-Type: application/json');
 
 $Charts = new Charts;
-$Provider = new Provider;
+$Report = new Report;
 
-$date = '01.2024';
+$date = $_POST['date'];
 
-$data = $Provider->sumSalesByProvider($date);
+$data = $Report->getTopSellingProductsOfMonth($date);
 
 
-$res = $Charts->getPieChartsData($data, 'provider_name', 'total');
+$res = $Charts->getPieChartsData($data, 'order_stock_name', 'total_profit');
 
 echo json_encode($res);

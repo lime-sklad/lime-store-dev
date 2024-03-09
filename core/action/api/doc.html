@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/style_var.css">
+    <link rel="stylesheet" href="/css/template.css">
+    <link rel="stylesheet" href="/css/new.style.css">
+</head>
+<body>
+
+    <style>
+.doc-item {
+    margin: 7px 0px;
+    font-size: 17px;
+}
+
+.doc-item > span {
+    font-family: monospace;
+    font-size: 14px;
+    margin-left: 10px;
+    color: #0726fa;
+}
+
+.doc-container {
+    margin: 20px 0px;
+}
+    </style>
+
+
+    <div class="contrainer">
+        <div class="wrapper">
+            
+
+            <div class="content_container doc-container ui-section">
+                <h1 class="doc-name content__title mrgn-bottom-30">Aylıq hesabat. Heç bir parametr yoxdursa, standart olaraq cari ayın hesabatını verir</h1>
+
+                <div class="doc-content ui-content">
+                    <p class="text doc-item">Name: <span>getMonthReport</span></p>
+                    <p class="text doc-item">Use path: <span>{domain}/core/action/api/api.php?getMonthReport</span> </p>
+                    <p class="text doc-item">Param: <span>api/api.php?getMonthReport={date} // 01.2023 mm.YY</span></p>
+
+                    <code >
+                        Return:
+                        <pre style="background-color: #e9e9e9;padding: 10px;border-radius: 6px;margin-top: 5px;">
+Array
+(
+    [0] => Array
+        (
+            [user_name] => Emil
+            [user_id] => 1
+            [stock_id] => 23
+            [stock_name] => USB TYPCİ HOCO X89
+            [stock_phone_imei] => Aksesuar
+            [stock_first_price] => 1.25
+            [stock_second_price] => 5
+            [stock_count] => 21
+            [stock_provider] => 
+            [stock_visible] => 0
+            [stock_get_fdate] => 19.01.2023
+            [stock_get_year] => 01.2023
+            [stock_return_status] => 0
+            [stock_type] => phone
+            [barcode_article] => 
+            [product_added] => 1
+            [product_provider] => 0
+            [product_category] => 0
+            [min_quantity_stock] => 0
+            [last_edited_date] => 2023-07-01 06:48:34
+            [order_stock_id] => 8073
+            [order_stock_name] => USB TYPCİ HOCO X89
+            [order_stock_imei] => Aksesuar
+            [order_stock_count] => 1
+            [order_stock_sprice] => 5
+            [order_stock_total_price] => 5
+            [order_total_profit] => 3.75
+            [order_date] => 28.01.2024
+            [order_who_buy] => 
+            [order_my_date] => 01.2024
+            [order_real_time] => 2024-01-28
+            [stock_order_visible] => 0
+            [order_seller_name] => 
+            [payment_method] => 2
+            [sales_man] => 1
+            [transaction_id] => 0
+            [id] => 2
+            [title] => Kart
+            [freeze] => 0
+            [tags_id] => danger
+            [visible] => 0
+            [barcode_id] => 18
+            [barcode_value] => 6931474784360
+            [br_stock_id] => 23
+            [product_category_list] => Usb
+            [product_provider_list] => duaks
+        )
+                        </pre>                      
+                    </code>
+
+                </div>
+
+            </div>   
+            
+            <div class="content_container doc-container ui-section">
+                <h1 class="doc-name content__title mrgn-bottom-30">Gündəlik hesabat. Heç bir parametr yoxdursa, standart olaraq cari günün hesabatını verir </h1>
+
+                <div class="doc-content ui-content">
+                    <p class="text doc-item">Name: <span>getDayReport</span></p>
+                    <p class="text doc-item">Use path: <span>{domain}/core/action/api/api.php?getDayReport</span> </p>
+                    <p class="text doc-item">Param: <span>api/api.php?getDayReport={date} // 01.01.2024 dd.mm.YYYY</span></p>
+
+                    <code >
+                        Return:
+                        <pre style="background-color: #e9e9e9;padding: 10px;border-radius: 6px;margin-top: 5px;">
+Array
+(
+    [0] => Array
+        (
+            [user_name] => Emil
+            [user_id] => 1
+            [stock_id] => 23
+            [stock_name] => USB TYPCİ HOCO X89
+            [stock_phone_imei] => Aksesuar
+            [stock_first_price] => 1.25
+            [stock_second_price] => 5
+            [stock_count] => 21
+            [stock_provider] => 
+            [stock_visible] => 0
+            [stock_get_fdate] => 19.01.2023
+            [stock_get_year] => 01.2023
+            [stock_return_status] => 0
+            [stock_type] => phone
+            [barcode_article] => 
+            [product_added] => 1
+            [product_provider] => 0
+            [product_category] => 0
+            [min_quantity_stock] => 0
+            [last_edited_date] => 2023-07-01 06:48:34
+            [order_stock_id] => 8073
+            [order_stock_name] => USB TYPCİ HOCO X89
+            [order_stock_imei] => Aksesuar
+            [order_stock_count] => 1
+            [order_stock_sprice] => 5
+            [order_stock_total_price] => 5
+            [order_total_profit] => 3.75
+            [order_date] => 28.01.2024
+            [order_who_buy] => 
+            [order_my_date] => 01.2024
+            [order_real_time] => 2024-01-28
+            [stock_order_visible] => 0
+            [order_seller_name] => 
+            [payment_method] => 2
+            [sales_man] => 1
+            [transaction_id] => 0
+            [id] => 2
+            [title] => Kart
+            [freeze] => 0
+            [tags_id] => danger
+            [visible] => 0
+            [barcode_id] => 18
+            [barcode_value] => 6931474784360
+            [br_stock_id] => 23
+            [product_category_list] => Usb
+            [product_provider_list] => duaks
+        )
+                        </pre>                      
+                    </code>
+
+                </div>
+
+            </div>   
+            
+            <div class="content_container doc-container ui-section">
+                <h1 class="doc-name content__title mrgn-bottom-30">Satışların ayları göstərir</h1>
+
+                <div class="doc-content ui-content">
+                    <p class="text doc-item">Name: <span>getDateListByMonth</span></p>
+                    <p class="text doc-item">Use path: <span>{domain}/core/action/api/api.php?getDateListByMonth</span> </p>
+                    <p class="text doc-item">Param: <span>no param</span></p>
+
+                    <code >
+                        Return:
+                        <pre style="background-color: #e9e9e9;padding: 10px;border-radius: 6px;margin-top: 5px;">
+Array
+(
+    [0] => 02.2024
+    [1] => 01.2024
+    [2] => 12.2023
+    [3] => 11.2023
+    [4] => 10.2023
+    [5] => 09.2023
+    [6] => 08.2023
+    [7] => 07.2023
+    [8] => 06.2023
+    [9] => 05.2023
+    [10] => 04.2023
+    [11] => 03.2023
+    [12] => 02.2023
+    [13] => 01.2023
+    [default] => 03.2024
+)
+                        </pre>                      
+                    </code>
+
+                </div>
+
+            </div>   
+
+            <div class="content_container doc-container ui-section">
+                <h1 class="doc-name content__title mrgn-bottom-30">Satışların gunlerini göstərir</h1>
+
+                <div class="doc-content ui-content">
+                    <p class="text doc-item">Name: <span>getDateListByDay</span></p>
+                    <p class="text doc-item">Use path: <span>{domain}/core/action/api/api.php?getDateListByDay</span> </p>
+                    <p class="text doc-item">Param: <span>no param</span></p>
+
+                    <code >
+                        Return:
+                        <pre style="background-color: #e9e9e9;padding: 10px;border-radius: 6px;margin-top: 5px;">
+Array
+(
+    [0] => 18.02.2024
+    [1] => 17.02.2024
+    [2] => 28.01.2024
+    [3] => 24.01.2024
+    [4] => 23.01.2024
+    [5] => 22.01.2024
+    [6] => 21.01.2024
+    [7] => 20.01.2024
+    [8] => 19.01.2024
+    [9] => 18.01.2024
+    [10] => 17.01.2024
+    [11] => 16.01.2024
+    [12] => 15.01.2024
+    [13] => 14.01.2024
+    [14] => 13.01.2024
+    [15] => 12.01.2024
+    [16] => 11.01.2024
+    [17] => 10.01.2024
+    [18] => 09.01.2024
+)
+                        </pre>                      
+                    </code>
+
+                </div>
+
+            </div>           
+
+            <div class="content_container doc-container ui-section">
+                <h1 class="doc-name content__title mrgn-bottom-30">Ayda ən çox satılan 10 məhsulu göstərir</h1>
+
+                <div class="doc-content ui-content">
+                    <p class="text doc-item">Name: <span>getTopSellingProductsOfMonth</span></p>
+                    <p class="text doc-item">Use path: <span>{domain}/core/action/api/api.php?getTopSellingProductsOfMonth=date</span> </p>
+                    <p class="text doc-item">Param: <span>date mm.YYYY 03.2024</span></p>
+
+                    <code >
+                        Return:
+                        <pre style="background-color: #e9e9e9;padding: 10px;border-radius: 6px;margin-top: 5px;">
+Array
+(
+    [0] => Array
+        (
+            [smonth] => 02.2024
+            [order_stock_name] => KKD
+            [total_profit] => 5
+        )
+
+)
+                        </pre>                      
+                    </code>
+
+                </div>
+
+            </div>    
+
+        </div>
+
+    </div>
+
+</body>
+</html>
