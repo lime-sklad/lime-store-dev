@@ -43,7 +43,9 @@ class Products
     }
 
 
-
+    /**
+     * Добавить товар
+     */
     public function addProduct($prepareData)
     {
         $data = [];
@@ -223,7 +225,7 @@ class Products
 
     /**
      * Уменьшить количество товара 
-     * @param array stock_id|order_stock_count
+     * @param array stock_id|product_count
      */
     public function decreaseProductCount($data) 
     {
@@ -235,7 +237,7 @@ class Products
                     'query' => false,
                     'bind' => 'stock_id'
                 ],
-                'order_stock_count' => [
+                'product_count' => [
                     'query' => "stock_list.stock_count = stock_list.stock_count - :product_count",
                     'bind' => 'product_count'
                 ]
@@ -248,7 +250,7 @@ class Products
 
     /**
      * Увеличить количсество товара
-     * @param array stock_id|order_stock_count
+     * @param array stock_id|product_count
      */
     public function increaseProductCount($data) 
     {
@@ -260,7 +262,7 @@ class Products
                     'query' => false,
                     'bind' => 'stock_id'
                 ],
-                'order_stock_count' => [
+                'product_count' => [
                     'query' => "stock_list.stock_count = stock_list.stock_count + :product_count",
                     'bind' => 'product_count'
                 ]
@@ -527,7 +529,7 @@ class Products
      * @param string $column какой столбец вывести
      * @return array|string|false
      */
-    public function getLastAddedProduct($column = false) 
+    public function getLastAddedProduct($column = false)
     {
         $data = $this->db->select([
             'table_name' => 'stock_list',

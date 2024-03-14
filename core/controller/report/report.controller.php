@@ -38,7 +38,8 @@ return [
                                INNER JOIN stock_order_report ON  stock_order_report.stock_order_visible = 0
             ",
             'body' =>  " AND stock_order_report.stock_id = stock_list.stock_id
-                          AND stock_order_report.order_stock_count > 0 
+                          AND stock_order_report.order_stock_count > 0
+                          AND user_control.user_id = stock_order_report.sales_man
                             ",
             "joins" => "    LEFT JOIN products_provider_list ON products_provider_list.id_from_stock = stock_list.stock_id
                             LEFT JOIN products_category_list ON products_category_list.id_from_stock = stock_list.stock_id
@@ -47,8 +48,6 @@ return [
                             LEFT JOIN stock_category ON stock_category.category_id = products_category_list.id_from_category
                             
                             LEFT JOIN stock_barcode_list ON stock_barcode_list.br_stock_id = stock_list.stock_id 
-
-                            LEFT JOIN user_control as sales_manager ON sales_manager.user_id = stock_order_report.sales_man
 
                             LEFT JOIN payment_method_list ON payment_method_list.id = stock_order_report.payment_method                                  
                             ",		

@@ -1,6 +1,6 @@
 <?php
 
-use Core\Classes\Services\Warehouse;
+use Core\Classes\Services\Warehouse\Warehouse;
 
 	$data_page = $main->initController($page);
 	$page_config = $data_page['page_data_list'];

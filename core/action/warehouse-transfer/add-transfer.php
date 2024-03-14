@@ -1,6 +1,6 @@
 <?php header('Content-type: Application/json');
 
-$Warehouse = new Core\Classes\Services\Warehouse;
+$Warehouse = new Core\Classes\Services\Warehouse\Warehouse;
 
 if(empty($_POST) || empty($_POST['list'])) {
    return $utils::abort([

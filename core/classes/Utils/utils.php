@@ -50,7 +50,9 @@ class Utils extends \Core\Classes\dbWrapper\db
     }
     
 
-    //дебаг функция
+    /**
+     * 
+     */
     public static function log($var) 
     {
         echo "<pre>";
@@ -68,12 +70,29 @@ class Utils extends \Core\Classes\dbWrapper\db
         echo json_encode($arr);
     }
 
+
+    /**
+     * 
+     */
     public static function errorAbort(string $errText) 
     {
         return self::abort([
             'type' => 'error',
             'text' => $errText
         ]);
+    }
+
+    /**
+     * 
+     */
+    public static function generateTransactionId()
+    {
+        $new_sault = rand(000000,999999);
+        $new_sault2 = rand(000000,555555);
+    
+        $transaction_id = $new_sault * $new_sault2 / 2;
+    
+        return (int) $transaction_id;        
     }
 
 

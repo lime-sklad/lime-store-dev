@@ -45,6 +45,8 @@ $routeLis = [
 	'addExpense'			=> ROOT.'/core/action/expense/add_expense.php',
 
 	'addTransfer'			=> ROOT.'/core/action/warehouse-transfer/add-transfer.php',
+
+	'addArrivalProducts'	=> ROOT.'/core/action/arrival-products/add-arrival-products.php',
 ];
 
 $route = $_POST['route'];

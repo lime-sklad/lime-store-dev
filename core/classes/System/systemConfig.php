@@ -24,10 +24,15 @@ class SystemConfig
                 'js/hotkey.js',
                 'js/upd.function.js',
                 'js/upd.ajax.js',
-                'js/cart.js',
-                'js/arrival.function.js',
-                'js/write-off.function.js',
-                'js/transfer.function.js',
+                
+                
+                'js/main/stock.function.js',
+                'js/main/report.function.js',
+                'js/main/cart.js',
+                'js/main/arrival.function.js',
+                'js/main/write-off.function.js',
+                'js/main/transfer.function.js',
+                
                 'js/dark-theme.js',
                 // 'js/network-status.js',
                 'lib/xlsx-convert/xlsx.full.min.js',

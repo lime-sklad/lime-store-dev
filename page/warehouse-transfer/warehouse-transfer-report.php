@@ -1,17 +1,12 @@
 <?php
 
-use Core\Classes\Services\Warehouse;
+use Core\Classes\Services\Warehouse\Warehouse;
 
 $Warehouse = new Warehouse;
 
-$data_page = $main->initController($page);
-$page_config = $data_page['page_data_list'];
 
 
-$data_page['sql']['query']['body'] = $data_page['sql']['query']['body'] . "  AND transfer_list.transfer_date = :mydateyear";
-$data_page['sql']['bindList']['mydateyear'] = date("m.Y");
-
-$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list'], PDO::FETCH_ASSOC);
+$table_result = $Warehouse->getTransferByDate($utils::getDateMY(), $page);
 
 echo $Render->view('/component/inner_container.twig', [
     'renderComponent' => [

@@ -73,6 +73,9 @@ class Report {
     }    
 
 
+    /**
+     * 
+     */
     public function getTopSellingProductsOfMonth($date) 
     {
         return $this->db->select([

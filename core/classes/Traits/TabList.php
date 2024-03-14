@@ -32,9 +32,9 @@ trait TabList {
             ),
             'tab_arrival_products' => array(
                 'type'				=> 'phone',
-                'tab_data_page'		=> 'arrival_form',
+                'tab_data_page'		=> 'arrival-form',
                 'tab_title'			=> 'Alis fakturasi',
-                'tab_link'			=> '/page/arrival_products/arrival_form.php',
+                'tab_link'			=> '/page/arrival-products/arrival-form.php',
                 'tab_icon'			=> false,
                 'tab_modify_class'	=> 'pos-relative',
                 'mark' => [
@@ -44,9 +44,9 @@ trait TabList {
             ),
             'tab_arrival_report' => array(
                 'type'				=> 'phone',
-                'tab_data_page'		=> 'arrival_report',
+                'tab_data_page'		=> 'arrival-report',
                 'tab_title'			=> 'Hesabat',
-                'tab_link'			=> '/page/arrival_products/arrival_report.php',
+                'tab_link'			=> '/page/arrival-products/arrival-report.php',
                 'tab_icon'			=> '',
                 'tab_modify_class'	=> '',
             ),
@@ -92,9 +92,9 @@ trait TabList {
             
             'tab_warehouse_transfer_form' => array(
                 'type'				=> 'phone',
-                'tab_data_page'		=> 'warehouse_transfer_form',
+                'tab_data_page'		=> 'warehouse-transfer-form',
                 'tab_title'			=> 'Yeni transfer',
-                'tab_link'			=> '/page/warehouse_transfer/warehouse_transfer_form.php',
+                'tab_link'			=> '/page/warehouse-transfer/warehouse-transfer-form.php',
                 'tab_icon'			=> false,
                 'tab_modify_class'	=> ' pos-relative ',
                 'mark' => [
@@ -104,9 +104,9 @@ trait TabList {
             ),
             'tab_warehouse_transfer_report' => array(
                 'type'				=> 'phone',
-                'tab_data_page'		=> 'warehouse_transfer_report',
+                'tab_data_page'		=> 'warehouse-transfer-report',
                 'tab_title'			=> 'Hesabat transfer',
-                'tab_link'			=> '/page/warehouse_transfer/warehouse_transfer_report.php',
+                'tab_link'			=> '/page/warehouse-transfer/warehouse-transfer-report.php',
                 'tab_icon'			=> '',
                 'tab_modify_class'	=> 'pos-relative',
                 'mark' => [

@@ -1,18 +1,26 @@
 <?php
 
-namespace Core\Classes\Services;
+namespace Core\Classes\Services\Warehouse;
 
+use Core\Classes\Products;
+use Core\Classes\System\Main;
 use core\classes\dbWrapper\db;
-use Core\Classes\Utils\Utils;
 
-
-class Warehouse 
+class Warehouse
 {
+    use Traits\Transfer,
+        Traits\Arrival,
+        Traits\WriteOFf;
+        
+    public $main;
+    public $Products;
     private $db;
-    
+
     public function __construct()
     {
-        $this->db = new DB;    
+        $this->db = new db;
+        $this->main = new Main;   
+        $this->Products = new Products;
     }
 
 
@@ -77,43 +85,4 @@ class Warehouse
         return !empty($warehouse) ? true : false;
     }
 
-
-    /**
-     * Добавить трансфер
-     * 
-     * @param array @data массив с даннми
-     * @param int $warehousId id склада
-     */
-    public function addTransfer(array $data, int $warehouseId)
-    {
-        $option = [
-            'before' => ' UPDATE stock_list SET ',
-            'after' => ' WHERE stock_id = :id ',
-            'post_list' => [
-                'id' => [
-                    'query' => false,
-                    'bind' => 'id'
-                ],
-                'count' => [
-                    'query' => ' stock_list.stock_count = stock_list.stock_count - :product_count ',
-                    'bind' => 'product_count'
-                ]
-            ]
-        ];
-
-        foreach($data as $key => $row) {
-            $this->db->update($option, $row);
-        
-            $this->db->insert('transfer_list', [
-                [
-                    'warehouse_id' => $warehouseId,
-                    'transfer_date' => Utils::getDateMY(),
-                    'transfer_full_date' => Utils::getDateDMY(),
-                    'stock_id' => $row['id'],
-                    'count' => $row['count'],
-                    'description' => $row['description']
-                ]
-            ]);    
-        }         
-    }
 }

@@ -7,18 +7,15 @@ return [
     'sql' => [
         'table_name' => ' user_control  ',
         'col_list'	=> ' * ',
-        'base_query' =>  " INNER JOIN arrival_products ON arrival_products.id != 0 ",
-        'param' => array(
-            'query' => array(
-                'param' =>  "  INNER JOIN stock_list ON stock_list.stock_id = arrival_products.id_from_stock ",
-                "joins" => "   ",		
-                'bindList' => array(						
-                )
-            ),
-            'sort_by' => " GROUP BY arrival_products.id  DESC ORDER BY  arrival_products.id DESC
-                             ",
+        'query' => array(
+            'base_query' =>  " INNER JOIN arrival_products ON arrival_products.id != 0 ",
+            'body' =>  "  INNER JOIN stock_list ON stock_list.stock_id = arrival_products.id_from_stock ",
+            "joins" => "   ",		
+            'sort_by' => " GROUP BY arrival_products.id  DESC ORDER BY  arrival_products.id DESC",
             'limit' => '',
         ),
+        'bindList' => array(						
+        )
     ],
     'page_data_list' => [
         'sort_key' => 'id',

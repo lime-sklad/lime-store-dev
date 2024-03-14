@@ -1,30 +1,19 @@
-<?php 
+<?php header('Content-type: Application/json');
 
-include $_SERVER['DOCUMENT_ROOT'] . '/function.php';
+use Core\Classes\Services\Warehouse\Warehouse;
+use Core\Classes\Utils\Utils;
 
-header('Content-type: Application/json');
+$Warehouse = new Warehouse;
 
 if(empty($_POST['list'])) {
-    return alert_error('Səbət boşdur');
-    exit;
+    $utils::abort('Səbət boşdur'); exit;
 }
-
-
 
 $list = $_POST['list'];
 
-$transaction_id = ls_generate_transaction_id();
+$Warehouse->arrivalProducts($list);
 
-foreach($list as $key => $row) {
-    $id = $row['id'];
-    $count = $row['count'];
-
-    stock_arrivals_count($id, $count);
-
-    add_arrivals_report($row, $transaction_id);
-}
-
-return print_alert([
+echo Utils::abort([
     'text' => 'Əlavə edildi',
     'type' => 'success'
 ]);

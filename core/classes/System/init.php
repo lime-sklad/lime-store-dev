@@ -22,9 +22,12 @@ class Init extends \Core\Classes\dbWrapper\db
             'stock'         	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/stock/stock.controller.php',
             'report'        	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/report/report.controller.php',
             'expense'        	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/expense/expense.controller.php',
-            'warehouse_transfer_form'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/warehouse-transfer/warehouse-transfer-form/warehouse-transfer-form.controller.php',
-                'warehouse_transfer_report'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/warehouse-transfer/warehouse-transfer-report/warehouse-transfer-report.controller.php',
+            'warehouse-transfer-form'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/warehouse-transfer/warehouse-transfer-form/warehouse-transfer-form.controller.php',
+                'warehouse-transfer-report'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/warehouse-transfer/warehouse-transfer-report/warehouse-transfer-report.controller.php',
                 
+            'arrival-form' 		=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/arrival-products/arrival-form/arrival-form.controller.php',
+                'arrival-report'  	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/arrival-products/arrival-report/arrival-report.controller.php',
+            
             // 'admin'         	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/admin/admin.controller.php',
                 // 'category_form' 	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/category_form/category_form.controller.php',
                 // 'provider_form' 	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/provider_form/provider_form.controller.php',
@@ -32,9 +35,6 @@ class Init extends \Core\Classes\dbWrapper\db
                 // 'settings'      	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/settings/settings.controller.php',
                 // 'create_warehouse'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/warehouse/create-warehouse.controller.php',
                 // 'payment_method_form'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/payment_method_form/payment-method-form.controller.php',
-            
-            // 'arrival_form' 		=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/arrival-products/arrival-form/arrival-form.controller.php',
-                // 'arrival_report'  	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/arrival-products/arrival-report/arrival-report.controller.php',
             
             // 'write_off_form'    =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/write-off-products/write-off-form/write-off-form.controller.php',
                 // 'write_off_report'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/write-off-products/write-off-report/write-off-report.controller.php',
