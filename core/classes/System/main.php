@@ -114,18 +114,28 @@ class Main extends \Core\Classes\System\Init
      * 
      * old function name render_data_template
     **/
-    public function prepareData(array $sql_data, array $get_data,  $pdo_fetch = \PDO::FETCH_ASSOC, string $placeholders = 'named') 
+    public function prepareData(array $sql_data, array $config,  $pdo_fetch = \PDO::FETCH_ASSOC, string $placeholders = 'named') 
     {
         //страница
         $stock_list = $this->db->select($sql_data, $pdo_fetch, $placeholders)->get();
 
         return [
-            'result' => $this->compareData($stock_list, $get_data),
-            'base_result' => $this->accessManager->cleanseInaccessibleData([ 'query' => $stock_list, 'access' => $get_data ], $this->getTableHeaderList())
-        ]; 	
-
+            'result' => $this->compareData($stock_list, $config),
+            'base_result' => $this->accessManager->cleanseInaccessibleData([ 'query' => $stock_list, 'access' => $config ], $this->getTableHeaderList())
+        ];
     }
 
+
+    /**
+     * 
+     */
+    public function prepareCustomData($data_list, $config)
+    {
+        return [
+            'result' => $this->compareData($data_list, $config),
+            'base_result' => $this->accessManager->cleanseInaccessibleData([ 'query' => $data_list, 'access' => $config ], $this->getTableHeaderList())
+        ];        
+    }
 
 
     /**

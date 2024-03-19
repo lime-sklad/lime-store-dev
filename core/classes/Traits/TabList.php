@@ -52,9 +52,9 @@ trait TabList {
             ),
             'tab_write_off_form' => array(
                 'type'				=> 'phone',
-                'tab_data_page'		=> 'write_off_form',
+                'tab_data_page'		=> 'write-off-form',
                 'tab_title'			=> 'Silinmə əməliyyatı',
-                'tab_link'			=> '/page/write_off_products/write_off_form.php',
+                'tab_link'			=> '/page/write-off-products/write-off-form.php',
                 'tab_icon'			=> false,
                 'tab_modify_class'	=> ' pos-relative ',
                 'mark' => [
@@ -64,9 +64,9 @@ trait TabList {
             ),
             'tab_write_off_report' => array(
                 'type'				=> 'phone',
-                'tab_data_page'		=> 'write_off_report',
+                'tab_data_page'		=> 'write-off-report',
                 'tab_title'			=> 'Hesabat',
-                'tab_link'			=> '/page/write_off_products/write_off_report.php',
+                'tab_link'			=> '/page/write-off-products/write-off-report.php',
                 'tab_icon'			=> '',
                 'tab_modify_class'	=> 'pos-relative',
                 'mark' => [
@@ -167,7 +167,7 @@ trait TabList {
                 'type' 				=> 'phone',
                 'tab_title' 		=> 'Anbar',
                 'tab_data_page'		=> 'create_warehouse',
-                'tab_link'			=> '/page/form/warehouse/create_warehouse.php',
+                'tab_link'			=> '/page/form/warehouse/create-warehouse.php',
                 'tab_icon' 			=> false,
                 'tab_modify_class' 	=> 'pos-relative',
                 'mark' => false
@@ -184,7 +184,7 @@ trait TabList {
                 'type' 				=> false,
                 'tab_data_page' 	=> 'category_form',
                 'tab_title' 		=> 'Kategoriya',
-                'tab_link' 			=> '/page/form/category/category_form.php',
+                'tab_link' 			=> '/page/form/category/category-form.php',
                 'tab_icon' 			=> false,
                 'tab_modify_class' 	=> 'pos-relative',
                 'mark' => false

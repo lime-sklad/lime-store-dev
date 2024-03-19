@@ -6,23 +6,20 @@ return [
     'sql' => [
         'table_name' => ' user_control  ',
         'col_list'	=> ' * ',
-        'base_query' =>  " INNER JOIN warehouse_list ON warehouse_list.warehouse_visible = 0 ",
-        'param' => array(
-            'query' => array(
-                'param' =>  "",
-                "joins" => "",		
-                'bindList' => array(						
-                )
-            ),
+        'query' => array(
+            'base_query' =>  " INNER JOIN warehouse_list ON warehouse_list.warehouse_visible = 0 ",
+            'body' => '',
+            'joins' => '',	
             'sort_by' => " GROUP BY warehouse_list.id DESC ORDER BY warehouse_list.id DESC ",
-            'limit' => '',
         ),
+        'bindList' => array(						
+        )
     ],
     'page_data_list' => [
         'sort_key' => 'id',
         'get_data' => [
             'id' 				=> 'id',
-            'warehouse_name'			 	=> 'warehouse_name',
+            'warehouse_name'    => 'warehouse_name',
             'description' 		=> 'warehouse_info',
             'warehouse_contact'	=> 'warehouse_contact',
             'edit'              => null

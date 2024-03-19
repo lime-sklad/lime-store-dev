@@ -104,9 +104,9 @@ if(isset($postData['product_id'], $postData['type'], $postData['page'])) {
 		}
 
         $input_fileds_list['user'] = [
-            'user_name'  => $user->getUser('get_name'),
-            'user_id'    => $user->getUser('get_id'),
-            'user_role'  => $user->getUser('get_role')
+            'user_name'  => $user->getCurrentUser('get_name'),
+            'user_id'    => $user->getCurrentUser('get_id'),
+            'user_role'  => $user->getCurrentUser('get_role')
         ];
 
 

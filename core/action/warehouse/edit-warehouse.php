@@ -1,5 +1,4 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'].'/function.php';
 
 header('Content-type: Applcation/json');
 
@@ -25,7 +24,7 @@ if(!empty($_POST['prepare'])) {
         ]
     ];
     
-    ls_db_upadte($option, $data);
+    $db->update($option, $data);
 
     echo print_alert([
         'type' => 'success',

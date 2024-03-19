@@ -5,6 +5,7 @@ namespace Core\Classes\Services\Warehouse;
 use Core\Classes\Products;
 use Core\Classes\System\Main;
 use core\classes\dbWrapper\db;
+use Core\Classes\Utils\Utils;
 
 class Warehouse
 {
@@ -18,7 +19,7 @@ class Warehouse
 
     public function __construct()
     {
-        $this->db = new db;
+        $this->db = new db; 
         $this->main = new Main;   
         $this->Products = new Products;
     }
@@ -29,7 +30,12 @@ class Warehouse
      */
     public function addWarehouse($data)
     {
-        //code          
+        return $this->db->insert('warehouse_list', [
+            [
+                'warehouse_name' => $data['warehouse_name'],
+                'warehouse_contact' => $data['warehouse_contact']
+            ]
+        ]);
     }
 
 
@@ -85,4 +91,20 @@ class Warehouse
         return !empty($warehouse) ? true : false;
     }
 
+
+    /**
+     * 
+     */
+    public function getLastAddedWarehouse()
+    {
+        $controllerIndex = Utils::getPostPage();
+
+		$this_data = $this->main->getControllerData($controllerIndex)->allData;
+
+		$page_config = $this_data['page_data_list'];
+
+		$this_data['sql']['query']['sort_by'] = " GROUP BY id DESC ORDER BY id DESC LIMIT 1";
+
+        return $this->db->select($this_data['sql'])->get();
+    }
 }

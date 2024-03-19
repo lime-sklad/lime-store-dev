@@ -2,23 +2,46 @@
 
 namespace Core\Classes\Privates;
 
-class User extends \Core\Classes\dbWrapper\db
+use core\classes\dbWrapper\db;
+
+use function PHPSTORM_META\map;
+
+class User
 {
-    
+    public $db;
+
+    public function __construct()
+    {
+        $this->db = new db;
+    }
+
+
     /**
      * получить данные пользователя сесии
      * @param string $get_info
      */
-    public function getUser($get_info = null) 
+    public function getCurrentUser($get_info = null) 
     {
         if(isset($_SESSION['user'])) {
             $user_id = $_SESSION['user'];
     
-            $ustmp = $this->dbpdo->prepare('SELECT * FROM user_control WHERE user_id = :id');
-            $ustmp->bindParam(':id', $user_id, \PDO::PARAM_INT);
-            $ustmp->execute();
-            $row = $ustmp->fetch(\PDO::FETCH_ASSOC);
+            // $ustmp = $this->dbpdo->prepare('SELECT * FROM user_control WHERE user_id = :id');
+            // $ustmp->bindParam(':id', $user_id, \PDO::PARAM_INT);
+            // $ustmp->execute();
+            // $row = $ustmp->fetch(\PDO::FETCH_ASSOC);
+
+            $row = $this->db->select([
+                'table_name' => 'user_control',
+                'col_list' => '*',
+                'query' => [
+                    'base_query' => '   WHERE user_id = :id '
+                ],
+                'bindList' => [
+                    ':id' => $user_id
+                ]
+            ])->first()->get();
         
+
             switch ($get_info) {
                 case 'get_id':
                     return $user_id = $row['user_id'];
@@ -49,7 +72,7 @@ class User extends \Core\Classes\dbWrapper\db
      */
     public function getAllUser()
     {
-        return $this->select([
+        return $this->db->select([
             'table_name' => 'user_control',
             'col_list' => '*',
             'query' => [
@@ -64,20 +87,14 @@ class User extends \Core\Classes\dbWrapper\db
     }    
 
 
-
-
-
-
-    // =====================
-
-
-
-
     /**
      * Добавляем нового пользователя
+     * 
+     * old function name add_new_user
      */
-    function add_new_user($arr) {
-        return ls_db_insert('user_control', [
+    public function addUser($arr) 
+    {
+        return $this->db->insert('user_control', [
             [
                 'user_name' => $arr['seller_name'],
                 'user_password' => $arr['seller_password'],
@@ -86,10 +103,83 @@ class User extends \Core\Classes\dbWrapper\db
         ]);
     }
     
+
+
+        /**
+     * Проверить уникальность логина пользователя
+     * @param string $user_name
+     * @return boolean  true/false (true - пользователя нет, false - пользователь есть в базе данных) 
+     * 
+     * old function name is_unique_user
+     */
+    public function isUsernameAvailable($user_name) 
+    {
+        $data = $this->db->select([
+            'table_name' => 'user_control',
+            'col_list'	=> '*',
+            'query' => [
+                'base_query' => ' WHERE user_name = :user_name ',
+            ],
+            'bindList' => [
+                ':user_name' => $user_name
+            ]            
+        ])->get();
+    
+
+        return empty($data) ? true : false;
+    }
+
+
+    /**
+     * 
+     * old function name get_last_added_user 
+     */
+    public function getLastAddedUser() 
+    {
+        return  $this->db->select([
+            'table_name' => 'user_control',
+            'col_list' => '*',
+            'base_query' => ' WHERE user_visible = 0 ',
+            'query' => [
+                'sort_by' => ' GROUP BY user_id  DESC ORDER BY user_id DESC ',
+                'limit' => 'LIMIT 1'
+            ]
+        ])->get();
+    }    
+
+
+    /**
+     * Удаляем пользователя
+     * 
+     * old function name delete_user
+     */
+    public function deleteUser($user_id) 
+    {
+        $options = [
+            'before' => ' UPDATE user_control SET ',
+            'after' => ' WHERE user_id = :id ',
+            'post_list' => [
+                'user_id' => [
+                    'query' => ' user_visible = 1  ',
+                    'bind' => 'id'  
+                ],
+            ]
+    
+        ];
+    
+        return $this->db->update($options, [
+            'user_id' => $user_id
+        ]);
+    }
+        
+
     /**
      * Редактируем данные пользователя
+     * 
+     * @param array $arr
      */
-    function edit_user($arr) {
+    public function editUser($arr) 
+    {
         $options = [
             'before' => ' UPDATE user_control SET ',
             'after' => ' WHERE user_id = :id ',
@@ -111,72 +201,14 @@ class User extends \Core\Classes\dbWrapper\db
     
         ];
     
-        return ls_db_upadte($options, $arr);
+        return $this->db->update($options, $arr);
     }
-    
-    /**
-     * Удаляем пользователя
-     */
-    function delete_user($user_id) {
-        $options = [
-            'before' => ' UPDATE user_control SET ',
-            'after' => ' WHERE user_id = :id ',
-            'post_list' => [
-                'user_id' => [
-                    'query' => ' user_visible = 1  ',
-                    'bind' => 'id'  
-                ],
-            ]
-    
-        ];
-    
-    
-        return ls_db_upadte($options, [
-            'user_id' => $user_id
-        ]);
-    }
-    
-    /**
-     * Проверить уникальность логина пользователя
-     * @param string $user_name
-     * @return boolean  true/false (true - пользователя нет, false - пользователь есть в базе данных) 
-     */
-    function is_unique_user($user_name) {
-        $data = ls_db_request([
-            'table_name' => 'user_control',
-            'col_list'	=> '*',
-            'base_query' => ' WHERE user_name = :user_name ',
-            'param' => [
-                'query' => [
-                    'bindList' => [
-                        ':user_name' => $user_name
-                    ]
-                ],
-            ]
-        ]);
-    
-        if(empty($data)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    
-    function get_last_added_user() {
-        $data = ls_db_request([
-            'table_name' => 'user_control',
-            'col_list' => '*',
-            'base_query' => ' WHERE user_visible = 0 ',
-            'param' => [
-                'sort_by' => ' GROUP BY user_id  DESC ORDER BY user_id DESC '
-            ]
-        ]);
-    
-        return $data[0];
-    }
-    
-    
+        
+
+
+
+    // =====================
+
     
     /** 
      * открываем сессию и авторизуем пользователя

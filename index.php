@@ -76,7 +76,7 @@ require_once 'start.php';
 							'includs' => [
 								'renderTopNavComponent' => [
 									'/component/index/top_nav_content/nav_list_options.twig' => [
-										'username' => $user->getUser('get_name'),
+										'username' => $user->getCurrentUser('get_name'),
 										// вложеность в шаблоне, рендерим друигие шаблоны
 										'includs' => [
 											'renderUpdateNotify' => [

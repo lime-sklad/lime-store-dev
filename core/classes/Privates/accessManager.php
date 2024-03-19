@@ -1,8 +1,7 @@
 <?php 
-
 namespace Core\Classes\Privates;
 
-
+use Core\Classes\Utils\Utils;
 
 /**
 *	Роли: 
@@ -58,23 +57,33 @@ class accessManager extends user
     public function isDataAvailable($data) 
     {
         //id пользователя из сессии
-        $user_id = $this->getUser('get_id');	
-    
-        //находим в базе и выводим всю нужную инфорацию по заголовку
-        $get_header_info = $this->dbpdo->prepare('SELECT * FROM user_control
-            INNER JOIN th_list ON th_list.th_description = :th_value
-            INNER JOIN data_td_accsess ON data_td_accsess.td_tags_id = th_list.th_id AND data_td_accsess.user_id = :user_id 
-            ');
-        $get_header_info->bindValue('th_value', $data);
-        $get_header_info->bindValue('user_id', $user_id);
-        $get_header_info->execute();
-    
-        //если id имееться в базе то ничего не выводим; иначе вызываем функцию , которую передали (см.выше) 
-        if($get_header_info->rowCount()>0) {
-            return false;
-        } else {
-            return true;
-        }	
+        $user_id = $this->getCurrentUser('get_id');	
+
+        $res = $this->db->select([
+            'table_name' => 'user_control',
+            'col_list' => '*',
+            'query' => [
+                'base_query' => ' INNER JOIN th_list ON th_list.th_description = :th_value
+                                  INNER JOIN data_td_accsess 
+                                    ON data_td_accsess.td_tags_id = th_list.th_id 
+                                    AND data_td_accsess.user_id = :user_id '
+            ],
+            'bindList' => [
+                ':th_value' => $data,
+                ':user_id' => $user_id
+            ]
+        ])->get();
+
+
+        return count($res) > 0 ? false : true;
+
+
+        // //если id имееться в базе то ничего не выводим; иначе вызываем функцию , которую передали (см.выше) 
+        // if(count($res) > 0) {
+        //     return false;
+        // } else {
+        //     return true;
+        // }	
     }
 
 
@@ -83,21 +92,32 @@ class accessManager extends user
      * 
      * @param string $url - путь к странице  
      */
-    public function checkPagePremission($url) 
+    public function checkPagePremission($url, $user_id) 
     {
         //получаем роль пользователя
-        $user_role = $this->getUser('get_role');
-        $user_id = $this->getUser('get_id');
+        $user_role = $this->getCurrentUser('get_role');
+        // $user_id = $this->getCurrentUser('get_id');
+
         //если не админ
         if($user_role !== 'admin') {
             $base_uri = basename($url);
-            $acces_page_list = $this->dbpdo->prepare('SELECT * FROM user_access_pages 
-                                                         WHERE user_id = :user_id 
-                                                         AND access_page_base_link = :base_link');
-            $acces_page_list->bindParam('user_id', $user_id);
-            $acces_page_list->bindParam('base_link', $base_uri);
-            $acces_page_list->execute();
-            if($acces_page_list->rowCount()>0 ) {
+
+            $access_page = $this->db->select([
+                'table_name' => 'user_access_pages',
+                'col_list' => '*',
+                'query' => [
+                    'base_query' => " WHERE user_id = :user_id 
+                                      AND access_page_base_link = :base_link "
+                ],
+                'bindList' => [
+                    ':user_id' => $user_id,
+                    ':base_link' => $base_uri
+                ] 
+            ])->get();
+
+            Utils::log($access_page);
+
+            if(count($access_page) > 0) {
                 echo "Xəta! <br> Bu əməliyyatı yerinə yetirmək üçün yetərli hüquqlarınız yoxdur.";
                 return false;
             } else {
@@ -118,10 +138,10 @@ class accessManager extends user
     {
     
         //id пользователя из сессии
-        $user_id = $this->getUser('get_id');	
+        $user_id = $this->getCurrentUser('get_id');	
     
     
-        $get_th = $this->dbpdo->prepare('SELECT * FROM th_list WHERE th_description = :th_value ');
+        $get_th = $this->db->dbpdo->prepare('SELECT * FROM th_list WHERE th_description = :th_value ');
         $get_th->bindParam('th_value', $th);
         $get_th->execute();
     
@@ -132,7 +152,7 @@ class accessManager extends user
             $get_th_name = $row_th['th_name'];
     
             //находим в базе и выводим всю нужную инфорацию по заголовку
-            $get_header_info = $this->dbpdo->prepare('SELECT * FROM data_td_accsess WHERE td_tags_id =:th_id AND user_id = :user_id 
+            $get_header_info = $this->db->dbpdo->prepare('SELECT * FROM data_td_accsess WHERE td_tags_id =:th_id AND user_id = :user_id 
                 ');
             $get_header_info->bindValue('th_id', $get_th_id);
             $get_header_info->bindParam('user_id', $user_id);
@@ -304,7 +324,7 @@ class accessManager extends user
     //проверка достпа запросов
     function access_request_action($uri) {
         //получаем роль юзера сессии
-        $user_role = getUser('get_role');
+        $user_role = $this->getCurrentUser('get_role');
         //получаем файл к которому был сделан запрос
         $uri = basename($uri);
         $access_list = [];
@@ -360,7 +380,7 @@ class accessManager extends user
         global $dbpdo;
     
         //id пользователя из сессии
-        $user_id = getUser('get_id');	
+        $user_id = $this->getCurrentUser('get_id');	
     
         //находим в базе и выводим всю нужную инфорацию по заголовку
         $get_header_info = $dbpdo->prepare('SELECT * FROM user_control
@@ -417,7 +437,7 @@ class accessManager extends user
         }
     
         //id пользователя из сессии
-        $user_id = getUser('get_id');	
+        $user_id = $this->getCurrentUser('get_id');	
     
     
     

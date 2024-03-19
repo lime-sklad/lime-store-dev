@@ -1,4 +1,8 @@
-<?php 
+<?php
+
+use Core\Classes\Privates\accessManager;
+
+$accessManager = new accessManager;
 return [
     'tab' => [
         'is_main' => true,
@@ -27,16 +31,13 @@ return [
     'sql' => [
         'table_name' => 'user_control as tb',
         'col_list'	=> '*',
-        'base_query' =>  "",
-        'param' => array(
-            'query' => array(
-                'param' => " WHERE user_visible = 0 ",
-                "joins" => " ",		
-                'bindList' => array(
-                )
-            ),
+        'query' => array(
+            'base_query' =>  "",
+            'body' => " WHERE user_visible = 0 ",
+            "joins" => " ",		
             'sort_by' => " ORDER BY user_id DESC "
         ),	
+        'bindList' => array(),        
     ],
     'page_data_list' => [
         'sort_key' => 'user_id',
@@ -65,7 +66,7 @@ return [
                 'seller_password' => [
                     'db' 			=> 'user_password',
                     'custom_data' 	=> 'false',
-                    'premission'	=> is_data_access_available('th_admin_password')
+                    'premission'	=> $accessManager->isDataAvailable('th_admin_password')
                 ],
                 'save_seller_info' => [
                     'db'  => false,

@@ -39,7 +39,7 @@ $date = date("d.m.Y");
 
 $arrayQuery = array(
     'chat_id' => -1001986338105,
-    'caption' => getUser('get_name') . "\n$date",
+    'caption' => $user->getCurrentUser('get_name') . "\n$date",
     'document' => curl_file_create($backup_file, 'text/plain' , basename($backup_file))
 );		
 

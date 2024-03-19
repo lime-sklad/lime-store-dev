@@ -1,30 +1,20 @@
 <?php 
 
-include $_SERVER['DOCUMENT_ROOT'] . '/function.php';
-
 header('Content-type: Application/json');
 
+$warehouse = new Core\Classes\Services\Warehouse\Warehouse;
+
 if(empty($_POST['list'])) {
-    return alert_error('Səbət boşdur');
+    return $utils::abort('Səbət boşdur');
     exit;
 }
 
 
-
 $list = $_POST['list'];
 
-$transaction_id = ls_generate_transaction_id();
+$warehouse->writeOff($list);
 
-foreach($list as $key => $row) {
-    $id = $row['id'];
-    $count = $row['count'];
-
-    stock_write_off_count($id, $count);
-
-    add_write_off_report($row, $transaction_id);
-}
-
-return print_alert([
+return $utils::abort([
     'text' => 'Əlavə edildi',
     'type' => 'success'
 ]);

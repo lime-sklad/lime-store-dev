@@ -2,6 +2,8 @@
 
 namespace core\classes\dbWrapper\traits;
 
+use Core\Classes\Utils\Utils;
+
 trait update 
 {
     /**
@@ -83,6 +85,7 @@ trait update
         }
         $query .= $after;
             
+        Utils::log($query);
         try {
             $update = $this->dbpdo->prepare($query);
         

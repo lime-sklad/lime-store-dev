@@ -225,7 +225,6 @@ $(document).on('click', '.delete-stock', function() {
 
 /** добавить товар товар start */
 $('body').on('click', '.submit-stock-addd-form', function() {
-	$('.wrapper').stop().animate({scrollTop:0}, 500, 'swing');
 
 	let prepare_data = {};
 	let barcode_list = {};
@@ -295,71 +294,7 @@ $('body').on('click', '.submit-stock-addd-form', function() {
 /** добавить товар end */
 
 
-// добавить категорию
-$('body').on('click', '.add-submit-category', function() {
-	let prepare_data = {};
 
-	if($(this).closest('.modal-form').length) {
-		if(is_required_input($(this).closest('.modal-form').find('.form-input'))) {
-			prepare_data = prepare_form_fields($(this).closest('.modal-form'));
-			$.ajax({
-				type: 'POST',
-				url: 'core/action/category/modal_add_category.php',
-				data: {
-					post_data: prepare_data,
-				},
-				dataType: "json",
-				success: (data) => {
-					if(data.success) {
-					$('.opened-custom-modal').find('.category-input-value').val(data.category_name);
-
-					$('.opened-custom-modal').find('.hidden-category-id').val(data.category_id);
-
-
-						// $('.category-input-value').val(data.category_name);
-						// $('.hidden-category-id').val(data.category_id);
-						pageData.rightSideModalHide();
-						pageData.overlayHide();						
-					}
-				}			
-			});
-		}		
-	}
-
-	if($(this).closest('.stock-from-container').length) {
-		if(is_required_input($(this).closest('.stock-from-container').find('.form-input'))) {
-			prepare_data = prepare_form_fields($(this).closest('.stock-from-container'));
-			$.ajax({
-				type: 'POST',
-				url: 'core/action/category/add_category.php',
-				data: {
-					post_data: prepare_data,
-					page: pageData.page(),
-					type: pageData.type()
-				},
-				dataType: "json",
-				success: (data) => {
-					var error 	= data['error'];
-					var success = data['success'];
-					
-					if(error) {
-						pageData.alert_notice('error', error);
-					}
-	
-					if(success) {
-						pageData.alert_notice('success', 'Ок');
-						$('.form-input').val('');
-	
-						if(data.table) {
-							return pageData.prependTable(data.table);
-						}
-					}
-				}			
-	
-			});
-		}
-	}
-});
 
 
 $('body').on('click', '.open-category-form-modal', function() {

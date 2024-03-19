@@ -647,6 +647,67 @@ $(document).on('click', '.add-submit-rasxod', function() {
 });
 
 
+// добавить категорию
+$('body').on('click', '.add-submit-category', function() {
+	let prepare_data = {};
+
+	if($(this).closest('.modal-form').length) {
+		if(is_required_input($(this).closest('.modal-form').find('.form-input'))) {
+			prepare_data = prepare_form_fields($(this).closest('.modal-form'));
+			$.ajax({
+				type: 'POST',
+				url: 'core/action/category/modal_add_category.php',
+				data: {
+					post_data: prepare_data,
+				},
+				dataType: "json",
+				success: (data) => {
+					if(data.success) {
+					$('.opened-custom-modal').find('.category-input-value').val(data.category_name);
+
+					$('.opened-custom-modal').find('.hidden-category-id').val(data.category_id);
+
+
+						// $('.category-input-value').val(data.category_name);
+						// $('.hidden-category-id').val(data.category_id);
+						pageData.rightSideModalHide();
+						pageData.overlayHide();						
+					}
+				}			
+			});
+		}		
+	}
+
+	if($(this).closest('.stock-from-container').length) {
+		if(is_required_input($(this).closest('.stock-from-container').find('.form-input'))) {
+			prepare_data = prepare_form_fields($(this).closest('.stock-from-container'));
+			$.ajax({
+				type: 'POST',
+				url: 'ajax_route.php',
+				data: {
+					route: 'addCategory',
+					url: 'core/action/category/add_category.php',
+					post_data: prepare_data,
+					page: pageData.page(),
+					type: pageData.type()
+				},
+				dataType: "json",
+				success: (data) => {
+					pageData.alert_notice(data.type, data.text);
+					
+					if(data.type == 'success') {
+						$('.form-input').val('');
+	
+						if(data.table) {
+							return pageData.prependTable(data.table);
+						}
+					}
+				}			
+	
+			});
+		}
+	}
+});
 
 
 
@@ -1002,9 +1063,11 @@ $(document).on('click', '.add-seller', function() {
 	if(is_required_input($(this).closest('.stock-from-container').find('.form-input'))) {
 
 		$.ajax({
-			url: '/core/action/admin/action/seller/add_seller.php',
 			type: 'POST',
+			url: 'ajax_route.php',
 			data: {
+				route: 'addUser',
+				url: '/core/action/admin/action/user/add-user.php',
 				seller_name: seller_name,
 				seller_password: seller_password,
 				page: pageData.page(),
@@ -1043,15 +1106,17 @@ $(document).on('click', '.submit-save-seller-info', function() {
 
 	if(is_required_input($item)) {
 		$.ajax({
-			url: 'core/action/admin/action/seller/edit_seller.php',
 			type: 'POST',
+			url: 'ajax_route.php',
 			data: {
+				route: 'editUser',
+				url: 'core/action/admin/action/seller/edit-user.php',
 				prepare_data: prepare_data
 			},
 			success: (data) => {
-				pageData.alert_notice(data.alert_type, data.text);
+				pageData.alert_notice(data.type, data.text);
 
-				if(data.alert_type == 'success') {
+				if(data.type == 'success') {
 					for (key in prepare_data) {
 						pageData.update_table_row(key, prepare_data[key], id);
 					}
@@ -1070,16 +1135,18 @@ $(document).on('click', '.submit-save-seller-info', function() {
 $(document).on('click', '.delete-seller', function() {
 	var seller_id = $(this).data('delete-id');
 	$.ajax({
-		url: 'core/action/admin/action/seller/delete_seller.php',
 		type: 'POST',
+		url: 'ajax_route.php',
 		data: {
+			route: 'deleteUser',
+			url: 'core/action/admin/action/seller/delete_seller.php',
 			seller_id: seller_id,
 		},
 		success: (data) => {
-			pageData.alert_notice(data.alert_type, data.text);
+			pageData.alert_notice(data.type, data.text);
 
 
-            if(data.alert_type == 'success') {
+            if(data.type == 'success') {
 				pageData.rightSideModalHide();
 				pageData.overlayHide();
 
@@ -1099,15 +1166,17 @@ $(document).on('click', '.add-warehouse', function() {
 	const prepare = prepare_form_data($this_form, '.warehouse-add-input', 'fields-name');
 
 	$.ajax({
-		url: '/core/action/warehouse/add_warehouse.php',
 		type: 'POST',	 	
+		url: 'ajax_route.php',
 		data: {
+			route: 'addWarehouse',
+			url: '/core/action/warehouse/add-warehouse.php',
 			page: pageData.page(),
 			type: pageData.type(),
 			data_row: prepare
 		},
 		success: (data) => {
-			pageData.alert_notice(data.alert_type, data.text);
+			pageData.alert_notice(data.type, data.text);
 			
 			$('.form-input').val('');
 
@@ -1126,9 +1195,11 @@ $(document).on('click', '.submit-save-warehouse', function() {
 	const prepare = prepare_forms($(this).closest('.modal_order_form'), '.edit-warehouse-input', 'data-fields-name');
 
 	$.ajax({
-		url: 'core/action/warehouse/edit_warehouse.php',
 		type: 'POST',
+		url: 'ajax_route.php',
 		data: {
+			route: 'editWarehouseInfo',
+			url: 'core/action/warehouse/edit-warehouse.php',
 			prepare: prepare
 		},
 		success: (data) => {

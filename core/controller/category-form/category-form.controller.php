@@ -21,16 +21,13 @@ return [
     'sql' => [
         'table_name' => ' stock_category as tb ',
         'col_list'	=> '*',
-        'base_query' =>  " INNER JOIN stock_category ",
-        'param' => array(
-            'query' => array(
-                'param' => ' ON stock_category.visible = "visible" ',
-                "joins" => " ",		
-                'bindList' => array(
-                )
-            ),
-            'sort_by' => " GROUP BY stock_category.category_id DESC ORDER BY stock_category.category_id DESC "
-        ),	
+        'query' => array(
+            'base_query' =>  " INNER JOIN stock_category ",
+            'body' => ' ON stock_category.visible = "visible" ',
+            'sort_by' => " GROUP BY stock_category.category_id DESC 
+                           ORDER BY stock_category.category_id DESC "
+        ),
+        'bindList' => array()        
     ],
     'page_data_list' => [
         'sort_key' => 'category_id',

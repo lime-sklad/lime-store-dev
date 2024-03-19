@@ -102,7 +102,7 @@ return [
             'modal_fields' => array(
                 'user' => [
                     'db' 			=> false, 
-                    'custom_data' 	=> $user->getUser('get_id'), 
+                    'custom_data' 	=> $user->getCurrentUser('get_id'), 
                     'premission' 	=> true
                 ],
                 'report_order_id' => [

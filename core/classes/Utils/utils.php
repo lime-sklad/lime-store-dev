@@ -82,6 +82,26 @@ class Utils extends \Core\Classes\dbWrapper\db
         ]);
     }
 
+
+    /**
+     * 
+     */
+    public static function getPostPage()
+    {
+        return $_POST['page'] ?? false;
+    }
+
+
+    /**
+     * 
+     */
+    public static function getPostType()
+    {
+        return $_POST['type'] ?? false;
+    }    
+
+
+
     /**
      * 
      */

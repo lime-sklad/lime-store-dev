@@ -24,34 +24,28 @@ trait Arrival
                 'product_count' => $count
             ]);
 
-            $this->addArrival($row, $transaction_id);
+            
+
+            /**
+             * @param array = [
+             * 	'stock_id' => $id,
+             * 	'description' => $desc,
+             *  'count' => $count,
+             *  'transaction_id' => $transaction_id
+             * ];
+             */
+            return $this->db->insert('arrival_products', [
+                [
+                    'description' 				=> $row['description'],
+                    'count' 					=> $count,
+                    'day_date' 					=> Utils::getDateMY(),
+                    'full_date'					=> Utils::getDateDMY(),
+                    'id_from_stock' 			=>  $id,
+                    'transaction_id' 			=> $transaction_id
+                ]
+            ]);
         }
     }
-
-
-    /**
-     * @param array = [
-     * 	'stock_id' => $id,
-     * 	'description' => $desc,
-     *  'count' => $count,
-     *  'transaction_id' => $transaction_id
-     * ];
-     */
-    public function addArrival($data, $transaction_id)
-    {
-
-        return $this->db->insert('arrival_products', [
-            [
-                'description' 				=> $data['description'],
-                'count' 					=> $data['count'],
-                'day_date' 					=> Utils::getDateMY(),
-                'full_date'					=> Utils::getDateDMY(),
-                'id_from_stock' 			=>  $data['id'],
-                'transaction_id' 			=> $transaction_id
-            ]
-        ]);
-    }    
-
 
     /**
      * 

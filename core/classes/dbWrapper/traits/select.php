@@ -58,7 +58,6 @@ trait select
         $query .= $sort_by;
         $query .= $limit;
     
-
     
 
         $conditions = array_merge($conditions, $bind_list);

@@ -2,9 +2,11 @@ $(document).ready(function() {
 
     $(document).on('click', '.send-write-off-products', function() {
         $.ajax({
-            url: 'core/action/write-off-products/add-write-off-products.php',
             type: 'POST',
+            url: 'ajax_route.php',
             data: {
+                route: 'addWriteOff',
+                url: 'core/action/write-off-products/add-write-off-products.php',
                 list: cart.get_cart_list()
             },
             success: (data) => {

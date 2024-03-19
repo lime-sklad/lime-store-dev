@@ -1,20 +1,17 @@
 <?php
-        $data_page = page_data($page);
-        $page_config = $data_page['page_data_list'];
 
+use Core\Classes\Services\Warehouse\Warehouse;
+
+    $Warehouse = new Warehouse;
+
+        $table_result = $Warehouse->getWriteOffByDate($utils::getDateMY(), $page);
         
-        
-        $data_page['sql']['param']['query']['param'] = $data_page['sql']['param']['query']['param'] . "  AND write_off_products.day_date = :mydateyear";
-        $data_page['sql']['param']['query']['bindList']['mydateyear'] = date("m.Y");
-        
-        $table_result = render_data_template($data_page['sql'], $data_page['page_data_list'], PDO::FETCH_ASSOC);
-        
-        echo $twig->render('/component/inner_container.twig', [
+        echo $Render->view('/component/inner_container.twig', [
             'renderComponent' => [
 				'/component/related_component/include_widget.twig' => [
 
                     '/component/widget/report_date_picker.twig' => [
-                        'res' => get_report_date_list([
+                        'res' => $main->getReportDateList([
                             'table_name' 	=> 'write_off_products',
                             'col_name' 		=> 'day_date',
                             'order'			=> 'day_date DESC',
@@ -28,7 +25,7 @@
                         'advanced_fields' => [
 
                             'custom_date_picker' => [
-                                'res' => get_report_date_list([
+                                'res' => $main->getReportDateList([
                                     'table_name' 	=> 'write_off_products',
                                     'col_name' 		=> 'full_date',
                                     'order'			=> 'full_date DESC',

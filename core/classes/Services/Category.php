@@ -4,9 +4,16 @@ namespace Core\Classes\Services;
 
 use core\classes\dbWrapper\db;
 
+use function PHPSTORM_META\map;
+
 class Category
 {
     private $db;
+
+    public $defaultData = [
+        'visible' => 'visible',
+    ];
+
 
     public function __construct()
     {
@@ -67,6 +74,56 @@ class Category
                 'mydateyear'    => $date
             )  
         ])->get();        
+    }
+
+
+    /**
+     * Добавляем новую категорию в базу данных
+     * @param array $post_data ['add_category_name' => {name} ]
+     */
+    public function addCategory($post_data)
+    {
+        $data = [];
+
+        $col_post_list = [
+            'add_category_name' => [
+                'col_name' => 'category_name',
+                'required' => true
+            ],
+        ];
+    
+        foreach ($col_post_list as $key => $value) {
+            if(array_key_exists($key, $post_data)) {
+                $data = array_merge($data, [
+                    $value['col_name'] => $post_data[$key]
+                ]);
+            }
+        }
+    
+
+        $data = array_merge($data, $this->defaultData);    
+    
+        $this->db->insert('stock_category', [$data]);
+    
+        return true;
+    }
+
+    /**
+     * 
+     * 
+     */
+    public function getLastAddedCategory()
+    {
+        return $this->db->select([
+            'table_name' => 'stock_category as tb',
+            'col_list' => '*',
+            'query' => [
+                'body' => ' INNER JOIN stock_category
+                            ON stock_category.visible = "visible" 
+                ',
+                'sort_by' => " GROUP BY stock_category.category_id DESC ORDER BY stock_category.category_id DESC LIMIT 1 "
+            ]
+        ])->get();
     }
 
 }

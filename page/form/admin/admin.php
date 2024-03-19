@@ -1,11 +1,11 @@
 <?php
-$data_page = page_data($page);
+$data_page = $main->initController($page);
 
 $page_config = $data_page['page_data_list'];
 
-$table_result = render_data_template($data_page['sql'], $data_page['page_data_list']);	
+$table_result = $main->prepareData($data_page['sql'], $data_page['page_data_list']);	
 
-echo $twig->render('/component/inner_container.twig', [
+echo $Render->view('/component/inner_container.twig', [
 	'renderComponent' => [
         '/component/form/fields/admin/add_seller.twig' => [
         ],		

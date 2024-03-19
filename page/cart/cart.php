@@ -5,7 +5,7 @@
 	
 	$user_list_arr = $user->getAllUser();
 
-	$get_session_user = $user->getUser();
+	$get_session_user = $user->getCurrentUser();
 
 	$user_list = [];
 	// ls_var_dump($user_list);

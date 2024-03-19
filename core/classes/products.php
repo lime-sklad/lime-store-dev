@@ -95,7 +95,7 @@ class Products
             'stock_visible' 	=> 0,
             'stock_get_fdate' 	=> date("d.m.Y"),
             'stock_get_year' 	=> date("m.Y"),
-            'product_added' 	=> $this->user->getUser('get_id')
+            'product_added' 	=> $this->user->getCurrentUser('get_id')
         ];
     
         $data = array_merge($data, $default_data);      

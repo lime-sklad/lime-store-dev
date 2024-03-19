@@ -31,7 +31,7 @@
 
         $link = $tab_this['tab_link'];
 
-        if($accessManager->checkPagePremission($link)) {
+        if($accessManager->checkPagePremission($link, $user->getCurrentUser('get_id'))) {
             include root_dir.$link;
         }
     }

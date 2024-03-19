@@ -47,6 +47,21 @@ $routeLis = [
 	'addTransfer'			=> ROOT.'/core/action/warehouse-transfer/add-transfer.php',
 
 	'addArrivalProducts'	=> ROOT.'/core/action/arrival-products/add-arrival-products.php',
+
+	'addWriteOff'			=> ROOT.'/core/action/write-off-products/add-write-off-products.php',
+
+
+	//admin
+	'addUser'				=> ROOT.'/core/action/admin/action/user/add-user.php',
+	'deleteUser'			=> ROOT.'/core/action/admin/action/user/delete-user.php',
+	'editUser'				=> ROOT.'/core/action/admin/action/user/edit-user.php',
+
+	//category
+	'addCategory' 			=> ROOT.'/core/action/category/add-category.php',
+
+
+	'addWarehouse'			=> ROOT.'/core/action/warehouse/add-warehouse.php',
+	'editWarehouseInfo'		=> ROOT.'/core/action/warehouse/edit-warehouse.php',
 ];
 
 $route = $_POST['route'];

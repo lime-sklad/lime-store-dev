@@ -7,7 +7,7 @@ trait TableHeaderList {
 	 * 
 	 * old function name get_th_list
 	 */
-    function getTableHeaderList() 
+    public function getTableHeaderList() 
     {
 		$th_list = [
 			'id' => array(
