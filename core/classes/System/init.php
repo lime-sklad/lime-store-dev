@@ -32,12 +32,12 @@ class Init extends \Core\Classes\dbWrapper\db
                 'write-off-report'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/write-off-products/write-off-report/write-off-report.controller.php',
             
             'admin'         	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/admin/admin.controller.php',
-                'category_form' 	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/category-form/category-form.controller.php',
                 'create_warehouse'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/warehouse/create-warehouse.controller.php',
+                'category_form' 	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/category-form/category-form.controller.php',
+                'payment_method_form'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/payment-method-form/payment-method-form.controller.php',
                 // 'provider_form' 	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/provider_form/provider_form.controller.php',
                 // 'filter_form'   	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/filter_form/filter_form.controller.php',
                 // 'settings'      	=>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/settings/settings.controller.php',
-                // 'payment_method_form'  =>  $_SERVER['DOCUMENT_ROOT'].'/core/controller/payment_method_form/payment-method-form.controller.php',
             
         ];
 

@@ -6,6 +6,7 @@ use \Core\Classes\Privates\AccessManager;
 use \Core\Classes\Utils\Utils;
 use \Core\Classes\dbWrapper\db;
 use \Core\Classes\Services\RenderTemplate;
+use Core\Classes\Cart\Payment;
 
 class Main extends \Core\Classes\System\Init 
 {
@@ -16,6 +17,7 @@ class Main extends \Core\Classes\System\Init
     private $accessManager;
     private $db;
 	public $Render;
+    private $Payment;
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class Main extends \Core\Classes\System\Init
         $this->accessManager = new accessManager;
         $this->db = new db;
 		$this->Render = new RenderTemplate; 
+		$this->Payment = new Payment; 
     }
 
 
@@ -203,7 +206,7 @@ class Main extends \Core\Classes\System\Init
                             $tags_id = $row['tags_id'];
 
                             $mark_text = $row['title'];
-                            $mark_modify_class = $this->utils->getTagsList($base = false, $tags_id); 
+                            $mark_modify_class = $this->Payment->getPaymentMethodTags($base = false, $tags_id); 
                         
                             $row['payment_method'] = ' ';
 

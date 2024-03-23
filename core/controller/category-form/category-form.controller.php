@@ -24,6 +24,7 @@ return [
         'query' => array(
             'base_query' =>  " INNER JOIN stock_category ",
             'body' => ' ON stock_category.visible = "visible" ',
+            'joins' => '',
             'sort_by' => " GROUP BY stock_category.category_id DESC 
                            ORDER BY stock_category.category_id DESC "
         ),

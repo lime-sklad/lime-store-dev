@@ -58,10 +58,21 @@ $routeLis = [
 
 	//category
 	'addCategory' 			=> ROOT.'/core/action/category/add-category.php',
+	'editCategory' 			=> ROOT.'/core/action/category/edit-category.php',
+	'deleteCategory' 			=> ROOT.'/core/action/category/delete-category.php',
 
 
+	//warehouse
 	'addWarehouse'			=> ROOT.'/core/action/warehouse/add-warehouse.php',
 	'editWarehouseInfo'		=> ROOT.'/core/action/warehouse/edit-warehouse.php',
+	'deleteWarehouse'		=> ROOT.'/core/action/warehouse/delete-warehouse.php',
+
+
+	//payment method
+	'addPaymentMethod'		=> ROOT.'/core/action/payment-method/add-payment-method.php',
+	'editPaymentMethod'		=> ROOT.'/core/action/payment-method/edit-payment-method.php',
+	'deletePaymentMethod'	=> ROOT.'/core/action/payment-method/delete-payment-method.php',
+
 ];
 
 $route = $_POST['route'];

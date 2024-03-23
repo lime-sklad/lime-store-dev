@@ -80,7 +80,7 @@ trait TabList {
                 'type'				=> 'phone',
                 'tab_data_page'		=> 'payment_method_form',
                 'tab_title'			=> 'Ödəniş üsulu',
-                'tab_link'			=> '/page/form/payment_method/payment_method_manage.php',
+                'tab_link'			=> '/page/form/payment-method/payment-method-manage.php',
                 'tab_icon'			=> '',
                 'tab_modify_class'	=> 'pos-relative',
                 'mark' => [

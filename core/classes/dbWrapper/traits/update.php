@@ -85,7 +85,6 @@ trait update
         }
         $query .= $after;
             
-        Utils::log($query);
         try {
             $update = $this->dbpdo->prepare($query);
         
@@ -95,12 +94,12 @@ trait update
             $update->execute();
     
         
-            return json_encode([
+            echo json_encode([
                 'type' => 'success',
                 'text' => 'ok'
             ]);
         } catch(\PDOException $e) {
-            return json_encode([
+            echo json_encode([
                 'type' => 'error',
                 'text' => 'Ошибка' . $e
             ]);

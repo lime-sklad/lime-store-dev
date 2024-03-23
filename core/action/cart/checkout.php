@@ -25,7 +25,7 @@ $full_date = $utils->getDateDMY();
 $short_date = $utils->getDateMY();
 
 //ls_generate_transaction_id()
-$transaction_id = '';
+$transaction_id = $utils::generateTransactionId();
 
 // перебираем массив товаров в корзине
 foreach($cart_list as $row) {
@@ -54,7 +54,6 @@ foreach($cart_list as $row) {
 
     $stock_row = $products->getProductById($id);
 
-
      // в запросе указано, если в заказе указано количесто больше чем есть в базе, то вывести пустой результат
     // if(empty($stock_row)) {
     //     return alert_error('no result');
@@ -74,7 +73,7 @@ foreach($cart_list as $row) {
 }
 
 
-return $utils::abort([
-    'type' => 'success',
-    'text' => 'Ok!'
-]);
+    // return $utils::abort([
+    //     'type' => 'success',
+    //     'text' => 'Ok!'
+    // ]);

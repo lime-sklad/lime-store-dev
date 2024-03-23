@@ -1,4 +1,9 @@
-<?php 
+<?php
+
+use Core\Classes\Cart\Payment;
+use Core\Classes\Utils\Utils;
+
+$Payment = new Payment;
 
 return [
     'tab' => [
@@ -7,17 +12,15 @@ return [
     'sql' => [
         'table_name' => 'data_td_accsess ',
         'col_list'	=> "*",
-        'base_query' =>  " INNER JOIN payment_method_list ON payment_method_list.visible = 0  ",
-        'param' => array(
-            'query' => array(
-                'param' =>  " ",
-                "joins" => "  ",									  
-                'bindList' => array(
-                )
-            ),
+        'query' => array(
+            'base_query' =>  " INNER JOIN payment_method_list ON payment_method_list.visible = 0  ",
+            'body' =>  " ",
+            "joins" => "  ",									  
             'sort_by' => " 	GROUP BY payment_method_list.id DESC  
                             ORDER BY payment_method_list.id DESC "
+                        
         ),	
+        'bindList' => array()
     ],
     'page_data_list' => [
         'sort_key' => 'id',
@@ -44,7 +47,7 @@ return [
 
                 'edit_payment_method_tags' => [
                     'db' 			=> 'tags_id',
-                    'custom_data' 	=> get_tags_list(false), 
+                    'custom_data' 	=> Utils::getTagsList(), 
                     'premission' 	=> true								
                 ],
 

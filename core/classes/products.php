@@ -217,8 +217,8 @@ class Products
     public function updateStockAfterSale($data) 
     {
         // полсе добавления товра в базу, обновляем данные товара, уменьшаем количестов товара
-        foreach($data as $index => $data) {
-            $this->decreaseProductCount($data);
+        foreach($data as $index => $row) {
+            $this->decreaseProductCount($row);
         }
     }
 
@@ -231,7 +231,7 @@ class Products
     {
         $option = [
             'before' => " UPDATE stock_list SET ",
-            'after' => " WHERE stock_id = :stock_id",
+            'after' => " WHERE stock_id = :stock_id ",
             'post_list' => [
                 'stock_id' => [
                     'query' => false,

@@ -40,9 +40,14 @@ class Checkout
     {
         $res = $this->prepareOrderData($orderData);
 
-        $this->products->updateStockAfterSale($res);
+        $this->addOrder($res);
 
-        return $this->addOrder($res);
+        $this->products->updateStockAfterSale(array(
+            [
+                'stock_id' => $orderData['id'],
+                'product_count' => $orderData['order_count']
+            ]
+        ));
     }
 
 

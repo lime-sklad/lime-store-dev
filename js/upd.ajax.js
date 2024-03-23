@@ -382,21 +382,17 @@ $('body').on('click', '.submit-save-category', function() {
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/category/update_category.php',
-		data: prepare_data,
+		url: 'ajax_route.php',
+		data: {
+			prepare_data,
+			url: 'core/action/category/edit-category.php',
+			route: 'editCategory',
+		},
 		dataType: "json",
 		success: (data) => {
-			var error 	= data['error'];
-			var success = data['success'];
-
-
-			if(error) {
-				pageData.alert_notice('error', error)
-			}
-
-			if(success) {
-				pageData.alert_notice('success', 'Ок');
-				
+			pageData.alert_notice(data.type, data.text)
+			
+			if(data.type == 'success') {	
 				for (key in prepare_data) {
 					pageData.update_table_row(key, prepare_data[key], category_id);
 				}
@@ -413,12 +409,17 @@ $(document).on('click', '.delete-category', function() {
 
 	$.ajax({
 		type: 'POST',
-		url: 'core/action/category/delete_category.php',
-		data: {id: id},
+		url: 'ajax_route.php',
+		data: {
+			url: 'core/action/category/delete-category.php',
+			route: 'deleteCategory',
+			id: id
+		},
 		dataType: 'json',
 		success: (data) => {
-			if(data.success) {
-				pageData.alert_notice('success', data.success);
+			pageData.alert_notice('success', data.success);
+			
+			if(data.type == 'success') {
 				pageData.rightSideModalHide();
 				pageData.overlayHide();
 
@@ -428,10 +429,6 @@ $(document).on('click', '.delete-category', function() {
 					$stock.remove();
 				});
 			}
-			if(data.error) {
-				pageData.alert_notice('error', data.error);
-			}
-
 		}
 	});
 });
@@ -1216,9 +1213,11 @@ $(document).on('click', '.delete-warehouse', function() {
 	const id = $(this).data('delete-id');
 
 	$.ajax({
-		url: 'core/action/warehouse/delete_warehouse.php',
 		type: 'POST',
+		url: 'ajax_route.php',
 		data: {
+			route: 'deleteWarehouse',
+			url: 'core/action/warehouse/delete-warehouse.php',
 			id: id
 		},
 		success: (data) => {
@@ -1242,9 +1241,13 @@ $(document).on('click', '.submit-save-edited-payment-method', function(){
 	const prepare_data = prepare_form_data($(this).closest('.modal_order_form'), '.edit-payment-method-info.edited', 'fields-name');
 
 	$.ajax({
-		url: 'core/action/payment_method/edit_payment_method_info.php',
 		type: 'POST',
-		data: prepare_data,
+		url: 'ajax_route.php',
+		data: {
+			prepare_data,
+			route: 'editPaymentMethod',
+			url: 'core/action/payment-method/edit-payment-method.php',
+		},
 		success: (data) => {
 			pageData.alert_notice(data.type, data.text);
 
@@ -1269,9 +1272,11 @@ $(document).on('click', '.add-payment-method', function() {
 
 
 	$.ajax({
-		url: 'core/action/payment_method/add_payment_method.php',
 		type: 'POST',
+		url: 'ajax_route.php',
 		data: {
+			route: 'addPaymentMethod',
+			url: 'core/action/payment-method/add-payment-method.php',
 			prepare_data: prepare_data,
 			page: pageData.page(),
 			type: pageData.type()
@@ -1292,10 +1297,12 @@ $(document).on('click', '.delete-payment-method', function() {
 	const id = $(this).data('delete-id');
 
 	$.ajax({
-		url: 'core/action/payment_method/delete_payment_method.php',
 		type: 'POST',
+		url: 'ajax_route.php',
 		data: {
-			p_method_id: id
+			url: 'core/action/payment-method/delete-payment-method.php',
+			route: 'deletePaymentMethod',
+			payment_method_id: id
 		},
 		success: (data) => {
 			pageData.alert_notice(data.type, data.text);

@@ -1,4 +1,6 @@
 <?php
+	$Payment = new \Core\Classes\Cart\Payment;
+
 	$data_page = $init->initController($page);
 
 	$page_config = $data_page['page_data_list'];
@@ -29,7 +31,7 @@
 					'current_user' => $get_session_user
 				],
 				'payment_method' => [
-					'list' => $utils->getPaymentMethodList()
+					'list' => $Payment->getPaymentMethodList()
 				],	
 				'page' => $page,
 				'type' => 'phone',

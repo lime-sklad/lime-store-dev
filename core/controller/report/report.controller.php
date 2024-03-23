@@ -1,6 +1,9 @@
-<?php 
+<?php
+
+use Core\Classes\Cart\Payment;
+
 $user = new \core\classes\privates\user;
-$utils = new \Core\Classes\Utils\Utils;
+$Payment = new Payment;
 
 return [
     'tab' => [
@@ -122,7 +125,7 @@ return [
                 ],
                 'report_change_tags' => [
                     'db' => 'id',
-                    'custom_data' => $utils->getTagsList(true),
+                    'custom_data' => $Payment->getPaymentMethodTags(true),
                     'premission' => true
                 ],
                 'report_order_note' => [

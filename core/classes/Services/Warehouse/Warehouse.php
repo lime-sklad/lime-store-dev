@@ -107,4 +107,55 @@ class Warehouse
 
         return $this->db->select($this_data['sql'])->get();
     }
+
+    
+    /**
+     * 
+     */
+    public function editWarehouse($data)
+    {
+        $option = [
+            'before' => " UPDATE warehouse_list SET ",
+            'after' => " WHERE id = :id ",
+            'post_list' => [
+                //id
+                'warehouse_id' => [
+                    'query' => false,
+                    'bind' => 'id',
+                    'require' => true
+                ],	
+                //изменить название товра
+                'edit_warehouse_name' => [
+                    'query' => "warehouse_name = :name",
+                    'bind' => 'name',
+                    'require' => true
+                ],
+            ]
+        ];
+        
+        echo $this->db->update($option, $data);
+    }
+
+
+    /**
+     * 
+     */
+    public function deleteWarehouse($id)
+    {
+        $option = [
+            'before' => ' UPDATE warehouse_list SET ',
+            'after' => ' WHERE id = :id ',
+            'post_list' => [
+                'warehouse_id' => [
+                    'query' => ' warehouse_visible = 1 ',
+                    'require' => true,
+                    'bind' => 'id'
+                ],
+            ]
+        ];
+        
+        echo $this->db->update($option, [
+            'warehouse_id' => $id
+        ]);        
+    }
 }

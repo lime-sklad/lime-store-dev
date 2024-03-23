@@ -108,6 +108,57 @@ class Category
         return true;
     }
 
+
+    /**
+     * 
+     */
+    public function editCategory($data)
+    {
+        // в первом массиве мы должны описать и связвать данные $_POST с таблицей
+        $option = [
+            'before' => " UPDATE stock_category, user_control SET ",
+            'after' => " WHERE category_id  = :category_id ",
+            'post_list' => [
+                //id
+                'category_id' => [ 
+                    'query' => false,
+                    'bind' => 'category_id',
+                    'require' => true
+                ],	
+                //изменить название категории
+                'upd_category_name' => [
+                    'query' => "stock_category.category_name = :cat_name",
+                    'bind' => 'cat_name',
+                ],
+            ]
+        ];    
+        
+        $this->db->update($option, $data);
+    }
+
+    /**
+     * 
+     */
+    public function deleteCategory($cateogryId)
+    {
+       return $this->db->delete([
+            [
+                'table_name' => 'stock_category',
+                'where' => ' category_id = :cat_id',
+                'bindList' => [
+                    ':cat_id' => $cateogryId
+                ],
+            ],
+            [
+                'table_name' => 'products_category_list',
+                'where' => ' id_from_category = :cat_id',
+                'bindList' => [
+                    ':cat_id' => $cateogryId
+                ],
+            ]		
+        ]);        
+    }
+
     /**
      * 
      * 
